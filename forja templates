@@ -327,7 +327,7 @@
                 Layout institucional, sóbrio e persuasivo — pensado para gerar consultas qualificadas.
               </p>
               <div class="flex flex-col gap-2 mt-5">
-                <a href="COLE_AQUI_O_LINK_DO_VERCEL" target="_blank" rel="noopener noreferrer"
+                <a href="https://template-advocacia-six.vercel.app/" target="_blank" rel="noopener noreferrer"
                    class="btn-outline-sm w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
                   Ver Demo ao Vivo
                 </a>
@@ -339,14 +339,14 @@
             </div>
           </div>
 
-          <!-- CARD 2 — ESTÉTICA (EM BREVE) -->
-          <div class="flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13] preview-locked">
-              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400">
-                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                Em Breve
+          <!-- CARD 2 — ESTÉTICA (DISPONÍVEL) -->
+          <div class="card-available group flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                Disponível
               </span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-accent-soft/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M12 21c4.5-3 7-6.5 7-10a7 7 0 1 0-14 0c0 3.5 2.5 7 7 10Z" stroke-linecap="round" stroke-linejoin="round"/>
                 <circle cx="12" cy="11" r="2.5"/>
               </svg>
@@ -354,12 +354,18 @@
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">Estética</h3>
               <p class="mt-2 text-sm text-text-secondary leading-relaxed flex-1">
-                Landing page para clínicas de beleza e estética avançada — em desenvolvimento.
+                Landing page para clínicas de beleza e estética avançada — pensada para gerar agendamentos.
               </p>
-              <button type="button"
-                class="btn-outline-sm mt-5 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-secondary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
-                Avisar Quando Lançar
-              </button>
+              <div class="flex flex-col gap-2 mt-5">
+                <a href="https://clinica-estetica-kappa.vercel.app/" target="_blank" rel="noopener noreferrer"
+                   class="btn-outline-sm w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
+                  Ver Demo ao Vivo
+                </a>
+                <a href="#comprar-estetica"
+                   class="btn-primary-sm w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">
+                  Comprar Template
+                </a>
+              </div>
             </div>
           </div>
 

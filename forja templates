@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forja Templates — Landing Pages Prontas para Rodar Anúncios</title>
+<meta name="description" content="Templates de landing pages modernos, ultra-rápidos e prontos para rodar anúncios. Feitos para agências, freelancers e negócios locais.">
+
+<!-- Tailwind via CDN (para produção real, recomenda-se compilar o Tailwind via build) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fontes: Space Grotesk (display) + Inter (corpo) + JetBrains Mono (detalhes técnicos) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>
+  // Tokens de marca — Dark Premium Tech
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'bg-base': '#0A0A0F',
+          'bg-card': '#13131A',
+          'accent': '#6C5CE7',
+          'accent-soft': '#8B7CF6',
+          'text-primary': '#F5F5F7',
+          'text-secondary': '#9A9AA5',
+          'border-subtle': '#232330',
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['"Inter"', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .hero-glow {
+    background: radial-gradient(circle at 50% 40%, rgba(108, 92, 231, 0.35) 0%, rgba(108, 92, 231, 0) 60%);
+  }
+
+  /* Header com leve blur ao rolar a página */
+  .site-header {
+    backdrop-filter: blur(10px);
+    background-color: rgba(10, 10, 15, 0.75);
+  }
+
+  /* Botões */
+  .btn-primary, .btn-primary-sm, .btn-primary-lg {
+    transition: box-shadow 250ms ease, transform 180ms ease, background-color 200ms ease;
+  }
+  .btn-primary:hover, .btn-primary-lg:hover {
+    box-shadow: 0 10px 32px -6px rgba(108, 92, 231, 0.55);
+    transform: translateY(-1px);
+  }
+  .btn-primary-sm:hover {
+    box-shadow: 0 6px 20px -4px rgba(108, 92, 231, 0.5);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active, .btn-primary-sm:active, .btn-primary-lg:active {
+    transform: translateY(0px) scale(0.98);
+  }
+  .btn-secondary, .btn-outline-sm, .btn-outline-lg {
+    transition: border-color 200ms ease, color 200ms ease, background-color 200ms ease;
+  }
+
+  /* Vitrine */
+  .card-available {
+    transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+  }
+  .card-available:hover {
+    transform: translateY(-4px);
+    border-color: #6C5CE7;
+    box-shadow: 0 12px 40px -12px rgba(108, 92, 231, 0.4);
+  }
+  .preview-locked {
+    filter: grayscale(45%) brightness(0.75);
+  }
+
+  /* Como Funciona */
+  .step-connector::after {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: calc(50% + 32px);
+    width: calc(100% - 64px);
+    height: 1px;
+    background: linear-gradient(to right, #6C5CE7, #232330);
+  }
+  .step-connector:last-child::after { display: none; }
+
+  /* Benefícios */
+  .benefit-card {
+    transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+  }
+  .benefit-card:hover {
+    transform: translateY(-3px);
+    border-color: #6C5CE7;
+    box-shadow: 0 12px 32px -14px rgba(108, 92, 231, 0.4);
+  }
+
+  /* Preços */
+  .card-vip {
+    box-shadow: 0 20px 60px -20px rgba(108, 92, 231, 0.45);
+  }
+
+  /* Garantia */
+  @keyframes ring-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.35); }
+    50% { box-shadow: 0 0 0 10px rgba(108, 92, 231, 0); }
+  }
+  .guarantee-ring { animation: ring-pulse 2.8s ease-in-out infinite; }
+
+  /* FAQ (details/summary nativo) */
+  .faq-item summary { list-style: none; cursor: pointer; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item .faq-icon { transition: transform 220ms ease; }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); }
+  .faq-item[open] summary { color: #F5F5F7; }
+
+  /* Menu mobile */
+  #mobile-menu { transition: max-height 300ms ease, opacity 250ms ease; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn-primary, .btn-primary-sm, .btn-primary-lg,
+    .btn-secondary, .btn-outline-sm, .btn-outline-lg,
+    .card-available, .benefit-card, .faq-icon, .guarantee-ring,
+    #mobile-menu { transition: none; animation: none; }
+  }
+
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid #8B7CF6;
+    outline-offset: 3px;
+  }
+</style>
+</head>
+
+<body class="bg-bg-base font-body antialiased">
+
+  <!-- ================= HEADER / NAVEGAÇÃO ================= -->
+  <header class="site-header fixed top-0 left-0 right-0 z-50 border-b border-border-subtle">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 h-16 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#" class="font-display font-semibold text-lg text-text-primary flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent"></span>
+        Forja<span class="text-accent-soft">Templates</span>
+      </a>
+
+      <!-- Navegação desktop -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#vitrine" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Vitrine</a>
+        <a href="#como-funciona" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Como Funciona</a>
+        <a href="#beneficios" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Benefícios</a>
+        <a href="#precos" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Preços</a>
+        <a href="#garantia-faq" class="text-sm text-text-secondary hover:text-text-primary transition-colors">FAQ</a>
+      </nav>
+
+      <!-- CTA desktop -->
+      <a href="#precos"
+         class="btn-primary-sm hidden md:inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-5 py-2.5">
+        Ver Templates
+      </a>
+
+      <!-- Botão do menu mobile -->
+      <button
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menu de navegação"
+        class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-border-subtle text-text-primary"
+      >
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Menu mobile (colapsável) -->
+    <nav id="mobile-menu" class="md:hidden max-h-0 opacity-0 overflow-hidden border-t border-border-subtle">
+      <div class="flex flex-col gap-1 px-6 py-4">
+        <a href="#vitrine" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Vitrine</a>
+        <a href="#como-funciona" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Como Funciona</a>
+        <a href="#beneficios" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Benefícios</a>
+        <a href="#precos" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Preços</a>
+        <a href="#garantia-faq" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">FAQ</a>
+        <a href="#precos"
+           class="btn-primary-sm mt-3 inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-5 py-3">
+          Ver Templates
+        </a>
+      </div>
+    </nav>
+  </header>
+  <!-- ================= /HEADER / NAVEGAÇÃO ================= -->
+
+
+  <main class="pt-16">
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="relative overflow-hidden bg-bg-base grid-pattern">
+      <div class="hero-glow absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-bg-base/20 via-transparent to-bg-base pointer-events-none" aria-hidden="true"></div>
+
+      <div class="relative max-w-5xl mx-auto px-6 sm:px-8 pt-28 pb-24 sm:pt-36 sm:pb-32 flex flex-col items-center text-center">
+
+        <div class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-bg-card/60 px-4 py-1.5 mb-8">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-soft"></span>
+          <span class="font-mono text-xs text-text-secondary tracking-wide">
+            templates prontos para rodar tráfego pago
+          </span>
+        </div>
+
+        <h1 class="font-display font-semibold text-4xl sm:text-5xl md:text-6xl leading-[1.1] text-text-primary max-w-3xl">
+          Landing Pages que
+          <span class="bg-gradient-to-r from-accent to-accent-soft bg-clip-text text-transparent">Vendem</span>,
+          Não Apenas Bonitas.
+        </h1>
+
+        <p class="mt-6 text-base sm:text-lg text-text-secondary max-w-xl leading-relaxed">
+          Templates profissionais, ultra-rápidos e otimizados para anúncios.
+          Feitos para agências e negócios locais que não podem perder tempo
+          <span class="text-text-primary">(nem clientes)</span> com sites lentos ou genéricos.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <a href="#vitrine"
+             class="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm sm:text-base px-7 py-3.5">
+            Ver Templates Disponíveis
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+          <a href="#como-funciona"
+             class="btn-secondary w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm sm:text-base px-7 py-3.5">
+            Como Funciona
+          </a>
+        </div>
+
+        <div class="mt-14 flex flex-col sm:flex-row items-center gap-4 sm:gap-8 text-text-secondary">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/>
+            </svg>
+            <span class="font-mono text-xs sm:text-sm">Score 95+ no PageSpeed</span>
+          </div>
+          <span class="hidden sm:block w-1 h-1 rounded-full bg-border-subtle"></span>
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+            <span class="font-mono text-xs sm:text-sm">Código limpo e documentado</span>
+          </div>
+          <span class="hidden sm:block w-1 h-1 rounded-full bg-border-subtle"></span>
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span class="font-mono text-xs sm:text-sm">Deploy em até 10 minutos</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- ================= /HERO SECTION ================= -->
+
+
+    <!-- ================= VITRINE / CATÁLOGO SECTION ================= -->
+    <section id="vitrine" class="relative bg-bg-base grid-pattern border-t border-border-subtle">
+      <div class="relative max-w-6xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
+
+        <div class="max-w-2xl mx-auto text-center mb-16">
+          <div class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-bg-card/60 px-4 py-1.5 mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-soft"></span>
+            <span class="font-mono text-xs text-text-secondary tracking-wide">catálogo em expansão</span>
+          </div>
+          <h2 class="font-display font-semibold text-3xl sm:text-4xl text-text-primary">Catálogo de Templates</h2>
+          <p class="mt-4 text-text-secondary text-base sm:text-lg leading-relaxed">
+            Landing pages prontas para o seu nicho, com código limpo e performance
+            pensada para rodar anúncios desde o primeiro clique.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <!-- CARD 1 — ADVOCACIA (DISPONÍVEL) -->
+          <div class="card-available group flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                Disponível
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-accent-soft/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 3 3 7.5 12 12l9-4.5L12 3Z" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 7.5V16l9 4.5 9-4.5V7.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7.5 9.75V17M16.5 9.75V17" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="flex flex-col flex-1 p-5">
+              <h3 class="font-display font-semibold text-lg text-text-primary">Advocacia</h3>
+              <div class="flex items-center gap-1 mt-2" aria-label="Avaliação 5 de 5 estrelas">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-accent-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-accent-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-accent-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-accent-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-accent-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+                <span class="font-mono text-[11px] text-text-secondary ml-1">5.0</span>
+              </div>
+              <p class="mt-3 text-sm text-text-secondary leading-relaxed flex-1">
+                Layout institucional, sóbrio e persuasivo — pensado para gerar consultas qualificadas.
+              </p>
+              <div class="flex flex-col gap-2 mt-5">
+                <a href="COLE_AQUI_O_LINK_DO_VERCEL" target="_blank" rel="noopener noreferrer"
+                   class="btn-outline-sm w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
+                  Ver Demo ao Vivo
+                </a>
+                <a href="#comprar-advocacia"
+                   class="btn-primary-sm w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">
+                  Comprar Template
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 2 — ESTÉTICA (EM BREVE) -->
+          <div class="flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13] preview-locked">
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                Em Breve
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 21c4.5-3 7-6.5 7-10a7 7 0 1 0-14 0c0 3.5 2.5 7 7 10Z" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="11" r="2.5"/>
+              </svg>
+            </div>
+            <div class="flex flex-col flex-1 p-5">
+              <h3 class="font-display font-semibold text-lg text-text-primary">Estética</h3>
+              <p class="mt-2 text-sm text-text-secondary leading-relaxed flex-1">
+                Landing page para clínicas de beleza e estética avançada — em desenvolvimento.
+              </p>
+              <button type="button"
+                class="btn-outline-sm mt-5 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-secondary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
+                Avisar Quando Lançar
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 3 — PSICOLOGIA (EM BREVE) -->
+          <div class="flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13] preview-locked">
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                Em Breve
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9.5 3a4.5 4.5 0 0 0-4.5 4.5c0 1 .3 1.8.8 2.5A4 4 0 0 0 4 13.5 4 4 0 0 0 8 17.5v1a2.5 2.5 0 0 0 5 0V8.5A5.5 5.5 0 0 0 9.5 3Z" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13 8.5v9a2.5 2.5 0 0 0 5 0v-1" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="flex flex-col flex-1 p-5">
+              <h3 class="font-display font-semibold text-lg text-text-primary">Psicologia</h3>
+              <p class="mt-2 text-sm text-text-secondary leading-relaxed flex-1">
+                Layout acolhedor para psicólogos e terapeutas captarem novos pacientes.
+              </p>
+              <button type="button"
+                class="btn-outline-sm mt-5 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-secondary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
+                Avisar Quando Lançar
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 4 — CONSULTORIA (EM BREVE) -->
+          <div class="flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13] preview-locked">
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                Em Breve
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 20V10M9 20V4M15 20v-7M21 20V8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="flex flex-col flex-1 p-5">
+              <h3 class="font-display font-semibold text-lg text-text-primary">Consultoria</h3>
+              <p class="mt-2 text-sm text-text-secondary leading-relaxed flex-1">
+                Página para consultores e infoprodutores venderem autoridade e agendarem calls.
+              </p>
+              <button type="button"
+                class="btn-outline-sm mt-5 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-secondary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
+                Avisar Quando Lançar
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- ================= /VITRINE / CATÁLOGO SECTION ================= -->
+
+
+    <!-- ================= COMO FUNCIONA SECTION ================= -->
+    <section id="como-funciona" class="relative bg-bg-base border-t border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
+
+        <div class="max-w-xl mx-auto text-center mb-16">
+          <div class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-bg-card/60 px-4 py-1.5 mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-soft"></span>
+            <span class="font-mono text-xs text-text-secondary tracking-wide">do zero ao ar em minutos</span>
+          </div>
+          <h2 class="font-display font-semibold text-3xl sm:text-4xl text-text-primary">Como Funciona</h2>
+          <p class="mt-4 text-text-secondary text-base sm:text-lg leading-relaxed">
+            Sem burocracia, sem espera. Três passos entre você e sua landing page no ar.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-6">
+
+          <div class="step-connector relative flex flex-col items-center text-center">
+            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-bg-card border border-accent text-accent-soft font-display font-semibold text-lg">01</div>
+            <h3 class="font-display font-semibold text-lg text-text-primary mt-5">Escolha</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed max-w-[220px]">
+              Navegue pela vitrine e encontre o template ideal para o seu nicho.
+            </p>
+          </div>
+
+          <div class="step-connector relative flex flex-col items-center text-center">
+            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-bg-card border border-accent text-accent-soft font-display font-semibold text-lg">02</div>
+            <h3 class="font-display font-semibold text-lg text-text-primary mt-5">Baixe</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed max-w-[220px]">
+              Após a confirmação do pagamento, receba o link de download na hora.
+            </p>
+          </div>
+
+          <div class="step-connector relative flex flex-col items-center text-center">
+            <div class="flex items-center justify-center w-14 h-14 rounded-full bg-bg-card border border-accent text-accent-soft font-display font-semibold text-lg">03</div>
+            <h3 class="font-display font-semibold text-lg text-text-primary mt-5">Coloque no Ar</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed max-w-[220px]">
+              Suba os arquivos na sua hospedagem e comece a rodar tráfego no mesmo dia.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- ================= /COMO FUNCIONA SECTION ================= -->
+
+
+    <!-- ================= BENEFÍCIOS SECTION ================= -->
+    <section id="beneficios" class="relative bg-bg-base grid-pattern border-t border-border-subtle">
+      <div class="relative max-w-6xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
+
+        <div class="max-w-xl mx-auto text-center mb-16">
+          <div class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-bg-card/60 px-4 py-1.5 mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-soft"></span>
+            <span class="font-mono text-xs text-text-secondary tracking-wide">por que escolher nossos templates</span>
+          </div>
+          <h2 class="font-display font-semibold text-3xl sm:text-4xl text-text-primary">Feito para Quem Não Pode Esperar</h2>
+          <p class="mt-4 text-text-secondary text-base sm:text-lg leading-relaxed">
+            Cada template carrega os mesmos padrões técnicos que usamos em projetos de clientes reais.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
+            <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+            </div>
+            <h3 class="font-display font-semibold text-base text-text-primary">Entrega Imediata</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Sem espera. Baixe o template assim que a compra for aprovada.</p>
+          </div>
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
+            <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="font-display font-semibold text-base text-text-primary">Código Limpo & Documentado</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Organizado e comentado — fácil de customizar mesmo sem ser um dev sênior.</p>
+          </div>
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
+            <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3 class="font-display font-semibold text-base text-text-primary">Performance de Verdade</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Construído para rodar Facebook Ads e Google Ads sem travar — CPA menor.</p>
+            <span class="inline-block mt-3 font-mono text-[11px] text-accent-soft">score 95+ · pagespeed</span>
+          </div>
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
+            <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"/></svg>
+            </div>
+            <h3 class="font-display font-semibold text-base text-text-primary">100% Personalizável</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Cores, textos e imagens editáveis sem dor de cabeça.</p>
+          </div>
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
+            <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3 class="font-display font-semibold text-base text-text-primary">Suporte Real</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Dúvidas técnicas respondidas por quem construiu o template.</p>
+          </div>
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
+            <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            </div>
+            <h3 class="font-display font-semibold text-base text-text-primary">Atualizações Incluídas</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Melhorias futuras no template chegam até você sem custo extra.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- ================= /BENEFÍCIOS SECTION ================= -->
+
+
+    <!-- ================= PREÇOS / OFERTA SECTION ================= -->
+    <section id="precos" class="relative bg-bg-base border-t border-border-subtle">
+      <div class="max-w-5xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
+
+        <div class="max-w-xl mx-auto text-center mb-16">
+          <div class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-bg-card/60 px-4 py-1.5 mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-soft"></span>
+            <span class="font-mono text-xs text-text-secondary tracking-wide">escolha como quer começar</span>
+          </div>
+          <h2 class="font-display font-semibold text-3xl sm:text-4xl text-text-primary">Preços & Oferta</h2>
+          <p class="mt-4 text-text-secondary text-base sm:text-lg leading-relaxed">
+            Compre o template do seu nicho ou tenha acesso à loja inteira — presente e futuro.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
+
+          <!-- Opção 1 — Template Individual -->
+          <div class="flex flex-col rounded-2xl border border-border-subtle bg-bg-card p-8">
+            <span class="font-mono text-xs text-text-secondary tracking-wide uppercase">Avulso</span>
+            <h3 class="font-display font-semibold text-xl text-text-primary mt-2">Template Individual</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Ideal para quem precisa de apenas um nicho específico agora.</p>
+
+            <div class="mt-6 flex items-end gap-1">
+              <span class="font-display font-semibold text-4xl text-text-primary">R$ 197</span>
+              <span class="text-sm text-text-secondary mb-1">/ template</span>
+            </div>
+
+            <ul class="mt-6 space-y-3 flex-1">
+              <li class="flex items-start gap-2.5 text-sm text-text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                1 template à sua escolha
+              </li>
+              <li class="flex items-start gap-2.5 text-sm text-text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Código-fonte completo e documentado
+              </li>
+              <li class="flex items-start gap-2.5 text-sm text-text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Suporte técnico por e-mail
+              </li>
+              <li class="flex items-start gap-2.5 text-sm text-text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Atualizações desse template
+              </li>
+            </ul>
+
+            <a href="#comprar-avulso"
+               class="btn-outline-lg mt-8 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-6 py-3.5">
+              Comprar Este Template
+            </a>
+          </div>
+
+          <!-- Opção 2 — Passaporte VIP / All Access -->
+          <div class="card-vip relative flex flex-col rounded-2xl border-2 border-accent bg-bg-card p-8 md:-mt-3 md:mb-3">
+            <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 font-mono text-[11px] text-white whitespace-nowrap">
+              ⭐ Melhor Custo-Benefício
+            </span>
+
+            <span class="font-mono text-xs text-accent-soft tracking-wide uppercase">All Access</span>
+            <h3 class="font-display font-semibold text-xl text-text-primary mt-2">Passaporte VIP</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">
+              Pare de comprar um por um. Tenha a loja inteira — hoje e nos próximos lançamentos.
+            </p>
+
+            <div class="mt-6 flex items-end gap-3">
+              <div class="flex items-end gap-1">
+                <span class="font-display font-semibold text-4xl text-text-primary">R$ 497</span>
+                <span class="text-sm text-text-secondary mb-1">único</span>
+              </div>
+              <span class="font-mono text-xs text-text-secondary line-through mb-1.5">R$ 1.379</span>
+            </div>
+            <span class="font-mono text-[11px] text-emerald-400 mt-1">economia de mais de 60%</span>
+
+            <ul class="mt-6 space-y-3 flex-1">
+              <li class="flex items-start gap-2.5 text-sm text-text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Todos os templates atuais
+              </li>
+              <li class="flex items-start gap-2.5 text-sm text-text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Acesso automático a todos os lançamentos futuros
+              </li>
+              <li class="flex items-start gap-2.5 text-sm text-text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Suporte prioritário
+              </li>
+              <li class="flex items-start gap-2.5 text-sm text-text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Early access antes do lançamento público
+              </li>
+              <li class="flex items-start gap-2.5 text-sm text-text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Licença para uso em projetos de clientes
+              </li>
+            </ul>
+
+            <a href="#comprar-vip"
+               class="btn-primary-lg mt-8 w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-6 py-3.5">
+              Quero o Passaporte VIP
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- ================= /PREÇOS / OFERTA SECTION ================= -->
+
+
+    <!-- ================= GARANTIA & FAQ SECTION ================= -->
+    <section id="garantia-faq" class="relative bg-bg-base grid-pattern border-t border-border-subtle">
+      <div class="relative max-w-4xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
+
+        <div class="flex flex-col items-center text-center mb-20">
+          <div class="guarantee-ring flex items-center justify-center w-16 h-16 rounded-full bg-bg-card border border-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/>
+              <path d="m9.5 12 2 2 3.5-4"/>
+            </svg>
+          </div>
+          <h2 class="font-display font-semibold text-2xl sm:text-3xl text-text-primary mt-6">
+            Garantia Incondicional de 7 Dias
+          </h2>
+          <p class="mt-3 text-text-secondary text-sm sm:text-base leading-relaxed max-w-md">
+            Se o template não for o que você esperava, devolvemos 100% do seu investimento.
+            Sem perguntas, sem burocracia.
+          </p>
+        </div>
+
+        <div class="max-w-2xl mx-auto">
+          <h3 class="font-display font-semibold text-xl text-text-primary text-center mb-8">Perguntas Frequentes</h3>
+
+          <div class="flex flex-col gap-3">
+
+            <details class="faq-item group rounded-xl border border-border-subtle bg-bg-card px-5 py-4" open>
+              <summary class="flex items-center justify-between gap-4 text-text-primary font-medium text-sm sm:text-base">
+                Preciso saber programar para usar os templates?
+                <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon w-4 h-4 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </summary>
+              <p class="mt-3 text-sm text-text-secondary leading-relaxed">
+                Não. Os textos, cores e imagens podem ser editados diretamente no código com instruções simples.
+                Se você quiser ir além (integrações, automações), o código limpo facilita o trabalho de qualquer desenvolvedor.
+              </p>
+            </details>
+
+            <details class="faq-item group rounded-xl border border-border-subtle bg-bg-card px-5 py-4">
+              <summary class="flex items-center justify-between gap-4 text-text-primary font-medium text-sm sm:text-base">
+                Como recebo os arquivos após a compra?
+                <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon w-4 h-4 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </summary>
+              <p class="mt-3 text-sm text-text-secondary leading-relaxed">
+                Assim que o pagamento for aprovado, você recebe um e-mail automático com o link de download.
+                O acesso também fica disponível na sua área de membros.
+              </p>
+            </details>
+
+            <details class="faq-item group rounded-xl border border-border-subtle bg-bg-card px-5 py-4">
+              <summary class="flex items-center justify-between gap-4 text-text-primary font-medium text-sm sm:text-base">
+                Funciona em qualquer hospedagem?
+                <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon w-4 h-4 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </summary>
+              <p class="mt-3 text-sm text-text-secondary leading-relaxed">
+                Sim. Os arquivos são compatíveis com qualquer serviço de hospedagem estática, como Vercel, Netlify
+                ou seu servidor próprio.
+              </p>
+            </details>
+
+            <details class="faq-item group rounded-xl border border-border-subtle bg-bg-card px-5 py-4">
+              <summary class="flex items-center justify-between gap-4 text-text-primary font-medium text-sm sm:text-base">
+                Posso usar os templates em projetos de clientes (agência)?
+                <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon w-4 h-4 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </summary>
+              <p class="mt-3 text-sm text-text-secondary leading-relaxed">
+                No plano avulso, o uso é para um projeto próprio. No Passaporte VIP, a licença permite uso comercial
+                em projetos de clientes — ideal para freelancers e agências.
+              </p>
+            </details>
+
+            <details class="faq-item group rounded-xl border border-border-subtle bg-bg-card px-5 py-4">
+              <summary class="flex items-center justify-between gap-4 text-text-primary font-medium text-sm sm:text-base">
+                Os templates são otimizados para SEO e Ads?
+                <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon w-4 h-4 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </summary>
+              <p class="mt-3 text-sm text-text-secondary leading-relaxed">
+                Sim. Estrutura semântica, carregamento rápido e boas práticas de SEO on-page já vêm prontos,
+                pensados para performar bem em campanhas de tráfego pago.
+              </p>
+            </details>
+
+            <details class="faq-item group rounded-xl border border-border-subtle bg-bg-card px-5 py-4">
+              <summary class="flex items-center justify-between gap-4 text-text-primary font-medium text-sm sm:text-base">
+                E se eu tiver problemas técnicos depois da compra?
+                <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon w-4 h-4 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </summary>
+              <p class="mt-3 text-sm text-text-secondary leading-relaxed">
+                Nosso suporte responde por e-mail para ajudar na instalação e customização básica.
+                Assinantes do Passaporte VIP têm fila prioritária de atendimento.
+              </p>
+            </details>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- ================= /GARANTIA & FAQ SECTION ================= -->
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="relative bg-bg-base border-t border-border-subtle">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 py-14">
+
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
+
+        <!-- Coluna: Marca -->
+        <div class="max-w-xs">
+          <a href="#" class="font-display font-semibold text-lg text-text-primary flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-accent"></span>
+            Forja<span class="text-accent-soft">Templates</span>
+          </a>
+          <p class="mt-4 text-sm text-text-secondary leading-relaxed">
+            Landing pages modernas, ultra-rápidas e prontas para rodar anúncios —
+            para agências, freelancers e negócios locais.
+          </p>
+        </div>
+
+        <!-- Coluna: Navegação -->
+        <div>
+          <span class="font-mono text-xs text-text-secondary uppercase tracking-wide">Navegação</span>
+          <ul class="mt-4 space-y-2.5">
+            <li><a href="#vitrine" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Vitrine</a></li>
+            <li><a href="#como-funciona" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Como Funciona</a></li>
+            <li><a href="#beneficios" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Benefícios</a></li>
+            <li><a href="#precos" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Preços</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna: Suporte -->
+        <div>
+          <span class="font-mono text-xs text-text-secondary uppercase tracking-wide">Suporte</span>
+          <ul class="mt-4 space-y-2.5">
+            <li><a href="#garantia-faq" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Perguntas Frequentes</a></li>
+            <li><a href="mailto:contato@forjatemplates.com" class="text-sm text-text-secondary hover:text-text-primary transition-colors">contato@forjatemplates.com</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna: Redes -->
+        <div>
+          <span class="font-mono text-xs text-text-secondary uppercase tracking-wide">Redes</span>
+          <div class="flex items-center gap-3 mt-4">
+            <a href="#" aria-label="Instagram" class="flex items-center justify-center w-9 h-9 rounded-lg border border-border-subtle text-text-secondary hover:text-accent-soft hover:border-accent-soft transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="flex items-center justify-center w-9 h-9 rounded-lg border border-border-subtle text-text-secondary hover:text-accent-soft hover:border-accent-soft transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8h4v1.5A5.98 5.98 0 0 1 16 8Z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span class="font-mono text-xs text-text-secondary">© 2026 Forja Templates. Todos os direitos reservados.</span>
+        <div class="flex items-center gap-6">
+          <a href="#" class="text-xs text-text-secondary hover:text-text-primary transition-colors">Termos de Uso</a>
+          <a href="#" class="text-xs text-text-secondary hover:text-text-primary transition-colors">Privacidade</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+  <!-- ================= /FOOTER ================= -->
+
+  <script>
+    // Toggle do menu mobile — vanilla JS, sem dependências externas
+    (function () {
+      const toggleBtn = document.getElementById('menu-toggle');
+      const menu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('icon-open');
+      const iconClose = document.getElementById('icon-close');
+
+      if (!toggleBtn || !menu) return;
+
+      toggleBtn.addEventListener('click', function () {
+        const isOpen = toggleBtn.getAttribute('aria-expanded') === 'true';
+
+        toggleBtn.setAttribute('aria-expanded', String(!isOpen));
+        iconOpen.classList.toggle('hidden', !isOpen);
+        iconClose.classList.toggle('hidden', isOpen);
+
+        if (isOpen) {
+          menu.style.maxHeight = '0px';
+          menu.style.opacity = '0';
+        } else {
+          menu.style.maxHeight = menu.scrollHeight + 'px';
+          menu.style.opacity = '1';
+        }
+      });
+
+      // Fecha o menu mobile ao clicar em qualquer link de navegação
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+          menu.style.maxHeight = '0px';
+          menu.style.opacity = '0';
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

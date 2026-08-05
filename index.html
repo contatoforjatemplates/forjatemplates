@@ -27,6 +27,10 @@
           'text-primary': '#F5F5F7',
           'text-secondary': '#9A9AA5',
           'border-subtle': '#232330',
+          'ai-blue': '#38BDF8',
+          'ai-blue-soft': '#7DD3FC',
+          'vip-gold': '#F0B429',
+          'vip-gold-soft': '#F7CE68',
         },
         fontFamily: {
           display: ['"Space Grotesk"', 'sans-serif'],
@@ -131,6 +135,63 @@
   .faq-item[open] .faq-icon { transform: rotate(45deg); }
   .faq-item[open] summary { color: #F5F5F7; }
 
+  /* Seção "Criar Projeto" — Card IA (glow azul-neon) e Card Pedido VIP (glow dourado) */
+  .card-ai {
+    transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+  }
+  .card-ai:hover {
+    border-color: #38BDF8;
+    box-shadow: 0 16px 48px -18px rgba(56, 189, 248, 0.35);
+    transform: translateY(-3px);
+  }
+  .card-vip-order {
+    transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+  }
+  .card-vip-order:hover {
+    border-color: #F0B429;
+    box-shadow: 0 16px 48px -18px rgba(240, 180, 41, 0.35);
+    transform: translateY(-3px);
+  }
+  .btn-ai-primary { transition: box-shadow 220ms ease, transform 180ms ease, background-color 200ms ease, opacity 200ms ease; }
+  .btn-ai-primary:hover:not(:disabled) { box-shadow: 0 10px 30px -8px rgba(56, 189, 248, 0.55); transform: translateY(-1px); }
+  .btn-ai-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .btn-ai-outline { transition: border-color 200ms ease, color 200ms ease, background-color 200ms ease, opacity 200ms ease; }
+  .btn-ai-outline:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-vip-primary { transition: box-shadow 220ms ease, transform 180ms ease, background-color 200ms ease; }
+  .btn-vip-primary:hover { box-shadow: 0 10px 30px -8px rgba(240, 180, 41, 0.55); transform: translateY(-1px); }
+  #criar-projeto textarea, #criar-projeto input { transition: border-color 200ms ease, box-shadow 200ms ease; }
+  #criar-projeto textarea:focus, #criar-projeto input:focus { outline: none; }
+  .focus-ring-ai:focus { border-color: #38BDF8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
+  .focus-ring-vip:focus { border-color: #F0B429; box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 700ms linear infinite;
+  }
+  .inline-feedback { transition: opacity 200ms ease, transform 200ms ease; }
+
+  /* Modal de Termos e Política */
+  #terms-modal-overlay {
+    transition: opacity 220ms ease;
+  }
+  #terms-modal-content {
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+  #terms-modal-overlay.modal-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #terms-modal-overlay.modal-hidden #terms-modal-content {
+    transform: translateY(12px) scale(0.98);
+    opacity: 0;
+  }
+
+  /* Estrelas do formulário de feedback */
+  .feedback-star.is-filled { color: #F0B429; }
+
   /* Menu mobile */
   #mobile-menu { transition: max-height 300ms ease, opacity 250ms ease; }
 
@@ -139,7 +200,9 @@
     .btn-primary, .btn-primary-sm, .btn-primary-lg,
     .btn-secondary, .btn-outline-sm, .btn-outline-lg,
     .card-available, .benefit-card, .faq-icon, .guarantee-ring,
-    #mobile-menu { transition: none; animation: none; }
+    #mobile-menu, .card-ai, .card-vip-order, .btn-ai-primary, .btn-ai-outline,
+    .btn-vip-primary, .spinner, .inline-feedback,
+    #terms-modal-overlay, #terms-modal-content { transition: none; animation: none; }
   }
 
   a:focus-visible, button:focus-visible, summary:focus-visible {
@@ -164,10 +227,12 @@
       <!-- Navegação desktop -->
       <nav class="hidden md:flex items-center gap-8">
         <a href="#vitrine" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Vitrine</a>
+        <a href="#criar-projeto" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Criar Projeto</a>
         <a href="#como-funciona" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Como Funciona</a>
         <a href="#beneficios" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Benefícios</a>
         <a href="#precos" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Preços</a>
-        <a href="#garantia-faq" class="text-sm text-text-secondary hover:text-text-primary transition-colors">FAQ</a>
+        <a href="#feedbacks" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Feedbacks</a>
+        <a href="#faq" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Perguntas Frequentes</a>
       </nav>
 
       <!-- CTA desktop -->
@@ -198,10 +263,12 @@
     <nav id="mobile-menu" class="md:hidden max-h-0 opacity-0 overflow-hidden border-t border-border-subtle">
       <div class="flex flex-col gap-1 px-6 py-4">
         <a href="#vitrine" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Vitrine</a>
+        <a href="#criar-projeto" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Criar Projeto</a>
         <a href="#como-funciona" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Como Funciona</a>
         <a href="#beneficios" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Benefícios</a>
         <a href="#precos" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Preços</a>
-        <a href="#garantia-faq" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">FAQ</a>
+        <a href="#feedbacks" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Feedbacks</a>
+        <a href="#faq" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Perguntas Frequentes</a>
         <a href="#precos"
            class="btn-primary-sm mt-3 inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-5 py-3">
           Ver Templates
@@ -331,7 +398,8 @@
                    class="btn-outline-sm w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
                   Ver Demo ao Vivo
                 </a>
-                <a href="#comprar-advocacia"
+                <!-- TODO: substitua pelo link real do checkout (Kiwify/Hotmart) do template de Advocacia -->
+                <a href="https://pay.kiwify.com.br/SEU-LINK-ADVOCACIA" target="_blank" rel="noopener noreferrer"
                    class="btn-primary-sm w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">
                   Comprar Template
                 </a>
@@ -361,7 +429,8 @@
                    class="btn-outline-sm w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
                   Ver Demo ao Vivo
                 </a>
-                <a href="#comprar-estetica"
+                <!-- TODO: substitua pelo link real do checkout (Kiwify/Hotmart) do template de Estética -->
+                <a href="https://pay.kiwify.com.br/SEU-LINK-ESTETICA" target="_blank" rel="noopener noreferrer"
                    class="btn-primary-sm w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">
                   Comprar Template
                 </a>
@@ -422,6 +491,161 @@
     <!-- ================= /VITRINE / CATÁLOGO SECTION ================= -->
 
 
+    <!-- ================= SEÇÃO: COMO VOCÊ QUER CRIAR SEU PROJETO ================= -->
+    <section id="criar-projeto" class="relative bg-bg-base grid-pattern border-t border-border-subtle">
+      <div class="relative max-w-6xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
+
+        <div class="max-w-2xl mx-auto text-center mb-16">
+          <div class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-bg-card/60 px-4 py-1.5 mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-soft"></span>
+            <span class="font-mono text-xs text-text-secondary tracking-wide">duas formas de começar</span>
+          </div>
+          <h2 class="font-display font-semibold text-3xl sm:text-4xl text-text-primary">
+            Como você quer criar seu projeto hoje?
+          </h2>
+          <p class="mt-4 text-text-secondary text-base sm:text-lg leading-relaxed">
+            Escolha entre a velocidade da nossa IA ou o toque exclusivo de um especialista.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+
+          <!-- ===== CARD A — IA INSTANTÂNEA ===== -->
+          <div class="card-ai flex flex-col rounded-2xl border border-border-subtle bg-bg-card p-7 sm:p-8">
+
+            <span class="inline-flex items-center gap-1.5 self-start rounded-full border border-ai-blue/30 bg-ai-blue/10 px-3 py-1 font-mono text-[11px] text-ai-blue-soft">
+              ⚡ Instantâneo
+            </span>
+
+            <div class="flex items-center gap-3 mt-5">
+              <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-ai-blue/10 border border-ai-blue/30">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-ai-blue-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.9 4.9L5 9.8l4.1 3.1L7.8 18 12 15.1 16.2 18l-1.3-5.1L19 9.8l-5.1-1.9L12 3Z"/>
+                </svg>
+              </div>
+              <h3 class="font-display font-semibold text-xl text-text-primary">Gerador por IA</h3>
+            </div>
+
+            <p class="mt-4 text-sm text-text-secondary leading-relaxed">
+              Descreva a ideia do seu site e nossa IA gera uma landing page completa em segundos —
+              ideal para validar rápido ou já sair na frente enquanto decide os detalhes finais.
+            </p>
+
+            <div class="mt-6">
+              <label for="ai-prompt" class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">
+                Descreva a ideia do seu site
+              </label>
+              <textarea
+                id="ai-prompt"
+                rows="4"
+                placeholder="Ex: Uma landing page para meu petshop, com tom acolhedor, destacando banho e tosa e agendamento online..."
+                class="focus-ring-ai mt-2 w-full resize-none rounded-lg border border-border-subtle bg-bg-base text-text-primary placeholder-text-secondary/60 text-sm px-4 py-3 leading-relaxed"
+              ></textarea>
+              <span id="ai-char-count" class="block mt-1.5 font-mono text-[11px] text-text-secondary">0 caracteres</span>
+            </div>
+
+            <div id="ai-feedback" class="inline-feedback hidden mt-4 rounded-lg border border-ai-blue/30 bg-ai-blue/10 px-4 py-3">
+              <p class="text-xs text-ai-blue-soft leading-relaxed">
+                ✅ Prompt enviado! Em breve você recebe o preview do seu site gerado por IA.
+              </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 mt-6">
+              <button
+                type="button"
+                id="btn-enhance"
+                onclick="enhancePrompt()"
+                class="btn-ai-outline w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border-subtle hover:border-ai-blue text-text-primary hover:text-ai-blue-soft font-medium text-sm px-5 py-3"
+              >
+                <span id="enhance-icon">✨</span>
+                <span id="enhance-label">Aperfeiçoar Prompt</span>
+              </button>
+
+              <button
+                type="button"
+                id="btn-create-ai"
+                onclick="submitAI()"
+                class="btn-ai-primary w-full sm:flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-ai-blue hover:bg-ai-blue-soft text-bg-base font-semibold text-sm px-5 py-3"
+              >
+                🚀 Criar Site com IA
+              </button>
+            </div>
+          </div>
+          <!-- ===== /CARD A ===== -->
+
+
+          <!-- ===== CARD B — PEDIDO SOB MEDIDA ===== -->
+          <div class="card-vip-order flex flex-col rounded-2xl border border-border-subtle bg-bg-card p-7 sm:p-8">
+
+            <span class="inline-flex items-center gap-1.5 self-start rounded-full border border-vip-gold/30 bg-vip-gold/10 px-3 py-1 font-mono text-[11px] text-vip-gold-soft">
+              👑 Exclusivo & Personalizado
+            </span>
+
+            <div class="flex items-center gap-3 mt-5">
+              <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-vip-gold/10 border border-vip-gold/30">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-vip-gold-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m2 8 4 3 6-8 6 8 4-3-2 12H4L2 8Z" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3 class="font-display font-semibold text-xl text-text-primary">Encomendar com Desenvolvedor</h3>
+            </div>
+
+            <p class="mt-4 text-sm text-text-secondary leading-relaxed">
+              Seu projeto feito por mim, do zero — com contato direto, envio de fotos do progresso
+              etapa por etapa e ajustes ilimitados até ficar exatamente do seu jeito.
+            </p>
+
+            <div class="mt-6 flex flex-col gap-4">
+              <div>
+                <label for="vip-name" class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">
+                  Nome e WhatsApp
+                </label>
+                <input
+                  id="vip-name"
+                  type="text"
+                  placeholder="Seu nome — (DDD) 9XXXX-XXXX"
+                  class="focus-ring-vip mt-2 w-full rounded-lg border border-border-subtle bg-bg-base text-text-primary placeholder-text-secondary/60 text-sm px-4 py-3"
+                />
+              </div>
+
+              <div>
+                <label for="vip-desc" class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">
+                  Descreva o site dos seus sonhos (e cole links de referência)
+                </label>
+                <textarea
+                  id="vip-desc"
+                  rows="3"
+                  placeholder="Ex: Quero um site para minha clínica, estilo minimalista, parecido com [link de referência]..."
+                  class="focus-ring-vip mt-2 w-full resize-none rounded-lg border border-border-subtle bg-bg-base text-text-primary placeholder-text-secondary/60 text-sm px-4 py-3 leading-relaxed"
+                ></textarea>
+              </div>
+            </div>
+
+            <p id="vip-error" class="hidden mt-3 text-xs text-red-400">
+              Preencha seu nome/WhatsApp e uma breve descrição para continuar.
+            </p>
+
+            <div class="mt-6">
+              <button
+                type="button"
+                onclick="submitWhatsApp()"
+                class="btn-vip-primary w-full inline-flex items-center justify-center gap-2 rounded-lg bg-vip-gold hover:bg-vip-gold-soft text-bg-base font-semibold text-sm px-5 py-3.5"
+              >
+                💬 Fazer Pedido no WhatsApp
+              </button>
+              <p class="mt-3 text-center text-[11px] text-text-secondary font-mono">
+                você será direcionado ao WhatsApp com sua mensagem já pronta
+              </p>
+            </div>
+          </div>
+          <!-- ===== /CARD B ===== -->
+
+        </div>
+      </div>
+    </section>
+    <!-- ================= /SEÇÃO: CRIAR PROJETO ================= -->
+
+
     <!-- ================= COMO FUNCIONA SECTION ================= -->
     <section id="como-funciona" class="relative bg-bg-base border-t border-border-subtle">
       <div class="max-w-5xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
@@ -464,6 +688,44 @@
           </div>
 
         </div>
+
+        <!-- Bloco de transparência: pagamento e políticas -->
+        <div class="mt-16 rounded-2xl border border-border-subtle bg-bg-card p-6 sm:p-8">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h3 class="font-display font-semibold text-lg text-text-primary">Pagamento 100% Seguro</h3>
+              <p class="mt-2 text-sm text-text-secondary leading-relaxed max-w-lg">
+                Processado por parceiros homologados (Kiwify/Hotmart), com aprovação automática assim que o pagamento é confirmado.
+              </p>
+            </div>
+            <button type="button" onclick="openTermsModal()"
+              class="btn-secondary shrink-0 inline-flex items-center justify-center gap-2 rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-5 py-2.5">
+              Ver Termos e Política
+            </button>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3 rounded-xl border border-border-subtle bg-bg-base p-4">
+              <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-accent/10 border border-accent/30 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-text-primary">Pix</p>
+                <p class="mt-1 text-xs text-text-secondary leading-relaxed">Aprovação instantânea — acesso liberado na hora.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 rounded-xl border border-border-subtle bg-bg-base p-4">
+              <div class="flex items-center justify-center w-9 h-9 rounded-lg bg-accent/10 border border-accent/30 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-text-primary">Cartão de Crédito</p>
+                <p class="mt-1 text-xs text-text-secondary leading-relaxed">Parcelamento em até 12x direto no checkout.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
     <!-- ================= /COMO FUNCIONA SECTION ================= -->
@@ -498,17 +760,26 @@
             <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
             </div>
-            <h3 class="font-display font-semibold text-base text-text-primary">Código Limpo & Documentado</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Organizado e comentado — fácil de customizar mesmo sem ser um dev sênior.</p>
+            <h3 class="font-display font-semibold text-base text-text-primary">Código Limpo, Ultra-Rápido & SEO</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Organizado, documentado e otimizado para PageSpeed e SEO — pronto para rodar Facebook Ads e Google Ads sem travar.</p>
+            <span class="inline-block mt-3 font-mono text-[11px] text-accent-soft">score 95+ · pagespeed</span>
           </div>
 
           <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
             <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
-            <h3 class="font-display font-semibold text-base text-text-primary">Performance de Verdade</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Construído para rodar Facebook Ads e Google Ads sem travar — CPA menor.</p>
-            <span class="inline-block mt-3 font-mono text-[11px] text-accent-soft">score 95+ · pagespeed</span>
+            <h3 class="font-display font-semibold text-base text-text-primary">Suporte 24 Horas</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Atendimento rápido por IA a qualquer hora, com transição automática para um especialista humano quando o assunto exige.</p>
+          </div>
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
+            <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/><path d="m9.5 12 2 2 3.5-4"/></svg>
+            </div>
+            <h3 class="font-display font-semibold text-base text-text-primary">Garantia Incondicional</h3>
+            <p class="mt-2 text-sm text-text-secondary leading-relaxed">7 dias de garantia total. Não gostou? Devolvemos 100% do seu investimento, sem perguntas.</p>
+            <a href="#faq" class="inline-block mt-3 font-mono text-[11px] text-accent-soft hover:text-accent transition-colors">ver política completa →</a>
           </div>
 
           <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
@@ -517,14 +788,6 @@
             </div>
             <h3 class="font-display font-semibold text-base text-text-primary">100% Personalizável</h3>
             <p class="mt-2 text-sm text-text-secondary leading-relaxed">Cores, textos e imagens editáveis sem dor de cabeça.</p>
-          </div>
-
-          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
-            <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30 mb-5">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <h3 class="font-display font-semibold text-base text-text-primary">Suporte Real</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Dúvidas técnicas respondidas por quem construiu o template.</p>
           </div>
 
           <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6">
@@ -588,7 +851,8 @@
               </li>
             </ul>
 
-            <a href="#comprar-avulso"
+            <!-- TODO: substitua pelo link real do checkout (Kiwify/Hotmart) do plano Avulso -->
+            <a href="https://pay.kiwify.com.br/SEU-LINK-AVULSO" target="_blank" rel="noopener noreferrer"
                class="btn-outline-lg mt-8 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-6 py-3.5">
               Comprar Este Template
             </a>
@@ -638,7 +902,8 @@
               </li>
             </ul>
 
-            <a href="#comprar-vip"
+            <!-- TODO: substitua pelo link real do checkout (Kiwify/Hotmart) do Passaporte VIP -->
+            <a href="https://pay.hotmart.com/SEU-LINK-VIP" target="_blank" rel="noopener noreferrer"
                class="btn-primary-lg mt-8 w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-6 py-3.5">
               Quero o Passaporte VIP
             </a>
@@ -650,8 +915,143 @@
     <!-- ================= /PREÇOS / OFERTA SECTION ================= -->
 
 
+    <!-- ================= FEEDBACKS / DEPOIMENTOS SECTION ================= -->
+    <section id="feedbacks" class="relative bg-bg-base border-t border-border-subtle">
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
+
+        <div class="max-w-2xl mx-auto text-center mb-16">
+          <div class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-bg-card/60 px-4 py-1.5 mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-soft"></span>
+            <span class="font-mono text-xs text-text-secondary tracking-wide">quem já comprou aprova</span>
+          </div>
+          <h2 class="font-display font-semibold text-3xl sm:text-4xl text-text-primary">O Que Nossos Clientes Dizem</h2>
+          <p class="mt-4 text-text-secondary text-base sm:text-lg leading-relaxed">
+            Agências, freelancers e donos de negócio que já colocaram seus templates no ar.
+          </p>
+        </div>
+
+        <!-- Grid de depoimentos -->
+        <div id="feedbacks-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6 flex flex-col">
+            <div class="flex items-center gap-3">
+              <div class="flex items-center justify-center w-10 h-10 rounded-full bg-accent/15 border border-accent/30 font-display font-semibold text-sm text-accent-soft">M</div>
+              <div>
+                <p class="text-sm font-medium text-text-primary">Marina Silva</p>
+                <p class="text-xs text-text-secondary">Escritório de Advocacia</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-0.5 mt-4" aria-label="Avaliação 5 de 5 estrelas">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+            </div>
+            <p class="mt-3 text-sm text-text-secondary leading-relaxed flex-1">
+              "Comprei o template de Advocacia à noite e no dia seguinte já estava com anúncios no ar. Código realmente limpo, editei tudo sozinha."
+            </p>
+          </div>
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6 flex flex-col">
+            <div class="flex items-center gap-3">
+              <div class="flex items-center justify-center w-10 h-10 rounded-full bg-ai-blue/15 border border-ai-blue/30 font-display font-semibold text-sm text-ai-blue-soft">R</div>
+              <div>
+                <p class="text-sm font-medium text-text-primary">Rafael Costa</p>
+                <p class="text-xs text-text-secondary">Clínica de Estética</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-0.5 mt-4" aria-label="Avaliação 5 de 5 estrelas">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+            </div>
+            <p class="mt-3 text-sm text-text-secondary leading-relaxed flex-1">
+              "Testei o demo antes de comprar e já sabia que ia funcionar. Suporte respondeu rápido quando tive uma dúvida no domínio."
+            </p>
+          </div>
+
+          <div class="benefit-card rounded-xl border border-border-subtle bg-bg-card p-6 flex flex-col">
+            <div class="flex items-center gap-3">
+              <div class="flex items-center justify-center w-10 h-10 rounded-full bg-vip-gold/15 border border-vip-gold/30 font-display font-semibold text-sm text-vip-gold-soft">J</div>
+              <div>
+                <p class="text-sm font-medium text-text-primary">Juliana Prado</p>
+                <p class="text-xs text-text-secondary">Agência Digital · Passaporte VIP</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-0.5 mt-4" aria-label="Avaliação 5 de 5 estrelas">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-vip-gold-soft" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+            </div>
+            <p class="mt-3 text-sm text-text-secondary leading-relaxed flex-1">
+              "O Passaporte VIP se pagou no segundo cliente. Agora entrego landing page no mesmo dia do fechamento."
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Formulário: Deixar seu Feedback -->
+        <div class="max-w-xl mx-auto mt-14 rounded-2xl border border-border-subtle bg-bg-card p-7 sm:p-8">
+          <h3 class="font-display font-semibold text-lg text-text-primary text-center">Deixar seu Feedback</h3>
+          <p class="mt-2 text-sm text-text-secondary text-center leading-relaxed">
+            Já comprou um template? Conte como foi sua experiência.
+          </p>
+
+          <form id="feedback-form" onsubmit="submitFeedback(event)" class="mt-6 flex flex-col gap-4">
+            <div>
+              <label for="feedback-name" class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">Nome</label>
+              <input
+                id="feedback-name"
+                type="text"
+                placeholder="Seu nome"
+                class="focus-ring-vip mt-2 w-full rounded-lg border border-border-subtle bg-bg-base text-text-primary placeholder-text-secondary/60 text-sm px-4 py-3"
+              />
+            </div>
+
+            <div>
+              <span class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">Sua nota</span>
+              <div id="feedback-stars" class="flex items-center gap-1.5 mt-2">
+                <button type="button" data-value="1" onclick="setFeedbackRating(1)" class="feedback-star text-2xl leading-none text-border-subtle hover:text-vip-gold-soft transition-colors" aria-label="1 estrela">★</button>
+                <button type="button" data-value="2" onclick="setFeedbackRating(2)" class="feedback-star text-2xl leading-none text-border-subtle hover:text-vip-gold-soft transition-colors" aria-label="2 estrelas">★</button>
+                <button type="button" data-value="3" onclick="setFeedbackRating(3)" class="feedback-star text-2xl leading-none text-border-subtle hover:text-vip-gold-soft transition-colors" aria-label="3 estrelas">★</button>
+                <button type="button" data-value="4" onclick="setFeedbackRating(4)" class="feedback-star text-2xl leading-none text-border-subtle hover:text-vip-gold-soft transition-colors" aria-label="4 estrelas">★</button>
+                <button type="button" data-value="5" onclick="setFeedbackRating(5)" class="feedback-star text-2xl leading-none text-border-subtle hover:text-vip-gold-soft transition-colors" aria-label="5 estrelas">★</button>
+                <input type="hidden" id="feedback-rating" value="0" />
+              </div>
+            </div>
+
+            <div>
+              <label for="feedback-comment" class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">Comentário</label>
+              <textarea
+                id="feedback-comment"
+                rows="3"
+                placeholder="Como foi sua experiência com o template?"
+                class="focus-ring-vip mt-2 w-full resize-none rounded-lg border border-border-subtle bg-bg-base text-text-primary placeholder-text-secondary/60 text-sm px-4 py-3 leading-relaxed"
+              ></textarea>
+            </div>
+
+            <p id="feedback-error" class="hidden text-xs text-red-400">Preencha seu nome, dê uma nota e escreva um comentário.</p>
+            <p id="feedback-success" class="hidden text-xs text-emerald-400">✅ Obrigado! Seu feedback foi adicionado abaixo.</p>
+
+            <button type="submit"
+              class="btn-vip-primary w-full inline-flex items-center justify-center rounded-lg bg-vip-gold hover:bg-vip-gold-soft text-bg-base font-semibold text-sm px-5 py-3">
+              Enviar Feedback
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+    <!-- ================= /FEEDBACKS / DEPOIMENTOS SECTION ================= -->
+
+
     <!-- ================= GARANTIA & FAQ SECTION ================= -->
-    <section id="garantia-faq" class="relative bg-bg-base grid-pattern border-t border-border-subtle">
+    <section id="faq" class="relative bg-bg-base grid-pattern border-t border-border-subtle">
       <div class="relative max-w-4xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
 
         <div class="flex flex-col items-center text-center mb-20">
@@ -751,6 +1151,30 @@
   </main>
 
 
+  <!-- ================= MODAL: TERMOS E POLÍTICA ================= -->
+  <div id="terms-modal-overlay" class="modal-hidden fixed inset-0 z-[60] flex items-center justify-center bg-bg-base/80 backdrop-blur-sm px-4" onclick="closeTermsModal(event)">
+    <div id="terms-modal-content" role="dialog" aria-modal="true" aria-labelledby="terms-modal-title"
+         class="relative w-full max-w-lg max-h-[80vh] overflow-y-auto rounded-2xl border border-border-subtle bg-bg-card p-7 sm:p-8" onclick="event.stopPropagation()">
+
+      <button type="button" onclick="closeTermsModal()" aria-label="Fechar"
+        class="absolute top-4 right-4 flex items-center justify-center w-8 h-8 rounded-lg border border-border-subtle text-text-secondary hover:text-text-primary hover:border-accent-soft transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <h3 id="terms-modal-title" class="font-display font-semibold text-xl text-text-primary pr-8">Termos e Política de Pagamento</h3>
+
+      <div class="mt-5 space-y-4 text-sm text-text-secondary leading-relaxed">
+        <p><span class="text-text-primary font-medium">Pagamento:</span> processado por parceiros homologados (Kiwify/Hotmart). Aceitamos Pix (aprovação instantânea) e Cartão de Crédito (parcelamento em até 12x, sujeito às condições da operadora).</p>
+        <p><span class="text-text-primary font-medium">Entrega:</span> o acesso ao download é liberado automaticamente assim que o pagamento é confirmado pela plataforma de checkout.</p>
+        <p><span class="text-text-primary font-medium">Garantia:</span> 7 dias corridos a partir da compra para solicitar reembolso integral, sem necessidade de justificativa.</p>
+        <p><span class="text-text-primary font-medium">Uso da licença:</span> o plano avulso cobre uso em um projeto próprio; o Passaporte VIP inclui licença para uso comercial em projetos de clientes.</p>
+        <p class="text-xs text-text-secondary/70">Este resumo tem caráter informativo. Substitua por seus Termos de Uso e Política de Privacidade completos antes de publicar.</p>
+      </div>
+    </div>
+  </div>
+  <!-- ================= /MODAL: TERMOS E POLÍTICA ================= -->
+
+
   <!-- ================= FOOTER ================= -->
   <footer class="relative bg-bg-base border-t border-border-subtle">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-14">
@@ -777,6 +1201,7 @@
             <li><a href="#como-funciona" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Como Funciona</a></li>
             <li><a href="#beneficios" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Benefícios</a></li>
             <li><a href="#precos" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Preços</a></li>
+            <li><a href="#feedbacks" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Feedbacks</a></li>
           </ul>
         </div>
 
@@ -784,7 +1209,7 @@
         <div>
           <span class="font-mono text-xs text-text-secondary uppercase tracking-wide">Suporte</span>
           <ul class="mt-4 space-y-2.5">
-            <li><a href="#garantia-faq" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Perguntas Frequentes</a></li>
+            <li><a href="#faq" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Perguntas Frequentes</a></li>
             <li><a href="mailto:contato@forjatemplates.com" class="text-sm text-text-secondary hover:text-text-primary transition-colors">contato@forjatemplates.com</a></li>
           </ul>
         </div>
@@ -793,11 +1218,15 @@
         <div>
           <span class="font-mono text-xs text-text-secondary uppercase tracking-wide">Redes</span>
           <div class="flex items-center gap-3 mt-4">
-            <a href="#" aria-label="Instagram" class="flex items-center justify-center w-9 h-9 rounded-lg border border-border-subtle text-text-secondary hover:text-accent-soft hover:border-accent-soft transition-colors">
+            <!-- TODO: substitua pelo @ real do Instagram da Forja Templates -->
+            <a href="https://instagram.com/forjatemplates" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+               class="flex items-center justify-center w-9 h-9 rounded-lg border border-border-subtle text-text-secondary hover:text-accent-soft hover:border-accent-soft transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
             </a>
-            <a href="#" aria-label="LinkedIn" class="flex items-center justify-center w-9 h-9 rounded-lg border border-border-subtle text-text-secondary hover:text-accent-soft hover:border-accent-soft transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8h4v1.5A5.98 5.98 0 0 1 16 8Z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <!-- TODO: substitua pelo @ real do TikTok da Forja Templates -->
+            <a href="https://tiktok.com/@forjatemplates" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+               class="flex items-center justify-center w-9 h-9 rounded-lg border border-border-subtle text-text-secondary hover:text-accent-soft hover:border-accent-soft transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 3v10.5a3.5 3.5 0 1 1-3-3.46"/><path d="M15 3c0 2.5 2 4.5 4.5 4.5"/></svg>
             </a>
           </div>
         </div>
@@ -807,7 +1236,7 @@
       <div class="mt-12 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
         <span class="font-mono text-xs text-text-secondary">© 2026 Forja Templates. Todos os direitos reservados.</span>
         <div class="flex items-center gap-6">
-          <a href="#" class="text-xs text-text-secondary hover:text-text-primary transition-colors">Termos de Uso</a>
+          <button type="button" onclick="openTermsModal()" class="text-xs text-text-secondary hover:text-text-primary transition-colors">Termos de Uso</button>
           <a href="#" class="text-xs text-text-secondary hover:text-text-primary transition-colors">Privacidade</a>
         </div>
       </div>
@@ -853,6 +1282,196 @@
         });
       });
     })();
+  </script>
+
+  <script>
+    // ================= SEÇÃO: CRIAR PROJETO (IA vs PEDIDO SOB MEDIDA) =================
+
+    // ⚠️ Substitua pelo número real de WhatsApp da Forja Templates (formato DDI+DDD+número, só dígitos)
+    const WHATSAPP_NUMBER = '55XXXXXXXXXXX';
+
+    const aiPromptEl = document.getElementById('ai-prompt');
+    const aiCharCountEl = document.getElementById('ai-char-count');
+
+    // Contador de caracteres do prompt
+    aiPromptEl.addEventListener('input', function () {
+      aiCharCountEl.textContent = aiPromptEl.value.length + ' caracteres';
+    });
+
+    /**
+     * Simula o "aprimoramento" do prompt do usuário via IA.
+     * Em produção, aqui entraria uma chamada real à API de IA.
+     */
+    function enhancePrompt() {
+      const btn = document.getElementById('btn-enhance');
+      const icon = document.getElementById('enhance-icon');
+      const label = document.getElementById('enhance-label');
+      const createBtn = document.getElementById('btn-create-ai');
+
+      const currentText = aiPromptEl.value.trim();
+      if (!currentText) {
+        aiPromptEl.focus();
+        return;
+      }
+
+      // Estado de carregamento
+      btn.disabled = true;
+      createBtn.disabled = true;
+      icon.outerHTML = '<span id="enhance-icon" class="spinner"></span>';
+      label.textContent = 'Aprimorando...';
+
+      // Simulação de processamento (troque por chamada real à API quando integrar)
+      setTimeout(function () {
+        aiPromptEl.value =
+          currentText +
+          '\n\nDetalhes adicionais: tom de voz profissional e acolhedor, paleta de cores moderna, ' +
+          'seção de depoimentos, botão de contato/WhatsApp em destaque e formulário de agendamento visível na primeira dobra.';
+        aiCharCountEl.textContent = aiPromptEl.value.length + ' caracteres';
+
+        // Restaura o botão
+        document.getElementById('enhance-icon').outerHTML = '<span id="enhance-icon">✨</span>';
+        label.textContent = 'Prompt Aprimorado';
+        btn.disabled = false;
+        createBtn.disabled = false;
+
+        setTimeout(function () {
+          label.textContent = 'Aperfeiçoar Prompt';
+        }, 2000);
+      }, 1600);
+    }
+
+    /**
+     * Envia a solicitação de geração via IA.
+     * Em produção, aqui entraria o POST para o backend/API que dispara a geração.
+     */
+    function submitAI() {
+      const value = aiPromptEl.value.trim();
+      const feedback = document.getElementById('ai-feedback');
+
+      if (!value) {
+        aiPromptEl.focus();
+        return;
+      }
+
+      // TODO: substituir por chamada real à API de geração
+      feedback.classList.remove('hidden');
+    }
+
+    /**
+     * Consolida os dados do formulário e abre o WhatsApp com a mensagem pronta.
+     */
+    function submitWhatsApp() {
+      const name = document.getElementById('vip-name').value.trim();
+      const desc = document.getElementById('vip-desc').value.trim();
+      const errorEl = document.getElementById('vip-error');
+
+      if (!name || !desc) {
+        errorEl.classList.remove('hidden');
+        return;
+      }
+      errorEl.classList.add('hidden');
+
+      const message =
+        'Olá! Quero encomendar um site sob medida na Forja Templates.\n\n' +
+        'Nome/WhatsApp: ' + name + '\n\n' +
+        'Descrição do projeto: ' + desc;
+
+      const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  </script>
+
+  <script>
+    // ================= MODAL: TERMOS E POLÍTICA =================
+    function openTermsModal() {
+      document.getElementById('terms-modal-overlay').classList.remove('modal-hidden');
+      document.documentElement.style.overflow = 'hidden';
+    }
+
+    function closeTermsModal(event) {
+      // Se o clique veio de dentro do card, ignora (o stopPropagation já cuida disso,
+      // esta checagem é só uma segurança extra para chamadas diretas via botão)
+      document.getElementById('terms-modal-overlay').classList.add('modal-hidden');
+      document.documentElement.style.overflow = '';
+    }
+
+    // Fecha o modal com a tecla Esc
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeTermsModal();
+    });
+  </script>
+
+  <script>
+    // ================= SEÇÃO: FEEDBACKS / DEPOIMENTOS =================
+    let currentFeedbackRating = 0;
+
+    function setFeedbackRating(value) {
+      currentFeedbackRating = value;
+      document.getElementById('feedback-rating').value = String(value);
+
+      document.querySelectorAll('.feedback-star').forEach(function (star) {
+        const starValue = Number(star.getAttribute('data-value'));
+        star.classList.toggle('is-filled', starValue <= value);
+      });
+    }
+
+    /**
+     * Valida e "envia" o feedback — como não há backend conectado ainda,
+     * o depoimento é adicionado visualmente ao topo da grade como confirmação.
+     * Em produção, troque o bloco marcado por um POST ao seu backend/planilha.
+     */
+    function submitFeedback(event) {
+      event.preventDefault(); // evita reload da página / parâmetros na URL
+
+      const name = document.getElementById('feedback-name').value.trim();
+      const comment = document.getElementById('feedback-comment').value.trim();
+      const rating = currentFeedbackRating;
+      const errorEl = document.getElementById('feedback-error');
+      const successEl = document.getElementById('feedback-success');
+
+      if (!name || !comment || rating < 1) {
+        successEl.classList.add('hidden');
+        errorEl.classList.remove('hidden');
+        return false;
+      }
+      errorEl.classList.add('hidden');
+
+      // TODO: substituir por chamada real (fetch) ao seu backend/planilha de feedbacks
+      const initial = name.trim().charAt(0).toUpperCase();
+      const starsMarkup = Array.from({ length: 5 }).map(function (_, i) {
+        const filled = i < rating;
+        return '<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 ' +
+          (filled ? 'text-vip-gold-soft' : 'text-border-subtle') +
+          '" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>';
+      }).join('');
+
+      const card = document.createElement('div');
+      card.className = 'benefit-card rounded-xl border border-accent/40 bg-bg-card p-6 flex flex-col';
+      card.innerHTML =
+        '<div class="flex items-center gap-3">' +
+          '<div class="flex items-center justify-center w-10 h-10 rounded-full bg-accent/15 border border-accent/30 font-display font-semibold text-sm text-accent-soft">' + initial + '</div>' +
+          '<div>' +
+            '<p class="text-sm font-medium text-text-primary"></p>' +
+            '<p class="text-xs text-text-secondary">Novo feedback</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flex items-center gap-0.5 mt-4">' + starsMarkup + '</div>' +
+        '<p class="mt-3 text-sm text-text-secondary leading-relaxed flex-1"></p>';
+
+      // Texto inserido via textContent (não innerHTML) para evitar qualquer risco de HTML injetado
+      card.querySelector('.text-text-primary').textContent = name;
+      card.querySelector('.flex-1').textContent = '"' + comment + '"';
+
+      const grid = document.getElementById('feedbacks-grid');
+      grid.insertBefore(card, grid.firstChild);
+
+      // Reset do formulário
+      document.getElementById('feedback-form').reset();
+      setFeedbackRating(0);
+      successEl.classList.remove('hidden');
+
+      return false;
+    }
   </script>
 
 </body>

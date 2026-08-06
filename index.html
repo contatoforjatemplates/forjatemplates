@@ -542,6 +542,9 @@
                 class="focus-ring-ai mt-2 w-full resize-none rounded-lg border border-border-subtle bg-bg-base text-text-primary placeholder-text-secondary/60 text-sm px-4 py-3 leading-relaxed"
               ></textarea>
               <span id="ai-char-count" class="block mt-1.5 font-mono text-[11px] text-text-secondary">0 caracteres</span>
+              <span id="ai-min-hint" class="block mt-1 font-mono text-[11px] text-text-secondary/70">
+                digite pelo menos 12 caracteres para aperfeiçoar
+              </span>
             </div>
 
             <div id="ai-feedback" class="inline-feedback hidden mt-4 rounded-lg border border-ai-blue/30 bg-ai-blue/10 px-4 py-3">
@@ -555,6 +558,7 @@
                 type="button"
                 id="btn-enhance"
                 onclick="enhancePrompt()"
+                disabled
                 class="btn-ai-outline w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border-subtle hover:border-ai-blue text-text-primary hover:text-ai-blue-soft font-medium text-sm px-5 py-3"
               >
                 <span id="enhance-icon">✨</span>
@@ -567,8 +571,33 @@
                 onclick="submitAI()"
                 class="btn-ai-primary w-full sm:flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-ai-blue hover:bg-ai-blue-soft text-bg-base font-semibold text-sm px-5 py-3"
               >
-                🚀 Criar Site com IA
+                <span id="create-ai-label">🚀 Criar Site com IA</span>
               </button>
+            </div>
+
+            <!-- Resultado da geração (preview + código-fonte) -->
+            <div id="ai-result" class="hidden mt-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">Preview do site gerado</span>
+                <button type="button" onclick="copyGeneratedCode()"
+                  class="inline-flex items-center gap-1.5 font-mono text-[11px] text-ai-blue-soft hover:text-ai-blue transition-colors">
+                  <span id="copy-code-label">Copiar código</span>
+                </button>
+              </div>
+
+              <iframe
+                id="ai-preview-frame"
+                title="Preview do site gerado por IA"
+                sandbox="allow-scripts"
+                class="w-full h-72 rounded-lg border border-border-subtle bg-white"
+              ></iframe>
+
+              <details class="mt-3 rounded-lg border border-border-subtle bg-bg-base">
+                <summary class="cursor-pointer px-4 py-2.5 font-mono text-[11px] text-text-secondary uppercase tracking-wide">
+                  Ver código-fonte
+                </summary>
+                <pre class="max-h-64 overflow-auto px-4 pb-4 pt-1"><code id="ai-code-output" class="font-mono text-[11px] text-text-secondary whitespace-pre-wrap break-words"></code></pre>
+              </details>
             </div>
           </div>
           <!-- ===== /CARD A ===== -->
@@ -1291,25 +1320,48 @@
 
     const aiPromptEl = document.getElementById('ai-prompt');
     const aiCharCountEl = document.getElementById('ai-char-count');
+    const aiMinHintEl = document.getElementById('ai-min-hint');
+    const btnEnhanceEl = document.getElementById('btn-enhance');
 
-    // Contador de caracteres do prompt
+    // Tamanho mínimo (em caracteres, sem espaços nas pontas) para liberar o "Aperfeiçoar Prompt"
+    const MIN_PROMPT_LENGTH = 12;
+
+    // Contador de caracteres + trava de tamanho mínimo do botão "Aperfeiçoar Prompt"
     aiPromptEl.addEventListener('input', function () {
-      aiCharCountEl.textContent = aiPromptEl.value.length + ' caracteres';
+      const length = aiPromptEl.value.length;
+      const isTooShort = aiPromptEl.value.trim().length < MIN_PROMPT_LENGTH;
+
+      aiCharCountEl.textContent = length + ' caracteres';
+      btnEnhanceEl.disabled = isTooShort;
+      aiMinHintEl.classList.toggle('hidden', !isTooShort);
     });
 
     /**
-     * Simula o "aprimoramento" do prompt do usuário via IA.
-     * Em produção, aqui entraria uma chamada real à API de IA.
+     * Envia a ideia curta do usuário para o backend (POST /api/aperfeicoar-prompt)
+     * e substitui o campo de texto pela versão detalhada retornada.
      */
-    function enhancePrompt() {
+    async function enhancePrompt() {
       const btn = document.getElementById('btn-enhance');
       const icon = document.getElementById('enhance-icon');
       const label = document.getElementById('enhance-label');
       const createBtn = document.getElementById('btn-create-ai');
+      const feedback = document.getElementById('ai-feedback');
+      const feedbackText = feedback.querySelector('p');
 
       const currentText = aiPromptEl.value.trim();
       if (!currentText) {
         aiPromptEl.focus();
+        return;
+      }
+
+      // Segurança extra: reforça a trava mesmo se o botão for acionado por outro caminho
+      if (currentText.length < MIN_PROMPT_LENGTH) {
+        aiPromptEl.focus();
+        feedback.classList.remove('hidden');
+        feedback.classList.remove('border-red-500/30', 'bg-red-500/10');
+        feedback.classList.add('border-ai-blue/30', 'bg-ai-blue/10');
+        feedbackText.className = 'text-xs text-ai-blue-soft leading-relaxed';
+        feedbackText.textContent = '✏️ Escreva um pouco mais sobre a ideia do seu site (pelo menos ' + MIN_PROMPT_LENGTH + ' caracteres) para eu poder aperfeiçoar.';
         return;
       }
 
@@ -1318,49 +1370,135 @@
       createBtn.disabled = true;
       icon.outerHTML = '<span id="enhance-icon" class="spinner"></span>';
       label.textContent = 'Aprimorando...';
+      feedback.classList.add('hidden');
 
-      // Simulação de processamento (troque por chamada real à API quando integrar)
-      setTimeout(function () {
-        aiPromptEl.value =
-          currentText +
-          '\n\nDetalhes adicionais: tom de voz profissional e acolhedor, paleta de cores moderna, ' +
-          'seção de depoimentos, botão de contato/WhatsApp em destaque e formulário de agendamento visível na primeira dobra.';
-        aiCharCountEl.textContent = aiPromptEl.value.length + ' caracteres';
+      try {
+        const response = await fetch('http://localhost:3000/api/aperfeicoar-prompt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: currentText }),
+        });
 
-        // Restaura o botão
-        document.getElementById('enhance-icon').outerHTML = '<span id="enhance-icon">✨</span>';
+        if (!response.ok) {
+          throw new Error('O servidor respondeu com status ' + response.status);
+        }
+
+        const data = await response.json();
+        const promptAprimorado = data.promptAprimorado || '';
+
+        if (!promptAprimorado) {
+          throw new Error('A resposta do servidor não trouxe o campo "promptAprimorado".');
+        }
+
+        aiPromptEl.value = promptAprimorado;
+        aiPromptEl.dispatchEvent(new Event('input'));
         label.textContent = 'Prompt Aprimorado';
-        btn.disabled = false;
+      } catch (err) {
+        console.error('Erro ao aperfeiçoar o prompt:', err);
+        feedback.classList.remove('hidden');
+        feedback.classList.remove('border-ai-blue/30', 'bg-ai-blue/10');
+        feedback.classList.add('border-red-500/30', 'bg-red-500/10');
+        feedbackText.className = 'text-xs text-red-400 leading-relaxed';
+        feedbackText.textContent = '❌ Não foi possível aperfeiçoar o prompt agora. Verifique se o backend está rodando em localhost:3000.';
+        label.textContent = 'Aperfeiçoar Prompt';
+      } finally {
+        document.getElementById('enhance-icon').outerHTML = '<span id="enhance-icon">✨</span>';
+        btn.disabled = aiPromptEl.value.trim().length < MIN_PROMPT_LENGTH;
         createBtn.disabled = false;
 
         setTimeout(function () {
-          label.textContent = 'Aperfeiçoar Prompt';
+          if (label.textContent === 'Prompt Aprimorado') {
+            label.textContent = 'Aperfeiçoar Prompt';
+          }
         }, 2000);
-      }, 1600);
+      }
     }
 
     /**
-     * Envia a solicitação de geração via IA.
-     * Por enquanto, direciona para o WhatsApp com o prompt já preenchido —
-     * quando a geração automática estiver pronta, troque este bloco pela chamada real à API.
+     * Envia o prompt para o backend (POST /api/gerar-site) e exibe o HTML retornado
+     * no preview (iframe) e no bloco de código-fonte.
      */
-    function submitAI() {
+    async function submitAI() {
       const value = aiPromptEl.value.trim();
       const feedback = document.getElementById('ai-feedback');
+      const feedbackText = feedback.querySelector('p');
+      const createBtn = document.getElementById('btn-create-ai');
+      const createLabel = document.getElementById('create-ai-label');
+      const resultEl = document.getElementById('ai-result');
+      const previewFrame = document.getElementById('ai-preview-frame');
+      const codeOutput = document.getElementById('ai-code-output');
 
       if (!value) {
         aiPromptEl.focus();
         return;
       }
 
-      feedback.classList.remove('hidden');
+      // Estado de carregamento
+      createBtn.disabled = true;
+      createLabel.innerHTML = '<span class="spinner"></span> Gerando site...';
+      feedback.classList.add('hidden');
+      resultEl.classList.add('hidden');
 
-      const message =
-        'Olá, tenho interesse em um projeto da Forja Templates!\n\n' +
-        'Quero criar um site com o Gerador por IA. Minha ideia:\n' + value;
+      try {
+        const response = await fetch('http://localhost:3000/api/gerar-site', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: value }),
+        });
 
-      const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
-      window.open(url, '_blank', 'noopener,noreferrer');
+        if (!response.ok) {
+          throw new Error('O servidor respondeu com status ' + response.status);
+        }
+
+        const data = await response.json();
+        const codigoGerado = data.codigo || '';
+
+        if (!codigoGerado) {
+          throw new Error('A resposta do servidor não trouxe o campo "codigo".');
+        }
+
+        // Exibe o código no bloco de texto (via textContent, nunca innerHTML — evita XSS)
+        codeOutput.textContent = codigoGerado;
+
+        // Renderiza o preview visual dentro do iframe isolado (sandbox)
+        previewFrame.srcdoc = codigoGerado;
+
+        resultEl.classList.remove('hidden');
+        feedback.classList.remove('hidden');
+        feedback.classList.remove('border-red-500/30', 'bg-red-500/10');
+        feedback.classList.add('border-ai-blue/30', 'bg-ai-blue/10');
+        feedbackText.className = 'text-xs text-ai-blue-soft leading-relaxed';
+        feedbackText.textContent = '✅ Site gerado com sucesso! Veja o preview abaixo.';
+
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (err) {
+        console.error('Erro ao gerar site:', err);
+        feedback.classList.remove('hidden');
+        feedback.classList.remove('border-ai-blue/30', 'bg-ai-blue/10');
+        feedback.classList.add('border-red-500/30', 'bg-red-500/10');
+        feedbackText.className = 'text-xs text-red-400 leading-relaxed';
+        feedbackText.textContent = '❌ Não foi possível gerar o site agora. Verifique se o backend está rodando em localhost:3000 e tente novamente.';
+      } finally {
+        createBtn.disabled = false;
+        createLabel.textContent = '🚀 Criar Site com IA';
+      }
+    }
+
+    /**
+     * Copia o código-fonte gerado para a área de transferência.
+     */
+    function copyGeneratedCode() {
+      const codeOutput = document.getElementById('ai-code-output');
+      const label = document.getElementById('copy-code-label');
+
+      if (!codeOutput.textContent) return;
+
+      navigator.clipboard.writeText(codeOutput.textContent).then(function () {
+        label.textContent = 'Copiado!';
+        setTimeout(function () {
+          label.textContent = 'Copiar código';
+        }, 2000);
+      });
     }
 
     /**

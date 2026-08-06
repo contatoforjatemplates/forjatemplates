@@ -13,7 +13,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
 <script>
   // Tokens de marca — Dark Premium Tech
   tailwind.config = {
@@ -135,14 +134,18 @@
   .faq-item[open] .faq-icon { transform: rotate(45deg); }
   .faq-item[open] summary { color: #F5F5F7; }
 
-  /* Seção "Criar Projeto" — Card IA (glow azul-neon) e Card Pedido VIP (glow dourado) */
+  /* Seção "Criar Projeto" — Card IA (glass panel + acento violeta do site) e Card Pedido VIP (glow dourado) */
   .card-ai {
     transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
   }
   .card-ai:hover {
-    border-color: #38BDF8;
-    box-shadow: 0 16px 48px -18px rgba(56, 189, 248, 0.35);
+    border-color: #6C5CE7;
+    box-shadow: 0 16px 48px -18px rgba(108, 92, 231, 0.4);
     transform: translateY(-3px);
+  }
+  .ai-glass-panel {
+    background: linear-gradient(180deg, rgba(24,24,32,0.9) 0%, rgba(15,15,22,0.9) 100%);
+    backdrop-filter: blur(14px);
   }
   .card-vip-order {
     transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
@@ -152,16 +155,13 @@
     box-shadow: 0 16px 48px -18px rgba(240, 180, 41, 0.35);
     transform: translateY(-3px);
   }
-  .btn-ai-primary { transition: box-shadow 220ms ease, transform 180ms ease, background-color 200ms ease, opacity 200ms ease; }
-  .btn-ai-primary:hover:not(:disabled) { box-shadow: 0 10px 30px -8px rgba(56, 189, 248, 0.55); transform: translateY(-1px); }
-  .btn-ai-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   .btn-ai-outline { transition: border-color 200ms ease, color 200ms ease, background-color 200ms ease, opacity 200ms ease; }
   .btn-ai-outline:disabled { opacity: 0.6; cursor: not-allowed; }
   .btn-vip-primary { transition: box-shadow 220ms ease, transform 180ms ease, background-color 200ms ease; }
   .btn-vip-primary:hover { box-shadow: 0 10px 30px -8px rgba(240, 180, 41, 0.55); transform: translateY(-1px); }
   #criar-projeto textarea, #criar-projeto input { transition: border-color 200ms ease, box-shadow 200ms ease; }
   #criar-projeto textarea:focus, #criar-projeto input:focus { outline: none; }
-  .focus-ring-ai:focus { border-color: #38BDF8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
+  .focus-ring-ai:focus { border-color: #6C5CE7; box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15); }
   .focus-ring-vip:focus { border-color: #F0B429; box-shadow: 0 0 0 3px rgba(240, 180, 41, 0.15); }
   @keyframes spin { to { transform: rotate(360deg); } }
   .spinner {
@@ -172,6 +172,49 @@
     animation: spin 700ms linear infinite;
   }
   .inline-feedback { transition: opacity 200ms ease, transform 200ms ease; }
+
+  /* Pills de sugestão rápida de nicho */
+  .pill-tag { transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1); }
+  .pill-tag:hover {
+    transform: translateY(-2px);
+    border-color: #8B7CF6;
+    box-shadow: 0 8px 20px -6px rgba(108, 92, 231, 0.4);
+  }
+
+  /* Botão principal "Criar Site com IA" — gradiente violeta consistente com o accent do site */
+  .btn-generate {
+    background: linear-gradient(135deg, #6C5CE7 0%, #8B7CF6 100%);
+    transition: box-shadow 250ms ease, transform 180ms ease, opacity 200ms ease;
+  }
+  .btn-generate:hover:not(:disabled) {
+    box-shadow: 0 10px 30px -8px rgba(139, 124, 246, 0.6);
+    transform: translateY(-1px);
+  }
+  .btn-generate:disabled { opacity: 0.75; cursor: not-allowed; transform: none; }
+  .fade-text { transition: opacity 300ms ease; }
+
+  /* Bolinhas de loading do botão de geração */
+  .loader-dot { animation: bounceDot 1.4s infinite ease-in-out both; }
+  .loader-dot:nth-child(1) { animation-delay: -0.32s; }
+  .loader-dot:nth-child(2) { animation-delay: -0.16s; }
+  @keyframes bounceDot {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Painel de resultado (toolbar + iframe) */
+  .toolbar-btn { transition: all 200ms ease; }
+  .toolbar-btn:hover { background-color: rgba(255,255,255,0.06); transform: translateY(-1px); }
+  .iframe-wrap { box-shadow: 0 20px 50px -18px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06); }
+
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in-up { animation: fadeInUp 500ms ease-out forwards; }
+
+  /* Toast de confirmação (copiar/baixar) */
+  #toast { transition: opacity 200ms ease, transform 200ms ease; }
 
   /* Modal de Termos e Política */
   #terms-modal-overlay {
@@ -200,8 +243,9 @@
     .btn-primary, .btn-primary-sm, .btn-primary-lg,
     .btn-secondary, .btn-outline-sm, .btn-outline-lg,
     .card-available, .benefit-card, .faq-icon, .guarantee-ring,
-    #mobile-menu, .card-ai, .card-vip-order, .btn-ai-primary, .btn-ai-outline,
+    #mobile-menu, .card-ai, .card-vip-order, .btn-ai-outline,
     .btn-vip-primary, .spinner, .inline-feedback,
+    .pill-tag, .btn-generate, .loader-dot, .toolbar-btn, .fade-text, .fade-in-up, #toast,
     #terms-modal-overlay, #terms-modal-content { transition: none; animation: none; }
   }
 
@@ -511,15 +555,15 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
 
           <!-- ===== CARD A — IA INSTANTÂNEA ===== -->
-          <div class="card-ai flex flex-col rounded-2xl border border-border-subtle bg-bg-card p-7 sm:p-8">
+          <div class="card-ai ai-glass-panel flex flex-col rounded-2xl border border-border-subtle p-7 sm:p-8">
 
-            <span class="inline-flex items-center gap-1.5 self-start rounded-full border border-ai-blue/30 bg-ai-blue/10 px-3 py-1 font-mono text-[11px] text-ai-blue-soft">
+            <span class="inline-flex items-center gap-1.5 self-start rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[11px] text-accent-soft">
               ⚡ Instantâneo
             </span>
 
             <div class="flex items-center gap-3 mt-5">
-              <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-ai-blue/10 border border-ai-blue/30">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-ai-blue-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <div class="flex items-center justify-center w-11 h-11 rounded-lg bg-accent/10 border border-accent/30">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="m12 3-1.9 4.9L5 9.8l4.1 3.1L7.8 18 12 15.1 16.2 18l-1.3-5.1L19 9.8l-5.1-1.9L12 3Z"/>
                 </svg>
               </div>
@@ -527,11 +571,36 @@
             </div>
 
             <p class="mt-4 text-sm text-text-secondary leading-relaxed">
-              Descreva a ideia do seu site e nossa IA gera uma landing page completa em segundos —
+              Descreva a ideia do seu site e nossa IA forja o código HTML completo em segundos —
               ideal para validar rápido ou já sair na frente enquanto decide os detalhes finais.
             </p>
 
-            <div class="mt-6">
+            <!-- Sugestões rápidas de nicho -->
+            <div class="mt-5">
+              <p class="font-mono text-[11px] text-text-secondary uppercase tracking-wide mb-2.5">Sugestões rápidas de nicho</p>
+              <div id="pill-container" class="flex flex-wrap gap-2">
+                <button type="button" class="pill-tag px-3.5 py-1.5 rounded-full text-xs font-medium bg-bg-base border border-border-subtle text-text-secondary hover:text-text-primary" data-prompt="Landing page para uma clínica odontológica moderna, com seção de serviços, depoimentos de pacientes e botão de agendamento via WhatsApp.">
+                  🦷 Odontologia
+                </button>
+                <button type="button" class="pill-tag px-3.5 py-1.5 rounded-full text-xs font-medium bg-bg-base border border-border-subtle text-text-secondary hover:text-text-primary" data-prompt="Site institucional para um escritório de advocacia, transmitindo autoridade e confiança, com áreas de atuação e formulário de contato.">
+                  ⚖️ Advocacia
+                </button>
+                <button type="button" class="pill-tag px-3.5 py-1.5 rounded-full text-xs font-medium bg-bg-base border border-border-subtle text-text-secondary hover:text-text-primary" data-prompt="Landing page de vendas para um infoproduto digital sobre finanças pessoais, com prova social, oferta e contagem regressiva.">
+                  💰 Infoproduto
+                </button>
+                <button type="button" class="pill-tag px-3.5 py-1.5 rounded-full text-xs font-medium bg-bg-base border border-border-subtle text-text-secondary hover:text-text-primary" data-prompt="Cardápio digital elegante para um restaurante japonês, com seções de pratos, fotos ilustrativas e informações de reserva.">
+                  🍣 Restaurante
+                </button>
+                <button type="button" class="pill-tag px-3.5 py-1.5 rounded-full text-xs font-medium bg-bg-base border border-border-subtle text-text-secondary hover:text-text-primary" data-prompt="Portfólio pessoal para um fotógrafo profissional, com galeria de imagens em grid, biografia e contato.">
+                  📷 Fotógrafo
+                </button>
+                <button type="button" class="pill-tag px-3.5 py-1.5 rounded-full text-xs font-medium bg-bg-base border border-border-subtle text-text-secondary hover:text-text-primary" data-prompt="Página de vendas para uma academia de crossfit, com planos de assinatura, galeria de estrutura e depoimentos de alunos.">
+                  🏋️ Academia
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-5">
               <label for="ai-prompt" class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">
                 Descreva a ideia do seu site
               </label>
@@ -541,25 +610,23 @@
                 placeholder="Ex: Uma landing page para meu petshop, com tom acolhedor, destacando banho e tosa e agendamento online..."
                 class="focus-ring-ai mt-2 w-full resize-none rounded-lg border border-border-subtle bg-bg-base text-text-primary placeholder-text-secondary/60 text-sm px-4 py-3 leading-relaxed"
               ></textarea>
-              <span id="ai-char-count" class="block mt-1.5 font-mono text-[11px] text-text-secondary">0 caracteres</span>
-              <span id="ai-min-hint" class="block mt-1 font-mono text-[11px] text-text-secondary/70">
-                digite pelo menos 12 caracteres para aperfeiçoar
-              </span>
+              <div class="flex items-center justify-between mt-1.5">
+                <span id="ai-char-count" class="font-mono text-[11px] text-text-secondary">0 caracteres</span>
+                <span id="ai-min-hint" class="font-mono text-[11px] text-text-secondary/70">mín. 12 caracteres para aperfeiçoar</span>
+              </div>
             </div>
 
-            <div id="ai-feedback" class="inline-feedback hidden mt-4 rounded-lg border border-ai-blue/30 bg-ai-blue/10 px-4 py-3">
-              <p class="text-xs text-ai-blue-soft leading-relaxed">
-                ✅ Prompt enviado! Em breve você recebe o preview do seu site gerado por IA.
-              </p>
+            <div id="ai-feedback" class="inline-feedback hidden mt-4 rounded-lg border border-accent/30 bg-accent/10 px-4 py-3">
+              <p class="text-xs text-accent-soft leading-relaxed"></p>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-3 mt-6">
+            <div class="flex flex-col sm:flex-row gap-3 mt-5">
               <button
                 type="button"
                 id="btn-enhance"
                 onclick="enhancePrompt()"
                 disabled
-                class="btn-ai-outline w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border-subtle hover:border-ai-blue text-text-primary hover:text-ai-blue-soft font-medium text-sm px-5 py-3"
+                class="btn-ai-outline w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-5 py-3"
               >
                 <span id="enhance-icon">✨</span>
                 <span id="enhance-label">Aperfeiçoar Prompt</span>
@@ -567,38 +634,54 @@
 
               <button
                 type="button"
-                id="btn-create-ai"
-                onclick="submitAI()"
-                class="btn-ai-primary w-full sm:flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-ai-blue hover:bg-ai-blue-soft text-bg-base font-semibold text-sm px-5 py-3"
+                id="generate-btn"
+                onclick="gerarSite()"
+                class="btn-generate w-full sm:flex-1 inline-flex items-center justify-center gap-2.5 rounded-lg text-white font-semibold text-sm px-5 py-3"
               >
-                <span id="create-ai-label">🚀 Criar Site com IA</span>
+                <span id="btn-icon">🚀</span>
+                <span id="btn-text" class="fade-text">Criar Site com IA</span>
+                <span id="btn-loader" class="hidden items-center gap-1.5">
+                  <span class="loader-dot w-1.5 h-1.5 rounded-full bg-white/90"></span>
+                  <span class="loader-dot w-1.5 h-1.5 rounded-full bg-white/90"></span>
+                  <span class="loader-dot w-1.5 h-1.5 rounded-full bg-white/90"></span>
+                </span>
               </button>
             </div>
+            <p class="mt-2.5 text-[11px] text-text-secondary/70 leading-relaxed">
+              A geração leva alguns segundos. Você poderá copiar ou baixar o código gerado.
+            </p>
 
-            <!-- Resultado da geração (preview + código-fonte) -->
-            <div id="ai-result" class="hidden mt-6">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">Preview do site gerado</span>
-                <button type="button" onclick="copyGeneratedCode()"
-                  class="inline-flex items-center gap-1.5 font-mono text-[11px] text-ai-blue-soft hover:text-ai-blue transition-colors">
-                  <span id="copy-code-label">Copiar código</span>
-                </button>
+            <!-- Resultado da geração -->
+            <section id="result-section" class="hidden mt-6">
+              <div class="rounded-xl border border-border-subtle overflow-hidden">
+                <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-border-subtle bg-bg-base">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]"></span>
+                    <span class="text-xs font-medium text-text-secondary">Site gerado com sucesso</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="copiarCodigo()"
+                      class="toolbar-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-bg-card border border-border-subtle text-text-secondary hover:text-text-primary">
+                      📋 <span id="copy-label">Copiar Código</span>
+                    </button>
+                    <button type="button" onclick="baixarHTML()"
+                      class="toolbar-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-accent/15 border border-accent/40 text-accent-soft">
+                      ⬇️ Baixar HTML
+                    </button>
+                  </div>
+                </div>
+                <div class="p-3">
+                  <div class="iframe-wrap rounded-lg overflow-hidden bg-white">
+                    <iframe
+                      id="preview-iframe"
+                      title="Prévia do site gerado por IA"
+                      sandbox="allow-scripts"
+                      class="w-full h-72 border-0"
+                    ></iframe>
+                  </div>
+                </div>
               </div>
-
-              <iframe
-                id="ai-preview-frame"
-                title="Preview do site gerado por IA"
-                sandbox="allow-scripts"
-                class="w-full h-72 rounded-lg border border-border-subtle bg-white"
-              ></iframe>
-
-              <details class="mt-3 rounded-lg border border-border-subtle bg-bg-base">
-                <summary class="cursor-pointer px-4 py-2.5 font-mono text-[11px] text-text-secondary uppercase tracking-wide">
-                  Ver código-fonte
-                </summary>
-                <pre class="max-h-64 overflow-auto px-4 pb-4 pt-1"><code id="ai-code-output" class="font-mono text-[11px] text-text-secondary whitespace-pre-wrap break-words"></code></pre>
-              </details>
-            </div>
+            </section>
           </div>
           <!-- ===== /CARD A ===== -->
 
@@ -1204,6 +1287,16 @@
   <!-- ================= /MODAL: TERMOS E POLÍTICA ================= -->
 
 
+  <!-- ================= TOAST: CONFIRMAÇÃO (copiar/baixar código) ================= -->
+  <div id="toast" class="hidden fixed bottom-6 right-6 z-[70]">
+    <div class="rounded-xl border border-border-subtle bg-bg-card px-5 py-3.5 text-sm font-medium text-text-primary shadow-2xl flex items-center gap-2.5">
+      <span id="toast-icon">✅</span>
+      <span id="toast-text">Copiado para a área de transferência</span>
+    </div>
+  </div>
+  <!-- ================= /TOAST ================= -->
+
+
   <!-- ================= FOOTER ================= -->
   <footer class="relative bg-bg-base border-t border-border-subtle">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-14">
@@ -1344,7 +1437,7 @@
       const btn = document.getElementById('btn-enhance');
       const icon = document.getElementById('enhance-icon');
       const label = document.getElementById('enhance-label');
-      const createBtn = document.getElementById('btn-create-ai');
+      const createBtn = document.getElementById('generate-btn');
       const feedback = document.getElementById('ai-feedback');
       const feedbackText = feedback.querySelector('p');
 
@@ -1359,8 +1452,8 @@
         aiPromptEl.focus();
         feedback.classList.remove('hidden');
         feedback.classList.remove('border-red-500/30', 'bg-red-500/10');
-        feedback.classList.add('border-ai-blue/30', 'bg-ai-blue/10');
-        feedbackText.className = 'text-xs text-ai-blue-soft leading-relaxed';
+        feedback.classList.add('border-accent/30', 'bg-accent/10');
+        feedbackText.className = 'text-xs text-accent-soft leading-relaxed';
         feedbackText.textContent = '✏️ Escreva um pouco mais sobre a ideia do seu site (pelo menos ' + MIN_PROMPT_LENGTH + ' caracteres) para eu poder aperfeiçoar.';
         return;
       }
@@ -1396,7 +1489,7 @@
       } catch (err) {
         console.error('Erro ao aperfeiçoar o prompt:', err);
         feedback.classList.remove('hidden');
-        feedback.classList.remove('border-ai-blue/30', 'bg-ai-blue/10');
+        feedback.classList.remove('border-accent/30', 'bg-accent/10');
         feedback.classList.add('border-red-500/30', 'bg-red-500/10');
         feedbackText.className = 'text-xs text-red-400 leading-relaxed';
         feedbackText.textContent = '❌ Não foi possível aperfeiçoar o prompt agora. Verifique se o backend está rodando em localhost:3000.';
@@ -1414,30 +1507,85 @@
       }
     }
 
+    // ─── Preenchimento automático via pills de sugestão ──────────
+    document.querySelectorAll('.pill-tag').forEach(function (pillBtn) {
+      pillBtn.addEventListener('click', function () {
+        aiPromptEl.value = pillBtn.getAttribute('data-prompt');
+        aiPromptEl.dispatchEvent(new Event('input'));
+        aiPromptEl.focus();
+      });
+    });
+
+    // ─── Estado de geração: código atual + mensagens rotativas de loading ───
+    let codigoGerado = '';
+    let loadingInterval = null;
+
+    const mensagensCarregamento = [
+      'Analisando sua descrição...',
+      'Estruturando o layout...',
+      'Escolhendo a paleta ideal...',
+      'Escrevendo o HTML...',
+      'Aplicando estilos e responsividade...',
+      'Finalizando os últimos detalhes...',
+    ];
+
+    function iniciarLoadingGeracao() {
+      const icon = document.getElementById('btn-icon');
+      const text = document.getElementById('btn-text');
+      const loader = document.getElementById('btn-loader');
+
+      icon.classList.add('hidden');
+      loader.classList.remove('hidden');
+      loader.classList.add('flex');
+
+      let i = 0;
+      text.textContent = mensagensCarregamento[i];
+      text.style.opacity = '1';
+
+      loadingInterval = setInterval(function () {
+        text.style.opacity = '0';
+        setTimeout(function () {
+          i = (i + 1) % mensagensCarregamento.length;
+          text.textContent = mensagensCarregamento[i];
+          text.style.opacity = '1';
+        }, 300);
+      }, 2200);
+    }
+
+    function pararLoadingGeracao() {
+      const icon = document.getElementById('btn-icon');
+      const text = document.getElementById('btn-text');
+      const loader = document.getElementById('btn-loader');
+
+      clearInterval(loadingInterval);
+      icon.classList.remove('hidden');
+      loader.classList.add('hidden');
+      loader.classList.remove('flex');
+      text.style.opacity = '1';
+      text.textContent = 'Criar Site com IA';
+    }
+
     /**
      * Envia o prompt para o backend (POST /api/gerar-site) e exibe o HTML retornado
-     * no preview (iframe) e no bloco de código-fonte.
+     * no preview (iframe), liberando os botões de copiar e baixar o código.
      */
-    async function submitAI() {
+    async function gerarSite() {
       const value = aiPromptEl.value.trim();
       const feedback = document.getElementById('ai-feedback');
       const feedbackText = feedback.querySelector('p');
-      const createBtn = document.getElementById('btn-create-ai');
-      const createLabel = document.getElementById('create-ai-label');
-      const resultEl = document.getElementById('ai-result');
-      const previewFrame = document.getElementById('ai-preview-frame');
-      const codeOutput = document.getElementById('ai-code-output');
+      const createBtn = document.getElementById('generate-btn');
+      const resultEl = document.getElementById('result-section');
+      const previewFrame = document.getElementById('preview-iframe');
 
       if (!value) {
         aiPromptEl.focus();
         return;
       }
 
-      // Estado de carregamento
       createBtn.disabled = true;
-      createLabel.innerHTML = '<span class="spinner"></span> Gerando site...';
       feedback.classList.add('hidden');
       resultEl.classList.add('hidden');
+      iniciarLoadingGeracao();
 
       try {
         const response = await fetch('http://localhost:3000/api/gerar-site', {
@@ -1451,55 +1599,90 @@
         }
 
         const data = await response.json();
-        const codigoGerado = data.codigo || '';
+        codigoGerado = data.codigo || '';
 
         if (!codigoGerado) {
           throw new Error('A resposta do servidor não trouxe o campo "codigo".');
         }
 
-        // Exibe o código no bloco de texto (via textContent, nunca innerHTML — evita XSS)
-        codeOutput.textContent = codigoGerado;
-
         // Renderiza o preview visual dentro do iframe isolado (sandbox)
         previewFrame.srcdoc = codigoGerado;
 
         resultEl.classList.remove('hidden');
-        feedback.classList.remove('hidden');
-        feedback.classList.remove('border-red-500/30', 'bg-red-500/10');
-        feedback.classList.add('border-ai-blue/30', 'bg-ai-blue/10');
-        feedbackText.className = 'text-xs text-ai-blue-soft leading-relaxed';
-        feedbackText.textContent = '✅ Site gerado com sucesso! Veja o preview abaixo.';
-
+        resultEl.classList.add('fade-in-up');
         resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } catch (err) {
         console.error('Erro ao gerar site:', err);
         feedback.classList.remove('hidden');
-        feedback.classList.remove('border-ai-blue/30', 'bg-ai-blue/10');
+        feedback.classList.remove('border-accent/30', 'bg-accent/10');
         feedback.classList.add('border-red-500/30', 'bg-red-500/10');
         feedbackText.className = 'text-xs text-red-400 leading-relaxed';
         feedbackText.textContent = '❌ Não foi possível gerar o site agora. Verifique se o backend está rodando em localhost:3000 e tente novamente.';
       } finally {
         createBtn.disabled = false;
-        createLabel.textContent = '🚀 Criar Site com IA';
+        pararLoadingGeracao();
       }
     }
 
     /**
      * Copia o código-fonte gerado para a área de transferência.
      */
-    function copyGeneratedCode() {
-      const codeOutput = document.getElementById('ai-code-output');
-      const label = document.getElementById('copy-code-label');
+    async function copiarCodigo() {
+      if (!codigoGerado) return;
 
-      if (!codeOutput.textContent) return;
-
-      navigator.clipboard.writeText(codeOutput.textContent).then(function () {
-        label.textContent = 'Copiado!';
-        setTimeout(function () {
-          label.textContent = 'Copiar código';
-        }, 2000);
-      });
+      try {
+        await navigator.clipboard.writeText(codigoGerado);
+        mostrarToast('✅', 'Código copiado para a área de transferência');
+      } catch (err) {
+        console.error('Falha ao copiar:', err);
+        mostrarToast('⚠️', 'Não foi possível copiar automaticamente');
+      }
     }
+
+    /**
+     * Baixa o HTML gerado como um arquivo .html.
+     */
+    function baixarHTML() {
+      if (!codigoGerado) return;
+
+      const blob = new Blob([codigoGerado], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.download = 'site-gerado-forja-templates.html';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      mostrarToast('⬇️', 'Download iniciado');
+    }
+
+    // ─── Toast de confirmação (copiar/baixar) ────────────────────
+    let toastTimeout = null;
+    function mostrarToast(icon, texto) {
+      const toast = document.getElementById('toast');
+      const toastIcon = document.getElementById('toast-icon');
+      const toastText = document.getElementById('toast-text');
+
+      toastIcon.textContent = icon;
+      toastText.textContent = texto;
+      toast.classList.remove('hidden');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(function () {
+        toast.classList.add('hidden');
+      }, 2800);
+    }
+
+    // ─── Atalho: Ctrl/Cmd + Enter no textarea para gerar direto ──
+    aiPromptEl.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        gerarSite();
+      }
+    });
+
 
     /**
      * Consolida os dados do formulário e abre o WhatsApp com a mensagem pronta.

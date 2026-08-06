@@ -1497,7 +1497,7 @@
       const coldStartTimer = agendarAvisoColdStart();
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/aperfeicoar-prompt`, {
+        const response = await fetch('https://forja-templates.onrender.com/aperfeicoar-prompt', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: currentText }),
@@ -1624,7 +1624,7 @@
       const coldStartTimer = agendarAvisoColdStart();
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/gerar-site`, {
+        const response = await fetch('https://forja-templates.onrender.com/gerar-site', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: value }),

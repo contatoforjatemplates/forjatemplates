@@ -1459,7 +1459,7 @@
     });
 
     /**
-     * Envia a ideia curta do usuário para o backend (POST /api/aperfeicoar-prompt)
+     * Envia a ideia curta do usuário para o backend (POST /api/gerar-prompt)
      * e substitui o campo de texto pela versão detalhada retornada.
      */
     async function enhancePrompt() {
@@ -1497,7 +1497,7 @@
       const coldStartTimer = agendarAvisoColdStart();
 
       try {
-        const response = await fetch('https://forja-templates.onrender.com/aperfeicoar-prompt', {
+        const response = await fetch(`${API_BASE_URL}/api/gerar-prompt`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: currentText }),
@@ -1624,7 +1624,7 @@
       const coldStartTimer = agendarAvisoColdStart();
 
       try {
-        const response = await fetch('https://forja-templates.onrender.com/gerar-site', {
+        const response = await fetch(`${API_BASE_URL}/api/gerar-site`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: value }),

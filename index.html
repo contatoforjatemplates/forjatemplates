@@ -208,6 +208,36 @@
   .toolbar-btn:hover { background-color: rgba(255,255,255,0.06); transform: translateY(-1px); }
   .iframe-wrap { box-shadow: 0 20px 50px -18px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06); }
 
+  /* Marca d'água da prévia protegida — texto repetido, diagonal, sem bloquear a interação */
+  .watermark-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .watermark-overlay span {
+    display: inline-block;
+    transform: rotate(-24deg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.55);
+    mix-blend-mode: difference;
+    white-space: nowrap;
+    margin: 26px 34px;
+    user-select: none;
+  }
+
+  /* Timeline de histórico de iterações (sidebar) */
+  .historico-item { transition: border-color 180ms ease, background-color 180ms ease; }
+  .historico-item.is-active { border-color: #6C5CE7; background-color: rgba(108, 92, 231, 0.08); }
+
   @keyframes fadeInUp {
     0% { opacity: 0; transform: translateY(16px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -247,6 +277,7 @@
     #mobile-menu, .card-ai, .card-vip-order, .btn-ai-outline,
     .btn-vip-primary, .spinner, .inline-feedback,
     .pill-tag, .btn-generate, .loader-dot, .toolbar-btn, .fade-text, .fade-in-up, #toast,
+    .historico-item,
     #terms-modal-overlay, #terms-modal-content { transition: none; animation: none; }
   }
 
@@ -663,40 +694,8 @@
               </button>
             </div>
             <p class="mt-2.5 text-[11px] text-text-secondary/70 leading-relaxed">
-              A geração leva alguns segundos. Você poderá copiar ou baixar o código gerado.
+              A geração leva alguns segundos. Você verá uma prévia protegida do resultado logo abaixo.
             </p>
-
-            <!-- Resultado da geração -->
-            <section id="result-section" class="hidden mt-6">
-              <div class="rounded-xl border border-border-subtle overflow-hidden">
-                <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-border-subtle bg-bg-base">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]"></span>
-                    <span class="text-xs font-medium text-text-secondary">Site gerado com sucesso</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <button type="button" onclick="copiarCodigo()"
-                      class="toolbar-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-bg-card border border-border-subtle text-text-secondary hover:text-text-primary">
-                      📋 <span id="copy-label">Copiar Código</span>
-                    </button>
-                    <button type="button" onclick="baixarHTML()"
-                      class="toolbar-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-accent/15 border border-accent/40 text-accent-soft">
-                      ⬇️ Baixar HTML
-                    </button>
-                  </div>
-                </div>
-                <div class="p-3">
-                  <div class="iframe-wrap rounded-lg overflow-hidden bg-white">
-                    <iframe
-                      id="preview-iframe"
-                      title="Prévia do site gerado por IA"
-                      sandbox="allow-scripts"
-                      class="w-full h-72 border-0"
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-            </section>
           </div>
           <!-- ===== /CARD A ===== -->
 
@@ -768,6 +767,67 @@
           <!-- ===== /CARD B ===== -->
 
         </div>
+
+        <!-- ===== WORKSPACE: HISTÓRICO DE ITERAÇÕES + PRÉVIA PROTEGIDA ===== -->
+        <div id="ai-workspace" class="hidden mt-6 lg:mt-8 fade-in-up rounded-2xl border border-border-subtle ai-glass-panel overflow-hidden">
+          <div class="flex flex-col lg:flex-row">
+
+            <!-- Sidebar: histórico de conversas/iterações com a IA -->
+            <aside class="lg:w-60 shrink-0 border-b lg:border-b-0 lg:border-r border-border-subtle p-4">
+              <div class="flex items-center justify-between mb-3">
+                <p class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">Histórico de Iterações</p>
+                <button type="button" onclick="novaConversaIA()" aria-label="Iniciar nova conversa"
+                  class="toolbar-btn flex items-center justify-center w-6 h-6 rounded-md border border-border-subtle text-text-secondary hover:text-accent-soft hover:border-accent-soft">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+              <div id="historico-lista" class="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible lg:max-h-[380px] lg:overflow-y-auto pb-1 lg:pb-0">
+                <!-- Itens injetados via JS a cada geração bem-sucedida -->
+              </div>
+            </aside>
+
+            <!-- Prévia protegida -->
+            <div class="flex-1 flex flex-col min-w-0">
+              <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-border-subtle bg-bg-base">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]"></span>
+                  <span class="text-xs font-medium text-text-secondary">
+                    Prévia da iteração <span id="iteracao-atual">1</span>
+                  </span>
+                </div>
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 font-mono text-[10px] text-accent-soft">
+                  🔒 Prévia protegida
+                </span>
+              </div>
+
+              <div class="p-3">
+                <div class="iframe-wrap relative rounded-lg overflow-hidden bg-white">
+                  <iframe
+                    id="preview-iframe"
+                    title="Prévia protegida do site gerado por IA"
+                    sandbox="allow-scripts"
+                    class="w-full h-72 sm:h-80 border-0"
+                  ></iframe>
+                  <!-- Marca d'água de demonstração — impede screenshots "limpos" do resultado -->
+                  <div class="watermark-overlay" aria-hidden="true"></div>
+                </div>
+              </div>
+
+              <!-- CTA de liberação do código completo -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 py-4 border-t border-border-subtle bg-bg-base">
+                <p class="text-xs text-text-secondary leading-relaxed max-w-md">
+                  🔒 Isto é uma prévia de demonstração. O código-fonte completo (HTML pronto para publicar) é liberado após a confirmação do pagamento.
+                </p>
+                <button type="button" onclick="solicitarLiberacaoCodigo()"
+                  class="btn-vip-primary shrink-0 inline-flex items-center justify-center gap-2 rounded-lg bg-vip-gold hover:bg-vip-gold-soft text-bg-base font-semibold text-xs sm:text-sm px-5 py-2.5">
+                  💬 Liberar Código Completo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ===== /WORKSPACE ===== -->
+
       </div>
     </section>
     <!-- ================= /SEÇÃO: CRIAR PROJETO ================= -->
@@ -1302,16 +1362,6 @@
   <!-- ================= /MODAL: TERMOS E POLÍTICA ================= -->
 
 
-  <!-- ================= TOAST: CONFIRMAÇÃO (copiar/baixar código) ================= -->
-  <div id="toast" class="hidden fixed bottom-6 right-6 z-[70]">
-    <div class="rounded-xl border border-border-subtle bg-bg-card px-5 py-3.5 text-sm font-medium text-text-primary shadow-2xl flex items-center gap-2.5">
-      <span id="toast-icon">✅</span>
-      <span id="toast-text">Copiado para a área de transferência</span>
-    </div>
-  </div>
-  <!-- ================= /TOAST ================= -->
-
-
   <!-- ================= FOOTER ================= -->
   <footer class="relative bg-bg-base border-t border-border-subtle">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 py-14">
@@ -1564,8 +1614,7 @@
       });
     });
 
-    // ─── Estado de geração: código atual + mensagens rotativas de loading ───
-    let codigoGerado = '';
+    // ─── Estado de geração: mensagens rotativas de loading ───
     let loadingInterval = null;
 
     const mensagensCarregamento = [
@@ -1614,15 +1663,15 @@
     }
 
     /**
-     * Envia o prompt para o backend (POST /api/gerar-site) e exibe o HTML retornado
-     * no preview (iframe), liberando os botões de copiar e baixar o código.
+     * Envia o prompt para o backend (POST /api/gerar-site), guarda o resultado como uma
+     * nova iteração no histórico e exibe a prévia protegida (com marca d'água) no workspace.
      */
     async function gerarSite() {
       const value = aiPromptEl.value.trim();
       const feedback = document.getElementById('ai-feedback');
       const feedbackText = feedback.querySelector('p');
       const createBtn = document.getElementById('generate-btn');
-      const resultEl = document.getElementById('result-section');
+      const workspaceEl = document.getElementById('ai-workspace');
       const previewFrame = document.getElementById('preview-iframe');
 
       if (!value) {
@@ -1632,7 +1681,6 @@
 
       createBtn.disabled = true;
       feedback.classList.add('hidden');
-      resultEl.classList.add('hidden');
       iniciarLoadingGeracao();
 
       const coldStartTimer = agendarAvisoColdStart();
@@ -1649,21 +1697,21 @@
         }
 
         const data = await response.json();
-        codigoGerado = data.codigo || '';
+        const codigo = data.codigo || '';
 
-        if (!codigoGerado) {
+        if (!codigo) {
           throw new Error('A resposta do servidor não trouxe o campo "codigo".');
         }
 
         clearTimeout(coldStartTimer);
         feedback.classList.add('hidden');
 
-        // Renderiza o preview visual dentro do iframe isolado (sandbox)
-        previewFrame.srcdoc = codigoGerado;
+        adicionarIteracao(value, codigo);
 
-        resultEl.classList.remove('hidden');
-        resultEl.classList.add('fade-in-up');
-        resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if (workspaceEl.classList.contains('hidden')) {
+          workspaceEl.classList.remove('hidden');
+        }
+        workspaceEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } catch (err) {
         clearTimeout(coldStartTimer);
         console.error('Erro ao gerar site:', err);
@@ -1678,56 +1726,114 @@
       }
     }
 
-    /**
-     * Copia o código-fonte gerado para a área de transferência.
-     */
-    async function copiarCodigo() {
-      if (!codigoGerado) return;
+    // ─── Histórico de Iterações (sidebar do workspace) ────────────
+    let iteracoes = []; // { id, prompt, codigo, timestamp }
+    let iteracaoAtivaId = null;
 
-      try {
-        await navigator.clipboard.writeText(codigoGerado);
-        mostrarToast('✅', 'Código copiado para a área de transferência');
-      } catch (err) {
-        console.error('Falha ao copiar:', err);
-        mostrarToast('⚠️', 'Não foi possível copiar automaticamente');
+    /**
+     * Popula a marca d'água da prévia protegida com o texto repetido.
+     */
+    function popularMarcaDagua() {
+      const overlay = document.querySelector('.watermark-overlay');
+      if (!overlay || overlay.childElementCount > 0) return;
+
+      for (let i = 0; i < 24; i++) {
+        const span = document.createElement('span');
+        span.textContent = 'PRÉVIA PROTEGIDA · FORJA TEMPLATES';
+        overlay.appendChild(span);
       }
     }
 
     /**
-     * Baixa o HTML gerado como um arquivo .html.
+     * Registra uma nova iteração no histórico, exibe seu resultado no preview
+     * e atualiza a lista lateral com o item ativo em destaque.
      */
-    function baixarHTML() {
-      if (!codigoGerado) return;
-
-      const blob = new Blob([codigoGerado], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-
-      link.href = url;
-      link.download = 'site-gerado-forja-templates.html';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-
-      mostrarToast('⬇️', 'Download iniciado');
+    function adicionarIteracao(prompt, codigo) {
+      const id = Date.now();
+      iteracoes.push({
+        id,
+        prompt,
+        codigo,
+        timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+      });
+      exibirIteracao(id);
+      renderizarHistorico();
     }
 
-    // ─── Toast de confirmação (copiar/baixar) ────────────────────
-    let toastTimeout = null;
-    function mostrarToast(icon, texto) {
-      const toast = document.getElementById('toast');
-      const toastIcon = document.getElementById('toast-icon');
-      const toastText = document.getElementById('toast-text');
+    /**
+     * Renderiza o preview (iframe + marca d'água) da iteração pelo id informado
+     * e atualiza o indicador "Prévia da iteração N".
+     */
+    function exibirIteracao(id) {
+      const iteracao = iteracoes.find(function (it) { return it.id === id; });
+      if (!iteracao) return;
 
-      toastIcon.textContent = icon;
-      toastText.textContent = texto;
-      toast.classList.remove('hidden');
+      iteracaoAtivaId = id;
+      const index = iteracoes.findIndex(function (it) { return it.id === id; });
 
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(function () {
-        toast.classList.add('hidden');
-      }, 2800);
+      document.getElementById('preview-iframe').srcdoc = iteracao.codigo;
+      document.getElementById('iteracao-atual').textContent = String(index + 1);
+      popularMarcaDagua();
+      renderizarHistorico();
+    }
+
+    /**
+     * Redesenha a lista de itens do histórico na sidebar, destacando a iteração ativa.
+     */
+    function renderizarHistorico() {
+      const lista = document.getElementById('historico-lista');
+      lista.innerHTML = '';
+
+      iteracoes.forEach(function (it, index) {
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className =
+          'historico-item shrink-0 lg:w-full text-left rounded-lg border border-border-subtle bg-bg-base px-3 py-2.5' +
+          (it.id === iteracaoAtivaId ? ' is-active' : '');
+        item.onclick = function () { exibirIteracao(it.id); };
+
+        const numero = document.createElement('span');
+        numero.className = 'font-mono text-[10px] text-accent-soft';
+        numero.textContent = 'Iteração ' + (index + 1) + ' · ' + it.timestamp;
+
+        const resumo = document.createElement('p');
+        resumo.className = 'mt-1 text-xs text-text-secondary leading-snug line-clamp-2 max-w-[180px] lg:max-w-none';
+        resumo.textContent = it.prompt;
+
+        item.appendChild(numero);
+        item.appendChild(resumo);
+        lista.appendChild(item);
+      });
+    }
+
+    /**
+     * Limpa o histórico e recomeça uma nova conversa/geração do zero.
+     */
+    function novaConversaIA() {
+      iteracoes = [];
+      iteracaoAtivaId = null;
+      document.getElementById('historico-lista').innerHTML = '';
+      document.getElementById('ai-workspace').classList.add('hidden');
+      document.getElementById('preview-iframe').srcdoc = '';
+      aiPromptEl.value = '';
+      aiPromptEl.dispatchEvent(new Event('input'));
+      aiPromptEl.focus();
+    }
+
+    /**
+     * Encaminha o pedido de liberação do código completo para o WhatsApp,
+     * incluindo o prompt da iteração atualmente em exibição.
+     */
+    function solicitarLiberacaoCodigo() {
+      const iteracao = iteracoes.find(function (it) { return it.id === iteracaoAtivaId; });
+      const resumoPrompt = iteracao ? iteracao.prompt : aiPromptEl.value.trim();
+
+      const message =
+        'Olá! Gerei uma prévia no Gerador por IA da Forja Templates e quero liberar o código completo.\n\n' +
+        'Ideia do site: ' + resumoPrompt;
+
+      const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
 
     // ─── Atalho: Ctrl/Cmd + Enter no textarea para gerar direto ──

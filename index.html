@@ -474,11 +474,10 @@
                    class="btn-outline-sm w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
                   Ver Demo ao Vivo
                 </a>
-                <!-- TODO: substitua pelo link real do checkout Kiwify do template de Advocacia -->
-                <a href="https://pay.kiwify.com.br/SEU_LINK_AQUI_ADVOCACIA" target="_blank" rel="noopener noreferrer"
+                <button type="button" onclick="comprarTemplateViaWhatsApp('Advocacia')"
                    class="btn-primary-sm w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">
                   Comprar Template
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -505,11 +504,10 @@
                    class="btn-outline-sm w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
                   Ver Demo ao Vivo
                 </a>
-                <!-- TODO: substitua pelo link real do checkout Kiwify do template de Estética -->
-                <a href="https://pay.kiwify.com.br/SEU_LINK_AQUI_ESTETICA" target="_blank" rel="noopener noreferrer"
+                <button type="button" onclick="comprarTemplateViaWhatsApp('Estética')"
                    class="btn-primary-sm w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">
                   Comprar Template
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -536,11 +534,10 @@
                    class="btn-outline-sm w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
                   Ver Demo ao Vivo
                 </a>
-                <!-- TODO: substitua pelo link real do checkout Kiwify do template de Psicologia -->
-                <a href="https://pay.kiwify.com.br/SEU_LINK_AQUI_PSICOLOGIA" target="_blank" rel="noopener noreferrer"
+                <button type="button" onclick="comprarTemplateViaWhatsApp('Psicologia')"
                    class="btn-primary-sm w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">
                   Comprar Template
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -566,11 +563,10 @@
                    class="btn-outline-sm w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">
                   Ver Demo ao Vivo
                 </a>
-                <!-- TODO: substitua pelo link real do checkout Kiwify do template de Consultoria -->
-                <a href="https://pay.kiwify.com.br/SEU_LINK_AQUI_CONSULTORIA" target="_blank" rel="noopener noreferrer"
+                <button type="button" onclick="comprarTemplateViaWhatsApp('Consultoria')"
                    class="btn-primary-sm w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">
                   Comprar Template
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -1038,11 +1034,10 @@
               </li>
             </ul>
 
-            <!-- TODO: substitua pelo link real do checkout Kiwify do plano Avulso -->
-            <a href="https://pay.kiwify.com.br/SEU_LINK_AQUI_AVULSO" target="_blank" rel="noopener noreferrer"
+            <button type="button" onclick="comprarTemplateViaWhatsApp('Avulso (a combinar o nicho)')"
                class="btn-outline-lg mt-8 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-6 py-3.5">
               Comprar Este Template
-            </a>
+            </button>
           </div>
 
           <!-- Opção 2 — Passaporte VIP / All Access -->
@@ -1089,11 +1084,10 @@
               </li>
             </ul>
 
-            <!-- TODO: substitua pelo link real do checkout Kiwify do Passaporte VIP -->
-            <a href="https://pay.kiwify.com.br/SEU_LINK_AQUI_VIP" target="_blank" rel="noopener noreferrer"
+            <button type="button" onclick="comprarTemplateViaWhatsApp('Passaporte VIP (acesso a todos os templates)')"
                class="btn-primary-lg mt-8 w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-6 py-3.5">
               Quero o Passaporte VIP
-            </a>
+            </button>
           </div>
 
         </div>
@@ -1862,6 +1856,20 @@
         'Olá! Quero encomendar um site sob medida na Forja Templates.\n\n' +
         'Nome/WhatsApp: ' + name + '\n\n' +
         'Descrição do projeto: ' + desc;
+
+      const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    /**
+     * Abre o WhatsApp com a mensagem padrão de compra, já com o nome do
+     * template preenchido. Usada por todos os botões "Comprar Template"
+     * da Vitrine e da seção de Preços.
+     */
+    function comprarTemplateViaWhatsApp(nomeTemplate) {
+      const message =
+        'Olá! Gostaria de comprar o catálogo/template pronto ' + nomeTemplate + '. ' +
+        'Como faço para realizar o pagamento instantâneo via Pix?';
 
       const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
       window.open(url, '_blank', 'noopener,noreferrer');

@@ -56,9 +56,6 @@
       linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
     background-size: 56px 56px;
   }
-  .hero-glow {
-    background: radial-gradient(circle at 50% 40%, rgba(108, 92, 231, 0.35) 0%, rgba(108, 92, 231, 0) 60%);
-  }
   .site-header {
     backdrop-filter: blur(10px);
     background-color: rgba(10, 10, 15, 0.75);
@@ -186,84 +183,37 @@
   <main class="pt-16">
 
     <!-- ================= HERO ================= -->
-    <section class="relative overflow-hidden bg-bg-base grid-pattern">
-      <div class="hero-glow absolute inset-0 pointer-events-none" aria-hidden="true"></div>
-      <div class="absolute inset-0 bg-gradient-to-b from-bg-base/20 via-transparent to-bg-base pointer-events-none" aria-hidden="true"></div>
+    <section class="relative overflow-hidden bg-bg-base">
+      <!-- Imagem de fundo (template de Psicologia) + camada escura para legibilidade -->
+      <div class="absolute inset-0">
+        <img src="assets/hero/hero-psicologia.jpg" alt="" aria-hidden="true" class="w-full h-full object-cover object-center">
+        <div class="absolute inset-0 bg-black/70"></div>
+      </div>
 
-      <div class="relative max-w-5xl mx-auto px-6 sm:px-8 pt-28 pb-20 sm:pt-36 sm:pb-24 flex flex-col items-center text-center">
-        <div class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-bg-card/60 px-4 py-1.5 mb-8">
-          <span class="w-1.5 h-1.5 rounded-full bg-accent-soft"></span>
-          <span class="font-mono text-xs text-text-secondary tracking-wide">templates prontos para rodar tráfego pago</span>
-        </div>
-
-        <h1 class="font-display font-semibold text-4xl sm:text-5xl md:text-6xl leading-[1.1] text-text-primary max-w-3xl">
-          Landing Pages que
-          <span class="bg-gradient-to-r from-accent to-accent-soft bg-clip-text text-transparent">Vendem</span>,
-          Não Apenas Bonitas.
+      <div class="relative max-w-3xl mx-auto px-6 sm:px-8 pt-28 pb-20 sm:pt-36 sm:pb-24 flex flex-col items-center text-center">
+        <h1 class="font-display font-extrabold uppercase text-4xl sm:text-5xl md:text-6xl leading-[1.1] text-white max-w-2xl">
+          Landing Pages que Vendem
         </h1>
 
-        <p class="mt-6 text-base sm:text-lg text-text-secondary max-w-xl leading-relaxed">
-          Templates profissionais, ultra-rápidos e otimizados para anúncios. Feitos para agências e negócios
-          locais que não podem perder tempo <span class="text-text-primary">(nem clientes)</span> com sites lentos ou genéricos.
+        <p class="mt-6 text-base sm:text-lg text-white/85 max-w-xl leading-relaxed">
+          Sites profissionais, rápidos e otimizados para converter visitantes em clientes.<br class="hidden sm:block">
+          Código limpo • PageSpeed 95+ • Deploy em 10 minutos.
         </p>
 
-        <!-- Vídeo de apresentação -->
-        <div class="relative mt-10 w-full max-w-2xl mx-auto rounded-2xl border border-border-subtle bg-bg-card overflow-hidden shadow-2xl">
-          <div class="relative aspect-video">
-            <!-- "Poster" estilizado — some automaticamente assim que o vídeo real carregar -->
-            <div id="video-poster" class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-[#15151f] to-[#0a0a0f] px-6 text-center">
-              <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-accent"></span>
-                <span class="font-display font-semibold text-lg text-text-primary">Forja<span class="text-accent-soft">Templates</span></span>
-              </div>
-              <p class="font-display font-semibold text-xl sm:text-2xl text-text-primary max-w-md">
-                Landing Pages que <span class="bg-gradient-to-r from-accent to-accent-soft bg-clip-text text-transparent">Vendem</span>, Não Apenas Bonitas.
-              </p>
-              <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] text-text-secondary">
-                <span>Código Limpo</span><span class="text-border-subtle">•</span><span>PageSpeed 95+</span><span class="text-border-subtle">•</span><span>Deploy em 10 Minutos</span>
-              </div>
-              <button type="button" onclick="document.getElementById('video-apresentacao').play()"
-                class="mt-2 flex items-center justify-center w-14 h-14 rounded-full bg-accent hover:bg-accent-soft transition-colors" aria-label="Reproduzir vídeo de apresentação">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg>
-              </button>
-            </div>
-
-            <!-- Vídeo real — substitua o arquivo em /assets/video/ pelo vídeo definitivo -->
-            <video id="video-apresentacao" class="absolute inset-0 w-full h-full object-cover opacity-0" controls muted loop playsinline preload="none"
-              onloadeddata="this.classList.remove('opacity-0'); document.getElementById('video-poster').classList.add('hidden');"
-              onerror="this.style.display='none';">
-              <source src="/assets/video/forja-apresentacao.mp4" type="video/mp4">
-              Seu navegador não suporta vídeo HTML5.
-            </video>
-          </div>
-        </div>
-
         <div class="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-          <a href="#vitrine" class="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm sm:text-base px-7 py-3.5">
+          <a href="#vitrine"
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg font-medium text-sm sm:text-base px-7 py-3.5 transition-colors"
+             style="background-color:#8A2BE2; color:#FFFFFF;" onmouseover="this.style.backgroundColor='#7623c9'" onmouseout="this.style.backgroundColor='#8A2BE2'">
             Ver Templates Disponíveis
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a href="#como-funciona" class="btn-secondary w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm sm:text-base px-7 py-3.5">
-            Como Funciona
+          <a href="#contrato-proposta"
+             class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg font-medium text-sm sm:text-base px-7 py-3.5 bg-transparent transition-colors"
+             style="border: 2px solid #8A2BE2; color:#FFFFFF;">
+            Solicitar Orçamento
           </a>
         </div>
 
-        <div class="mt-14 flex flex-col sm:flex-row items-center gap-4 sm:gap-8 text-text-secondary">
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-            <span class="font-mono text-xs sm:text-sm">Score 95+ no PageSpeed</span>
-          </div>
-          <span class="hidden sm:block w-1 h-1 rounded-full bg-border-subtle"></span>
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            <span class="font-mono text-xs sm:text-sm">Código limpo e documentado</span>
-          </div>
-          <span class="hidden sm:block w-1 h-1 rounded-full bg-border-subtle"></span>
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span class="font-mono text-xs sm:text-sm">Deploy em até 10 minutos</span>
-          </div>
-        </div>
+        <p class="mt-8 text-sm text-white/80">⭐ +200 Templates Vendidos • 5.0/5.0 • 80+ Negócios Confiam</p>
       </div>
     </section>
     <!-- ================= /HERO ================= -->
@@ -317,23 +267,8 @@
 
           <!-- CARD — ADVOCACIA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
-        <rect width="280" height="176" fill="#0f1729"/>
-        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
-        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
-        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
-        <rect x="0" y="18" width="280" height="24" fill="#0a0f1c"/>
-        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
-        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#c9a227"/>
-        <rect x="20" y="58" width="150" height="12" rx="2" fill="#e8c766"/>
-        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(255,255,255,0.35)"/>
-        <rect x="20" y="92" width="70" height="16" rx="4" fill="#c9a227"/>
-        
-        <rect x="20" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
-        <rect x="104" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
-        <rect x="188" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
-      </svg>
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <img src="assets/templates/advocacia.jpg" alt="Captura de tela do template de Advocacia" class="absolute inset-0 w-full h-full object-cover">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
@@ -354,23 +289,8 @@
 
           <!-- CARD — ESTÉTICA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
-        <rect width="280" height="176" fill="#fdf6f0"/>
-        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
-        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
-        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
-        <rect x="0" y="18" width="280" height="24" fill="#f2e3d5"/>
-        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
-        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#d4af7a"/>
-        <rect x="20" y="58" width="150" height="12" rx="2" fill="#b9895a"/>
-        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(120,90,70,0.4)"/>
-        <rect x="20" y="92" width="70" height="16" rx="4" fill="#d4af7a"/>
-        
-        <rect x="20" y="126" width="72" height="34" rx="4" fill="#f5d9c8"/>
-        <rect x="104" y="126" width="72" height="34" rx="4" fill="#f2c6c2"/>
-        <rect x="188" y="126" width="72" height="34" rx="4" fill="#f5d9c8"/>
-      </svg>
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <img src="assets/templates/estetica.jpg" alt="Captura de tela do template de Estética" class="absolute inset-0 w-full h-full object-cover">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
@@ -391,23 +311,8 @@
 
           <!-- CARD — PSICOLOGIA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
-        <rect width="280" height="176" fill="#eef5f3"/>
-        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
-        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
-        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
-        <rect x="0" y="18" width="280" height="24" fill="#dcebe6"/>
-        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
-        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#7fa99b"/>
-        <rect x="20" y="58" width="150" height="12" rx="2" fill="#4f7d70"/>
-        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(60,90,80,0.35)"/>
-        <rect x="20" y="92" width="70" height="16" rx="4" fill="#7fa99b"/>
-        
-        <rect x="20" y="126" width="72" height="34" rx="4" fill="#d7e9e3"/>
-        <rect x="104" y="126" width="72" height="34" rx="4" fill="#e3efe9"/>
-        <rect x="188" y="126" width="72" height="34" rx="4" fill="#d7e9e3"/>
-      </svg>
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <img src="assets/templates/psicologia.jpg" alt="Captura de tela do template de Psicologia" class="absolute inset-0 w-full h-full object-cover">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
@@ -428,23 +333,8 @@
 
           <!-- CARD — CONSULTORIA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
-        <rect width="280" height="176" fill="#10151f"/>
-        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
-        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
-        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
-        <rect x="0" y="18" width="280" height="24" fill="#0a0e16"/>
-        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
-        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#4f7cff"/>
-        <rect x="20" y="58" width="150" height="12" rx="2" fill="#9fb6ff"/>
-        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(255,255,255,0.3)"/>
-        <rect x="20" y="92" width="70" height="16" rx="4" fill="#4f7cff"/>
-        
-        <rect x="20" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
-        <rect x="104" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
-        <rect x="188" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
-      </svg>
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <img src="assets/templates/consultoria.jpg" alt="Captura de tela do template de Consultoria" class="absolute inset-0 w-full h-full object-cover">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
@@ -465,7 +355,8 @@
 
           <!-- CARD — RESTAURANTE (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/restaurante.jpg" alt="Captura de tela do template de Restaurante" class="absolute inset-0 w-full h-full object-cover"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#1c120c"/>
@@ -493,7 +384,8 @@
 
           <!-- CARD — ODONTOLOGIA (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/odontologia.jpg" alt="Captura de tela do template de Odontologia" class="absolute inset-0 w-full h-full object-cover"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#f0f7fb"/>
@@ -521,7 +413,8 @@
 
           <!-- CARD — ACADEMIA (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/academia.jpg" alt="Captura de tela do template de Academia" class="absolute inset-0 w-full h-full object-cover"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#14140f"/>
@@ -549,7 +442,8 @@
 
           <!-- CARD — LOJA DE ROUPAS (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/loja-de-roupas.jpg" alt="Captura de tela do template de Loja De Roupas" class="absolute inset-0 w-full h-full object-cover"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#fbeef2"/>
@@ -577,7 +471,8 @@
 
           <!-- CARD — IMOBILIÁRIA (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/imobiliaria.jpg" alt="Captura de tela do template de Imobiliária" class="absolute inset-0 w-full h-full object-cover"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#101820"/>
@@ -605,7 +500,8 @@
 
           <!-- CARD — SERVIÇOS GERAIS (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
-            <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
+            <div class="relative aspect-video overflow-hidden bg-bg-base">
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/servicos-gerais.jpg" alt="Captura de tela do template de Serviços Gerais" class="absolute inset-0 w-full h-full object-cover"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#12151c"/>

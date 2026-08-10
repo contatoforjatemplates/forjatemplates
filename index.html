@@ -105,6 +105,10 @@
 
   .feedback-star.is-filled { color: #F0B429; }
 
+  /* Cards de preço — hover suave */
+  #precos .rounded-2xl.border { transition: transform 200ms ease, box-shadow 200ms ease; }
+  #precos .rounded-2xl.border:hover { transform: translateY(-2px); box-shadow: 0 14px 32px -16px rgba(0,0,0,0.5); }
+
   /* Botão flutuante do WhatsApp */
   @keyframes wa-pulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45); }
@@ -144,14 +148,14 @@
 
       <nav class="hidden md:flex items-center gap-8">
         <a href="#vitrine" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Templates</a>
-        <a href="#servicos" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Serviços</a>
+        <a href="#precos" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Planos</a>
         <a href="#como-funciona" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Como Funciona</a>
-        <a href="#precos" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Preços</a>
+        <a href="#contrato-proposta" class="text-sm text-text-secondary hover:text-text-primary transition-colors">Contrato</a>
       </nav>
 
       <a href="#contato"
          class="btn-primary-sm hidden md:inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-5 py-2.5">
-        Contato
+        Fale Conosco
       </a>
 
       <button id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu de navegação"
@@ -168,11 +172,11 @@
     <nav id="mobile-menu" class="md:hidden max-h-0 opacity-0 overflow-hidden border-t border-border-subtle">
       <div class="flex flex-col gap-1 px-6 py-4">
         <a href="#vitrine" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Templates</a>
-        <a href="#servicos" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Serviços</a>
+        <a href="#precos" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Planos</a>
         <a href="#como-funciona" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Como Funciona</a>
-        <a href="#precos" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Preços</a>
+        <a href="#contrato-proposta" class="py-2.5 text-sm text-text-secondary hover:text-text-primary">Contrato</a>
         <a href="#contato" class="btn-primary-sm mt-3 inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-5 py-3">
-          Contato
+          Fale Conosco
         </a>
       </div>
     </nav>
@@ -202,6 +206,37 @@
           Templates profissionais, ultra-rápidos e otimizados para anúncios. Feitos para agências e negócios
           locais que não podem perder tempo <span class="text-text-primary">(nem clientes)</span> com sites lentos ou genéricos.
         </p>
+
+        <!-- Vídeo de apresentação -->
+        <div class="relative mt-10 w-full max-w-2xl mx-auto rounded-2xl border border-border-subtle bg-bg-card overflow-hidden shadow-2xl">
+          <div class="relative aspect-video">
+            <!-- "Poster" estilizado — some automaticamente assim que o vídeo real carregar -->
+            <div id="video-poster" class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-[#15151f] to-[#0a0a0f] px-6 text-center">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-accent"></span>
+                <span class="font-display font-semibold text-lg text-text-primary">Forja<span class="text-accent-soft">Templates</span></span>
+              </div>
+              <p class="font-display font-semibold text-xl sm:text-2xl text-text-primary max-w-md">
+                Landing Pages que <span class="bg-gradient-to-r from-accent to-accent-soft bg-clip-text text-transparent">Vendem</span>, Não Apenas Bonitas.
+              </p>
+              <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] text-text-secondary">
+                <span>Código Limpo</span><span class="text-border-subtle">•</span><span>PageSpeed 95+</span><span class="text-border-subtle">•</span><span>Deploy em 10 Minutos</span>
+              </div>
+              <button type="button" onclick="document.getElementById('video-apresentacao').play()"
+                class="mt-2 flex items-center justify-center w-14 h-14 rounded-full bg-accent hover:bg-accent-soft transition-colors" aria-label="Reproduzir vídeo de apresentação">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg>
+              </button>
+            </div>
+
+            <!-- Vídeo real — substitua o arquivo em /assets/video/ pelo vídeo definitivo -->
+            <video id="video-apresentacao" class="absolute inset-0 w-full h-full object-cover opacity-0" controls muted loop playsinline preload="none"
+              onloadeddata="this.classList.remove('opacity-0'); document.getElementById('video-poster').classList.add('hidden');"
+              onerror="this.style.display='none';">
+              <source src="/assets/video/forja-apresentacao.mp4" type="video/mp4">
+              Seu navegador não suporta vídeo HTML5.
+            </video>
+          </div>
+        </div>
 
         <div class="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <a href="#vitrine" class="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm sm:text-base px-7 py-3.5">
@@ -236,21 +271,14 @@
 
     <!-- ================= PROVA SOCIAL ================= -->
     <section class="bg-bg-base border-t border-border-subtle">
-      <div class="max-w-4xl mx-auto px-6 sm:px-8 py-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 text-center">
-        <div class="flex items-center gap-2.5">
-          <span class="font-display font-semibold text-2xl text-text-primary">+200</span>
-          <span class="text-sm text-text-secondary">Templates Vendidos</span>
-        </div>
-        <span class="hidden sm:block w-1 h-1 rounded-full bg-border-subtle"></span>
-        <div class="flex items-center gap-2.5">
-          <span class="font-display font-semibold text-2xl text-text-primary">80+</span>
-          <span class="text-sm text-text-secondary">Negócios Confiam na Forja</span>
-        </div>
-        <span class="hidden sm:block w-1 h-1 rounded-full bg-border-subtle"></span>
-        <div class="flex items-center gap-2.5">
-          <span class="font-display font-semibold text-2xl text-text-primary">5.0</span>
-          <span class="text-sm text-text-secondary">⭐ Avaliação Média</span>
-        </div>
+      <div class="max-w-4xl mx-auto px-6 sm:px-8 py-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center">
+        <span class="text-sm text-text-secondary"><span class="text-text-primary font-medium">+200</span> Templates Vendidos</span>
+        <span class="hidden sm:inline text-border-subtle">•</span>
+        <span class="text-sm text-text-secondary"><span class="text-text-primary font-medium">80+</span> Negócios Confiam</span>
+        <span class="hidden sm:inline text-border-subtle">•</span>
+        <span class="text-sm text-text-secondary">⭐ <span class="text-text-primary font-medium">5.0/5.0</span> (47 avaliações)</span>
+        <span class="hidden sm:inline text-border-subtle">•</span>
+        <span class="text-sm text-text-secondary"><span class="text-text-primary font-medium">95+</span> PageSpeed Score</span>
       </div>
     </section>
     <!-- ================= /PROVA SOCIAL ================= -->
@@ -290,14 +318,25 @@
           <!-- CARD — ADVOCACIA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
-              <img src="/assets/templates/advocacia.jpg" alt="Captura de tela do template de Advocacia" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#0f1729"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#0a0f1c"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#c9a227"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#e8c766"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(255,255,255,0.35)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#c9a227"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+      </svg>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
-              <span class="absolute bottom-2 right-2 screenshot-placeholder font-mono text-[9px] text-text-secondary/50">📷 imagem de demonstração</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-accent-soft/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 3 3 7.5 12 12l9-4.5L12 3Z" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 7.5V16l9 4.5 9-4.5V7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 9.75V17M16.5 9.75V17" stroke-linecap="round"/>
-              </svg>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">Advocacia</h3>
@@ -316,14 +355,25 @@
           <!-- CARD — ESTÉTICA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
-              <img src="/assets/templates/estetica.jpg" alt="Captura de tela do template de Estética" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#fdf6f0"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#f2e3d5"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#d4af7a"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#b9895a"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(120,90,70,0.4)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#d4af7a"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="#f5d9c8"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="#f2c6c2"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="#f5d9c8"/>
+      </svg>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
-              <span class="absolute bottom-2 right-2 screenshot-placeholder font-mono text-[9px] text-text-secondary/50">📷 imagem de demonstração</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-accent-soft/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 21c4.5-3 7-6.5 7-10a7 7 0 1 0-14 0c0 3.5 2.5 7 7 10Z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="11" r="2.5"/>
-              </svg>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">Estética</h3>
@@ -342,14 +392,25 @@
           <!-- CARD — PSICOLOGIA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
-              <img src="/assets/templates/psicologia.jpg" alt="Captura de tela do template de Psicologia" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#eef5f3"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#dcebe6"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#7fa99b"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#4f7d70"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(60,90,80,0.35)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#7fa99b"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="#d7e9e3"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="#e3efe9"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="#d7e9e3"/>
+      </svg>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
-              <span class="absolute bottom-2 right-2 screenshot-placeholder font-mono text-[9px] text-text-secondary/50">📷 imagem de demonstração</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-accent-soft/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M9.5 3a4.5 4.5 0 0 0-4.5 4.5c0 1 .3 1.8.8 2.5A4 4 0 0 0 4 13.5 4 4 0 0 0 8 17.5v1a2.5 2.5 0 0 0 5 0V8.5A5.5 5.5 0 0 0 9.5 3Z" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 8.5v9a2.5 2.5 0 0 0 5 0v-1" stroke-linecap="round"/>
-              </svg>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">Psicologia</h3>
@@ -368,14 +429,25 @@
           <!-- CARD — CONSULTORIA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
-              <img src="/assets/templates/consultoria.jpg" alt="Captura de tela do template de Consultoria" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#10151f"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#0a0e16"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#4f7cff"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#9fb6ff"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#4f7cff"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+      </svg>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
-              <span class="absolute bottom-2 right-2 screenshot-placeholder font-mono text-[9px] text-text-secondary/50">📷 imagem de demonstração</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-accent-soft/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M3 20V10M9 20V4M15 20v-7M21 20V8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">Consultoria</h3>
@@ -395,7 +467,22 @@
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3v6M11 3v6M7 6h4M15 3l-2 6h4l-2 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#1c120c"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#140c07"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#e8734a"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#f0a06e"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#e8734a"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="#3a2015"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="#3a2015"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="#3a2015"/>
+      </svg></div>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">🍽️ Restaurante</h3>
@@ -408,7 +495,22 @@
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c-3 0-5 2-5 5 0 2 1 3 1 5 0 3 1 8 2 8s1.5-4 2-6c.5 2 1 6 2 6s2-5 2-8c0-2 1-3 1-5 0-3-2-5-5-5Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#f0f7fb"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#dcedf5"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#35b6c4"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#1f8fa3"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(30,80,95,0.35)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#35b6c4"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="#d4eef3"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="#e2f4f7"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="#d4eef3"/>
+      </svg></div>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">🦷 Odontologia</h3>
@@ -421,7 +523,22 @@
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M6 8v8M18 8v8M2 10v4M22 10v4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#14140f"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#0d0d09"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#c7e848"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#d8ff6b"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#c7e848"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+      </svg></div>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">🏋️ Academia</h3>
@@ -434,7 +551,22 @@
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4h6l1 3h3l-1 14H6L5 7h3l1-3Z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 4a3 3 0 0 0 6 0" stroke-linecap="round"/></svg>
+              <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#fbeef2"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#f5dde5"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#d6428a"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#b8306b"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(140,50,90,0.35)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#d6428a"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="#f5cfdd"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="#f0bdd0"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="#f5cfdd"/>
+      </svg></div>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">👗 Loja de Roupas</h3>
@@ -447,7 +579,22 @@
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11 12 4l9 7" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v10h14V10" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-6h4v6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#101820"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#0a1017"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#c9a24a"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#d8be82"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#c9a24a"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+      </svg></div>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">🏠 Imobiliária</h3>
@@ -460,7 +607,22 @@
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative h-44 flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1a1a24] to-[#0d0d13]">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-text-secondary/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4l-6 6a1.5 1.5 0 0 0 2 2l6-6a4 4 0 0 1 5.4-5.4l-2.5 2.5-2-2 2.5-2.5Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <rect width="280" height="176" fill="#12151c"/>
+        <rect width="280" height="18" fill="rgba(0,0,0,0.25)"/>
+        <circle cx="12" cy="9" r="3" fill="#ff5f57"/><circle cx="22" cy="9" r="3" fill="#febc2e"/><circle cx="32" cy="9" r="3" fill="#28c840"/>
+        <rect x="70" y="4" width="140" height="10" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <rect x="0" y="18" width="280" height="24" fill="#0b0d12"/>
+        <rect x="14" y="26" width="34" height="8" rx="2" fill="rgba(255,255,255,0.5)"/>
+        <rect x="200" y="27" width="66" height="7" rx="3.5" fill="#f2a93b"/>
+        <rect x="20" y="58" width="150" height="12" rx="2" fill="#f2c169"/>
+        <rect x="20" y="76" width="110" height="7" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <rect x="20" y="92" width="70" height="16" rx="4" fill="#f2a93b"/>
+        
+        <rect x="20" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="104" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+        <rect x="188" y="126" width="72" height="34" rx="4" fill="rgba(255,255,255,0.06)"/>
+      </svg></div>
             </div>
             <div class="flex flex-col flex-1 p-5">
               <h3 class="font-display font-semibold text-lg text-text-primary">🛠️ Serviços Gerais</h3>
@@ -596,82 +758,106 @@
           </p>
         </div>
 
+        <!-- Selos de confiança -->
+        <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-14 text-xs sm:text-sm text-text-secondary">
+          <span class="flex items-center gap-1.5">✅ Pagamento Seguro</span>
+          <span class="flex items-center gap-1.5">✅ 7 Dias de Garantia</span>
+          <span class="flex items-center gap-1.5">✅ Código Completo</span>
+          <span class="flex items-center gap-1.5">✅ Uso Comercial</span>
+        </div>
+
         <div id="precos">
 
-        <!-- 📦 TEMPLATES PRONTOS -->
-        <h3 class="font-display font-semibold text-xl text-text-primary mb-6">📦 Templates Prontos</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch mb-10">
-
-          <div class="flex flex-col rounded-2xl border border-border-subtle bg-bg-card p-8">
-            <span class="font-mono text-xs text-text-secondary tracking-wide uppercase">Avulso</span>
-            <h4 class="font-display font-semibold text-xl text-text-primary mt-2">Template Individual</h4>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Ideal para quem precisa de apenas um nicho específico agora.</p>
-            <div class="mt-6 flex items-end gap-1"><span class="font-display font-semibold text-4xl text-text-primary">R$ 197</span><span class="text-sm text-text-secondary mb-1">/ template</span></div>
-            <ul class="mt-6 space-y-3 flex-1">
-              <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 template à sua escolha</li>
-              <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Código-fonte completo e documentado</li>
-              <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Suporte técnico por e-mail</li>
-              <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Atualizações desse template</li>
-            </ul>
-            <button type="button" onclick="comprarTemplateViaWhatsApp('Avulso (a combinar o nicho)')" class="btn-outline-lg mt-8 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-6 py-3.5">Comprar Este Template</button>
+        <!-- 📦 TEMPLATES PRONTOS — painel emoldurado -->
+        <div class="rounded-2xl border border-border-subtle bg-bg-card/40 overflow-hidden mb-10">
+          <div class="px-6 sm:px-8 py-4 border-b border-border-subtle bg-bg-card">
+            <h3 class="font-display font-semibold text-lg text-text-primary">📦 Templates Prontos</h3>
           </div>
+          <div class="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
 
-          <div class="card-vip relative flex flex-col rounded-2xl border-2 border-accent bg-bg-card p-8 md:-mt-3 md:mb-3">
-            <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 font-mono text-[11px] text-white whitespace-nowrap">⭐ Melhor Custo-Benefício</span>
-            <span class="font-mono text-xs text-accent-soft tracking-wide uppercase">All Access</span>
-            <h4 class="font-display font-semibold text-xl text-text-primary mt-2">Passaporte VIP</h4>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Pare de comprar um por um. Tenha a loja inteira — hoje e nos próximos lançamentos.</p>
-            <div class="mt-6 flex items-end gap-1"><span class="font-display font-semibold text-4xl text-text-primary">R$ 497</span><span class="text-sm text-text-secondary mb-1">único</span></div>
-            <span class="font-mono text-[11px] text-amber-400 mt-1">⏰ Preço de lançamento — sobe para R$ 997 em breve!</span>
-            <ul class="mt-6 space-y-3 flex-1">
-              <li class="flex items-start gap-2.5 text-sm text-text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Todos os templates atuais</li>
-              <li class="flex items-start gap-2.5 text-sm text-text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Acesso automático a todos os lançamentos futuros</li>
-              <li class="flex items-start gap-2.5 text-sm text-text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário</li>
-              <li class="flex items-start gap-2.5 text-sm text-text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Licença para uso em projetos de clientes</li>
-            </ul>
-            <button type="button" onclick="comprarTemplateViaWhatsApp('Passaporte VIP (acesso a todos os templates)')" class="btn-primary-lg mt-8 w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-6 py-3.5">Quero o Passaporte VIP</button>
-          </div>
-        </div>
+            <div class="flex flex-col rounded-2xl border border-border-subtle bg-bg-base p-8">
+              <span class="font-mono text-xs text-text-secondary tracking-wide uppercase">🟩 Avulso</span>
+              <h4 class="font-display font-semibold text-xl text-text-primary mt-2">Template Individual</h4>
+              <p class="mt-2 text-sm text-text-secondary leading-relaxed">Ideal para quem precisa de apenas um nicho específico agora.</p>
+              <div class="mt-6 flex items-end gap-1"><span class="font-display font-semibold text-4xl text-text-primary">R$ 197</span><span class="text-sm text-text-secondary mb-1">/ template</span></div>
+              <ul class="mt-6 space-y-3 flex-1">
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 template à escolha</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Código-fonte completo</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Suporte técnico</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Atualizações inclusas</li>
+              </ul>
+              <button type="button" onclick="comprarTemplateViaWhatsApp('Avulso (a combinar o nicho)')" class="btn-outline-lg mt-8 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-6 py-3.5">Comprar Este Template</button>
+            </div>
 
-        <!-- 🛠️ CRIAÇÃO DE SITES PERSONALIZADOS -->
-        <h3 class="font-display font-semibold text-xl text-text-primary mb-6">🛠️ Criação de Sites Personalizados</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10 max-w-2xl mx-auto">
-
-          <div class="flex flex-col rounded-2xl border border-border-subtle bg-bg-card p-6">
-            <span class="inline-block self-start rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] px-3 py-1">🟢 Básico</span>
-            <h4 class="font-display font-semibold text-lg text-text-primary mt-3">Site Básico</h4>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed flex-1">Início, Sobre, Serviços, Galeria e Contato — WhatsApp, mapa e responsivo.</p>
-            <div class="mt-5"><span class="font-display font-semibold text-2xl text-text-primary">R$ 500</span><span class="text-xs text-text-secondary"> na criação</span></div>
-            <div class="text-xs text-text-secondary mt-1">+ R$ 50/mês <span class="text-text-secondary/70">(hospedagem, domínio, suporte)</span></div>
-            <button type="button" onclick="contratarServicoViaWhatsApp('Site Básico — R$ 500 + R$ 50/mês')" class="btn-outline-sm mt-5 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">Contratar</button>
-          </div>
-
-          <div class="flex flex-col rounded-2xl border-2 border-accent bg-bg-card p-6">
-            <span class="inline-block self-start rounded-full bg-accent/10 border border-accent/30 text-accent-soft font-mono text-[11px] px-3 py-1">🔵 Completo</span>
-            <h4 class="font-display font-semibold text-lg text-text-primary mt-3">Site Completo</h4>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed flex-1">Home, Sobre, Serviços, Galeria, Contato, WhatsApp, SEO, responsivo.</p>
-            <div class="mt-5"><span class="font-display font-semibold text-2xl text-text-primary">R$ 800</span><span class="text-xs text-text-secondary"> na criação</span></div>
-            <div class="text-xs text-text-secondary mt-1">+ R$ 50/mês <span class="text-text-secondary/70">(hospedagem, domínio, suporte)</span></div>
-            <button type="button" onclick="contratarServicoViaWhatsApp('Site Completo — R$ 800 + R$ 50/mês')" class="btn-primary-sm mt-5 w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">Contratar</button>
+            <div class="card-vip relative flex flex-col rounded-2xl border-2 border-accent bg-bg-base p-8 md:-mt-3 md:mb-3">
+              <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 font-mono text-[11px] text-white whitespace-nowrap">⭐ Mais Vendido 🏆</span>
+              <span class="font-mono text-xs text-accent-soft tracking-wide uppercase">Passaporte VIP</span>
+              <h4 class="font-display font-semibold text-xl text-text-primary mt-2">Mais Vendido!</h4>
+              <p class="mt-2 text-sm text-text-secondary leading-relaxed">Pare de comprar um por um. Tenha a loja inteira — hoje e nos próximos lançamentos.</p>
+              <div class="mt-6 flex items-end gap-1"><span class="font-display font-semibold text-4xl text-text-primary">R$ 497</span><span class="text-sm text-text-secondary mb-1">(pagamento único)</span></div>
+              <span class="font-mono text-[11px] text-amber-400 mt-1">⏰ Lançamento — sobe para R$ 997 em breve!</span>
+              <ul class="mt-6 space-y-3 flex-1">
+                <li class="flex items-start gap-2.5 text-sm text-text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Todos os templates atuais</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Acesso vitalício + futuros lançamentos</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Licença comercial</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-primary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Suporte prioritário</li>
+              </ul>
+              <button type="button" onclick="comprarTemplateViaWhatsApp('Passaporte VIP (acesso a todos os templates)')" class="btn-primary-lg mt-8 w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-6 py-3.5">Quero o Passaporte VIP</button>
+            </div>
           </div>
         </div>
 
-        <div class="max-w-3xl mx-auto text-center mb-12">
+        <!-- 🛠️ CRIAÇÃO DE SITES PERSONALIZADOS — painel emoldurado -->
+        <div class="rounded-2xl border border-border-subtle bg-bg-card/40 overflow-hidden mb-10">
+          <div class="px-6 sm:px-8 py-4 border-b border-border-subtle bg-bg-card">
+            <h3 class="font-display font-semibold text-lg text-text-primary">🛠️ Criação de Sites Personalizados</h3>
+          </div>
+          <div class="p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+
+            <div class="flex flex-col rounded-2xl border border-border-subtle bg-bg-base p-6">
+              <span class="inline-block self-start rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] px-3 py-1">🟢 Site Básico</span>
+              <h4 class="font-display font-semibold text-lg text-text-primary mt-3">Página única com tudo essencial</h4>
+              <div class="mt-5"><span class="font-display font-semibold text-2xl text-text-primary">Criação: R$ 500</span></div>
+              <div class="text-xs text-text-secondary mt-1">+ R$ 50/mês manutenção</div>
+              <ul class="mt-5 space-y-2 flex-1">
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Início, Sobre, Serviços</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp, Mapa, Contato</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Design 100% Responsivo</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Certificado SSL incluso</li>
+              </ul>
+              <button type="button" onclick="contratarServicoViaWhatsApp('Site Básico — R$ 500 + R$ 50/mês')" class="btn-outline-sm mt-5 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">Contratar</button>
+            </div>
+
+            <div class="flex flex-col rounded-2xl border-2 border-accent bg-bg-base p-6">
+              <span class="inline-block self-start rounded-full bg-accent/10 border border-accent/30 text-accent-soft font-mono text-[11px] px-3 py-1">🔵 Site Completo</span>
+              <h4 class="font-display font-semibold text-lg text-text-primary mt-3">5 páginas completas</h4>
+              <div class="mt-5"><span class="font-display font-semibold text-2xl text-text-primary">Criação: R$ 800</span></div>
+              <div class="text-xs text-text-secondary mt-1">+ R$ 50/mês manutenção</div>
+              <ul class="mt-5 space-y-2 flex-1">
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Básico +</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Galeria, SEO avançado</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Formulário profissional</li>
+                <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Integrações extras</li>
+              </ul>
+              <button type="button" onclick="contratarServicoViaWhatsApp('Site Completo — R$ 800 + R$ 50/mês')" class="btn-primary-sm mt-5 w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">Contratar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="max-w-3xl mx-auto text-center mb-10">
           <p class="text-sm text-text-secondary leading-relaxed">
-            💳 <span class="text-text-primary">Forma de pagamento:</span> 50% de entrada + 50% na entrega ·
-            À vista com 5% de desconto · Até 3x no cartão
+            💳 Forma de pagamento: 50% entrada + 50% na entrega · À vista 5% desconto · Até 3x no cartão
           </p>
         </div>
 
-        <!-- Selos de segurança -->
-        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-text-secondary font-mono">
-          <span class="flex items-center gap-1.5">🔒 Pagamento 100% Seguro</span>
-          <span class="hidden sm:inline text-border-subtle">•</span>
-          <span>Processado pela Kiwify</span>
-          <span class="hidden sm:inline text-border-subtle">•</span>
+        <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-xs text-text-secondary font-mono">
+          <span>🔒 Pagamento 100% Seguro — Kiwify</span>
+          <span class="hidden sm:inline text-border-subtle">·</span>
           <span>Pix</span>
-          <span class="hidden sm:inline text-border-subtle">•</span>
-          <span>Cartão de Crédito</span>
+          <span class="hidden sm:inline text-border-subtle">·</span>
+          <span>Cartão</span>
+          <span class="hidden sm:inline text-border-subtle">·</span>
+          <span>SSL Automático</span>
         </div>
 
         </div>

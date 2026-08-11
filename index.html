@@ -183,19 +183,16 @@
   <main class="pt-16">
 
     <!-- ================= HERO ================= -->
-    <section class="relative overflow-hidden bg-bg-base">
-      <!-- Imagem de fundo (template de Psicologia) + camada escura para legibilidade -->
-      <div class="absolute inset-0">
-        <img src="assets/hero/hero-psicologia.jpg" alt="" aria-hidden="true" class="w-full h-full object-cover object-center">
-        <div class="absolute inset-0 bg-black/70"></div>
-      </div>
+    <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #000000 100%);">
+      <!-- Camada sutil de brilho roxo — sem nenhuma imagem de fundo -->
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 65%);" aria-hidden="true"></div>
 
       <div class="relative max-w-3xl mx-auto px-6 sm:px-8 pt-28 pb-20 sm:pt-36 sm:pb-24 flex flex-col items-center text-center">
-        <h1 class="font-display font-extrabold uppercase text-4xl sm:text-5xl md:text-6xl leading-[1.1] text-white max-w-2xl">
+        <h1 class="font-display font-extrabold uppercase text-4xl sm:text-5xl md:text-6xl leading-[1.1] text-white max-w-2xl" style="text-shadow: 0 2px 12px rgba(0,0,0,0.5);">
           Landing Pages que Vendem
         </h1>
 
-        <p class="mt-6 text-base sm:text-lg text-white/85 max-w-xl leading-relaxed">
+        <p class="mt-6 text-base sm:text-lg text-white/85 max-w-xl leading-relaxed" style="text-shadow: 0 1px 6px rgba(0,0,0,0.4);">
           Sites profissionais, rápidos e otimizados para converter visitantes em clientes.<br class="hidden sm:block">
           Código limpo • PageSpeed 95+ • Deploy em 10 minutos.
         </p>
@@ -213,25 +210,10 @@
           </a>
         </div>
 
-        <p class="mt-8 text-sm text-white/80">⭐ +200 Templates Vendidos • 5.0/5.0 • 80+ Negócios Confiam</p>
+        <p class="mt-8 text-sm text-white/80">⭐ +200 Templates Vendidos • 5.0/5.0 • 80+ Negócios Confiam • 95+ PageSpeed Score</p>
       </div>
     </section>
     <!-- ================= /HERO ================= -->
-
-
-    <!-- ================= PROVA SOCIAL ================= -->
-    <section class="bg-bg-base border-t border-border-subtle">
-      <div class="max-w-4xl mx-auto px-6 sm:px-8 py-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center">
-        <span class="text-sm text-text-secondary"><span class="text-text-primary font-medium">+200</span> Templates Vendidos</span>
-        <span class="hidden sm:inline text-border-subtle">•</span>
-        <span class="text-sm text-text-secondary"><span class="text-text-primary font-medium">80+</span> Negócios Confiam</span>
-        <span class="hidden sm:inline text-border-subtle">•</span>
-        <span class="text-sm text-text-secondary">⭐ <span class="text-text-primary font-medium">5.0/5.0</span> (47 avaliações)</span>
-        <span class="hidden sm:inline text-border-subtle">•</span>
-        <span class="text-sm text-text-secondary"><span class="text-text-primary font-medium">95+</span> PageSpeed Score</span>
-      </div>
-    </section>
-    <!-- ================= /PROVA SOCIAL ================= -->
 
 
     <!-- ================= SOBRE NÓS ================= -->
@@ -268,7 +250,7 @@
           <!-- CARD — ADVOCACIA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <img src="assets/templates/advocacia.jpg" alt="Captura de tela do template de Advocacia" class="absolute inset-0 w-full h-full object-cover">
+              <img src="./assets/templates/advocacia.jpg" alt="Captura de tela do template de Advocacia" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
@@ -290,7 +272,7 @@
           <!-- CARD — ESTÉTICA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <img src="assets/templates/estetica.jpg" alt="Captura de tela do template de Estética" class="absolute inset-0 w-full h-full object-cover">
+              <img src="./assets/templates/estetica.jpg" alt="Captura de tela do template de Estética" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
@@ -312,7 +294,7 @@
           <!-- CARD — PSICOLOGIA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <img src="assets/templates/psicologia.jpg" alt="Captura de tela do template de Psicologia" class="absolute inset-0 w-full h-full object-cover">
+              <img src="./assets/templates/psicologia.jpg" alt="Captura de tela do template de Psicologia" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
@@ -334,7 +316,7 @@
           <!-- CARD — CONSULTORIA (DISPONÍVEL) -->
           <div class="card-available flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <img src="assets/templates/consultoria.jpg" alt="Captura de tela do template de Consultoria" class="absolute inset-0 w-full h-full object-cover">
+              <img src="./assets/templates/consultoria.jpg" alt="Captura de tela do template de Consultoria" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';">
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-emerald-400">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>Disponível
               </span>
@@ -356,7 +338,7 @@
           <!-- CARD — RESTAURANTE (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/restaurante.jpg" alt="Captura de tela do template de Restaurante" class="absolute inset-0 w-full h-full object-cover"></div>
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="./assets/templates/restaurante.jpg" alt="Captura de tela do template de Restaurante" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#1c120c"/>
@@ -385,7 +367,7 @@
           <!-- CARD — ODONTOLOGIA (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/odontologia.jpg" alt="Captura de tela do template de Odontologia" class="absolute inset-0 w-full h-full object-cover"></div>
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="./assets/templates/odontologia.jpg" alt="Captura de tela do template de Odontologia" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#f0f7fb"/>
@@ -414,7 +396,7 @@
           <!-- CARD — ACADEMIA (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/academia.jpg" alt="Captura de tela do template de Academia" class="absolute inset-0 w-full h-full object-cover"></div>
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="./assets/templates/academia.jpg" alt="Captura de tela do template de Academia" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#14140f"/>
@@ -443,7 +425,7 @@
           <!-- CARD — LOJA DE ROUPAS (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/loja-de-roupas.jpg" alt="Captura de tela do template de Loja De Roupas" class="absolute inset-0 w-full h-full object-cover"></div>
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="./assets/templates/loja-de-roupas.jpg" alt="Captura de tela do template de Loja De Roupas" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#fbeef2"/>
@@ -472,7 +454,7 @@
           <!-- CARD — IMOBILIÁRIA (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/imobiliaria.jpg" alt="Captura de tela do template de Imobiliária" class="absolute inset-0 w-full h-full object-cover"></div>
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="./assets/templates/imobiliaria.jpg" alt="Captura de tela do template de Imobiliária" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#101820"/>
@@ -501,7 +483,7 @@
           <!-- CARD — SERVIÇOS GERAIS (EM BREVE) -->
           <div class="card-soon flex flex-col rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
             <div class="relative aspect-video overflow-hidden bg-bg-base">
-              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="assets/templates/servicos-gerais.jpg" alt="Captura de tela do template de Serviços Gerais" class="absolute inset-0 w-full h-full object-cover"></div>
+              <div class="absolute inset-0" style="filter: grayscale(35%) brightness(0.8)"><img src="./assets/templates/servicos-gerais.jpg" alt="Captura de tela do template de Serviços Gerais" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#2a1a4d';"></div>
               <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-bg-base/80 border border-border-subtle px-3 py-1 font-mono text-[11px] text-amber-400"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>🚀 Em Breve</span>
               <div class="absolute inset-0" style="filter: grayscale(45%) brightness(0.75)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 176" class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
         <rect width="280" height="176" fill="#12151c"/>

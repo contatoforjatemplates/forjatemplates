@@ -106,6 +106,42 @@
   #precos .rounded-2xl.border { transition: transform 200ms ease, box-shadow 200ms ease; }
   #precos .rounded-2xl.border:hover { transform: translateY(-2px); box-shadow: 0 14px 32px -16px rgba(0,0,0,0.5); }
 
+  /* Carrossel infinito — "Nossos Projetos Entregues" */
+  .marquee-row {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    will-change: transform;
+  }
+  .marquee-track.dir-left { animation-name: marquee-left; }
+  .marquee-track.dir-right { animation-name: marquee-right; }
+  .marquee-track { animation-timing-function: linear; animation-iteration-count: infinite; }
+  .marquee-row:hover .marquee-track,
+  .marquee-row:focus-within .marquee-track { animation-play-state: paused; }
+  @keyframes marquee-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+  .project-card {
+    flex: 0 0 auto;
+    width: 220px;
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  }
+  .project-card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 16px 36px -14px rgba(108, 92, 231, 0.4);
+    border-color: #6C5CE7;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none !important; }
+    .project-card { transition: none; }
+  }
+
   /* Botão flutuante do WhatsApp */
   @keyframes wa-pulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45); }
@@ -605,7 +641,7 @@
             <div class="flex flex-col rounded-2xl border border-border-subtle bg-bg-base p-6">
               <span class="inline-block self-start rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] px-3 py-1">🟢 Site Básico</span>
               <h4 class="font-display font-semibold text-lg text-text-primary mt-3">Página única com tudo essencial</h4>
-              <div class="mt-5"><span class="font-display font-semibold text-2xl text-text-primary">Criação: R$ 500</span></div>
+              <div class="mt-5"><span class="font-display font-semibold text-2xl text-text-primary">Criação: R$ 700</span></div>
               <div class="text-xs text-text-secondary mt-1">+ R$ 50/mês manutenção</div>
               <ul class="mt-5 space-y-2 flex-1">
                 <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Início, Sobre, Serviços</li>
@@ -613,13 +649,13 @@
                 <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Design 100% Responsivo</li>
                 <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Certificado SSL incluso</li>
               </ul>
-              <button type="button" onclick="contratarServicoViaWhatsApp('Site Básico — R$ 500 + R$ 50/mês')" class="btn-outline-sm mt-5 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">Contratar</button>
+              <button type="button" onclick="contratarServicoViaWhatsApp('Site Básico — R$ 700 + R$ 50/mês')" class="btn-outline-sm mt-5 w-full inline-flex items-center justify-center rounded-lg border border-border-subtle hover:border-accent-soft text-text-primary hover:text-accent-soft font-medium text-sm px-4 py-2.5">Contratar</button>
             </div>
 
             <div class="flex flex-col rounded-2xl border-2 border-accent bg-bg-base p-6">
               <span class="inline-block self-start rounded-full bg-accent/10 border border-accent/30 text-accent-soft font-mono text-[11px] px-3 py-1">🔵 Site Completo</span>
               <h4 class="font-display font-semibold text-lg text-text-primary mt-3">5 páginas completas</h4>
-              <div class="mt-5"><span class="font-display font-semibold text-2xl text-text-primary">Criação: R$ 800</span></div>
+              <div class="mt-5"><span class="font-display font-semibold text-2xl text-text-primary">Criação: R$ 1.000</span></div>
               <div class="text-xs text-text-secondary mt-1">+ R$ 50/mês manutenção</div>
               <ul class="mt-5 space-y-2 flex-1">
                 <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tudo do Básico +</li>
@@ -627,7 +663,7 @@
                 <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Formulário profissional</li>
                 <li class="flex items-start gap-2.5 text-sm text-text-secondary"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-0.5 text-accent-soft shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Integrações extras</li>
               </ul>
-              <button type="button" onclick="contratarServicoViaWhatsApp('Site Completo — R$ 800 + R$ 50/mês')" class="btn-primary-sm mt-5 w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">Contratar</button>
+              <button type="button" onclick="contratarServicoViaWhatsApp('Site Completo — R$ 1.000 + R$ 50/mês')" class="btn-primary-sm mt-5 w-full inline-flex items-center justify-center rounded-lg bg-accent hover:bg-accent-soft text-white font-medium text-sm px-4 py-2.5">Contratar</button>
             </div>
           </div>
         </div>
@@ -774,8 +810,8 @@
             <span class="font-mono text-[11px] text-text-secondary uppercase tracking-wide">Serviço contratado</span>
             <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
               <label class="servico-option"><input type="radio" name="ct-servico" value="Template Pronto" data-valor="197" class="sr-only" onchange="atualizarValorContrato()"><span class="block rounded-lg border border-border-subtle text-text-secondary text-sm px-4 py-2.5 cursor-pointer transition-colors text-center">Template — R$ 197</span></label>
-              <label class="servico-option"><input type="radio" name="ct-servico" value="Site Básico" data-valor="500" class="sr-only" onchange="atualizarValorContrato()"><span class="block rounded-lg border border-border-subtle text-text-secondary text-sm px-4 py-2.5 cursor-pointer transition-colors text-center">Site Básico — R$ 500</span></label>
-              <label class="servico-option"><input type="radio" name="ct-servico" value="Site Completo" data-valor="800" class="sr-only" onchange="atualizarValorContrato()"><span class="block rounded-lg border border-border-subtle text-text-secondary text-sm px-4 py-2.5 cursor-pointer transition-colors text-center">Site Completo — R$ 800</span></label>
+              <label class="servico-option"><input type="radio" name="ct-servico" value="Site Básico" data-valor="700" class="sr-only" onchange="atualizarValorContrato()"><span class="block rounded-lg border border-border-subtle text-text-secondary text-sm px-4 py-2.5 cursor-pointer transition-colors text-center">Site Básico — R$ 700</span></label>
+              <label class="servico-option"><input type="radio" name="ct-servico" value="Site Completo" data-valor="1000" class="sr-only" onchange="atualizarValorContrato()"><span class="block rounded-lg border border-border-subtle text-text-secondary text-sm px-4 py-2.5 cursor-pointer transition-colors text-center">Site Completo — R$ 1.000</span></label>
             </div>
           </div>
 
@@ -921,8 +957,125 @@
     <!-- ================= /FEEDBACKS / DEPOIMENTOS ================= -->
 
 
+    <!-- ================= NOSSOS PROJETOS ENTREGUES (CARROSSEL INFINITO) ================= -->
+    <section id="projetos-entregues" class="relative bg-bg-base border-t border-border-subtle overflow-hidden">
+      <div class="max-w-6xl mx-auto px-6 sm:px-8 py-24 sm:py-28">
+
+        <div class="max-w-2xl mx-auto text-center mb-4">
+          <div class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-bg-card/60 px-4 py-1.5 mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-soft"></span>
+            <span class="font-mono text-xs text-text-secondary tracking-wide">portfólio em crescimento</span>
+          </div>
+          <h2 class="font-display font-semibold text-3xl sm:text-4xl text-text-primary">🏆 Nossos Projetos Entregues</h2>
+          <p class="mt-4 text-text-secondary text-base sm:text-lg leading-relaxed">
+            ✨ Projetos reais entregues. Atualizado a cada novo cliente!
+          </p>
+        </div>
+
+        <!--
+          COMO ADICIONAR UM NOVO PROJETO:
+          1. Copie um card "project-card" inteiro (dentro da linha 1 ou da linha 2).
+          2. Troque o href pelo link do site do cliente, a imagem/placeholder e o nome do card.
+          3. Cole a cópia dentro do bloco marquee-track correspondente, em qualquer posição.
+          Não precisa duplicar manualmente para o efeito de loop — o JavaScript no final do arquivo
+          já duplica automaticamente o conteúdo de cada linha para o carrossel rodar sem costura,
+          não importa quantos cards você adicionar.
+        -->
+        <div class="flex flex-col gap-5 mt-12">
+
+          <!-- Linha de cima — rola para a ESQUERDA -->
+          <div class="marquee-row">
+            <div class="marquee-track dir-left" id="marquee-track-1">
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Advocacia</p></div>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Estética</p></div>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Psicologia</p></div>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Consultoria</p></div>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Restaurante</p></div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Linha de baixo — rola para a DIREITA -->
+          <div class="marquee-row">
+            <div class="marquee-track dir-right" id="marquee-track-2">
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Odontologia</p></div>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Academia</p></div>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Loja de Roupas</p></div>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Imobiliária</p></div>
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="project-card group block rounded-xl border border-border-subtle bg-bg-card overflow-hidden">
+                <div class="aspect-video flex flex-col items-center justify-center gap-2 bg-[#d9d9df]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" style="color: rgba(10,10,15,0.35)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="text-[11px] font-mono" style="color: rgba(10,10,15,0.45)">Projeto — Em breve</span>
+                </div>
+                <div class="px-3 py-2.5"><p class="text-sm font-medium text-text-primary">Serviços Gerais</p></div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="text-center mt-8 text-xs text-text-secondary/70">💡 Passe o mouse para pausar • Clique para visitar o site</p>
+      </div>
+    </section>
+    <!-- ================= /NOSSOS PROJETOS ENTREGUES ================= -->
+
+
     <!-- ================= GARANTIA ================= -->
     <section id="garantia" class="relative bg-bg-base grid-pattern border-t border-border-subtle">
+
       <div class="relative max-w-2xl mx-auto px-6 sm:px-8 py-20 sm:py-24 flex flex-col items-center text-center">
         <div class="guarantee-ring flex items-center justify-center w-16 h-16 rounded-full bg-bg-card border border-accent">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-accent-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/><path d="m9.5 12 2 2 3.5-4"/></svg>
@@ -1456,6 +1609,32 @@
 
       doc.save('Forja-Templates-Proposta-Contrato-' + d.nome.replace(/\s+/g, '-') + '.pdf');
     }
+  </script>
+
+  <script>
+    // ================= CARROSSEL INFINITO: NOSSOS PROJETOS ENTREGUES =================
+    // Duplica automaticamente os cards de cada linha (necessário para o loop de -50% ficar
+    // sem costura) e calcula a duração da animação com base na largura real do conteúdo,
+    // então a velocidade visual continua igual não importa quantos cards você adicione.
+    (function () {
+      var PIXELS_POR_SEGUNDO = 45; // ajuste este número para deixar mais rápido ou mais lento
+
+      function iniciarMarquee(trackId) {
+        var track = document.getElementById(trackId);
+        if (!track) return;
+
+        var larguraOriginal = track.scrollWidth;
+        track.insertAdjacentHTML('beforeend', track.innerHTML); // duplica os cards uma vez
+
+        var duracao = Math.max(larguraOriginal / PIXELS_POR_SEGUNDO, 12);
+        track.style.animationDuration = duracao + 's';
+      }
+
+      window.addEventListener('load', function () {
+        iniciarMarquee('marquee-track-1');
+        iniciarMarquee('marquee-track-2');
+      });
+    })();
   </script>
 
 </body>

@@ -108,14 +108,18 @@
 
   /* Carrossel infinito — "Nossos Projetos Entregues" */
   .marquee-row {
+    width: 100%;
+    max-width: 100vw;
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
   }
   .marquee-track {
     display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
     gap: 1.25rem;
-    width: max-content;
+    width: max-content; /* largura calculada dinamicamente pelo conteúdo, nunca fixa */
     will-change: transform;
   }
   .marquee-track.dir-left { animation-name: marquee-left; }
@@ -123,18 +127,30 @@
   .marquee-track { animation-timing-function: linear; animation-iteration-count: infinite; }
   .marquee-row:hover .marquee-track,
   .marquee-row:focus-within .marquee-track { animation-play-state: paused; }
-  @keyframes marquee-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  /* translateX em porcentagem — nunca em px, então funciona em qualquer largura de tela */
+  @keyframes marquee-left { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
+  @keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0%); } }
 
   .project-card {
     flex: 0 0 auto;
-    width: 220px;
+    /* largura fluida: nunca menor que 150px nem maior que 200px, escalando com a tela entre os dois */
+    width: clamp(150px, 40vw, 200px);
     transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
   }
   .project-card:hover {
     transform: scale(1.04);
     box-shadow: 0 16px 36px -14px rgba(108, 92, 231, 0.4);
     border-color: #6C5CE7;
+  }
+
+  /* Ajustes específicos para celular: cards um pouco menores, espaçamento mais compacto */
+  @media (max-width: 768px) {
+    .project-card { width: clamp(130px, 38vw, 170px); }
+    .marquee-track { gap: 0.75rem; }
+    .marquee-row {
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

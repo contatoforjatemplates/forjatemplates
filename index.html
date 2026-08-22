@@ -14,7 +14,6 @@
 <meta property="og:image" content="https://forja-templates.vercel.app/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 
-<script src="https://cdn.tailwindcss.com"></script>
 <!-- jsPDF — geração do PDF do contrato no navegador -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -22,30 +21,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          'bg-base': '#0A0A0F',
-          'bg-card': '#13131A',
-          'accent': '#6C5CE7',
-          'accent-soft': '#8B7CF6',
-          'text-primary': '#F5F5F7',
-          'text-secondary': '#9A9AA5',
-          'border-subtle': '#232330',
-          'vip-gold': '#F0B429',
-          'vip-gold-soft': '#F7CE68',
-        },
-        fontFamily: {
-          display: ['"Space Grotesk"', 'sans-serif'],
-          body: ['"Inter"', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'monospace'],
-        },
-      }
-    }
-  }
-</script>
+<!-- Tailwind CSS compilado localmente (build estático, sem CDN) — só as classes usadas no site -->
+<link rel="stylesheet" href="./assets/css/tailwind.min.css">
 
 <style>
   html { scroll-behavior: smooth; }

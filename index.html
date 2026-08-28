@@ -29,13 +29,13 @@
 
   .grid-pattern {
     background-image:
-      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+      linear-gradient(to right, rgba(15,42,71,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15,42,71,0.04) 1px, transparent 1px);
     background-size: 56px 56px;
   }
   .site-header {
     backdrop-filter: blur(10px);
-    background-color: rgba(10, 10, 15, 0.75);
+    background-color: rgba(255, 255, 255, 0.85);
   }
   .btn-primary, .btn-primary-sm, .btn-primary-lg {
     transition: box-shadow 250ms ease, transform 180ms ease, background-color 200ms ease;
@@ -186,9 +186,9 @@
     height: 64px;
     padding: 0 1rem;
     border-radius: 0.75rem;
-    border: 1px solid #232330;
-    background: #13131A;
-    color: #9A9AA5;
+    border: 1px solid #E2E8F0;
+    background: #F8FAFC;
+    color: #64748B;
     font-size: 0.75rem;
     font-family: 'JetBrains Mono', monospace;
     filter: grayscale(100%);
@@ -232,10 +232,148 @@
       transition: none !important;
     }
   }
+  /* ===== Celular mockup animado (Hero) ===== */
+  .phone-mockup {
+    width: clamp(200px, 22vw, 260px);
+    aspect-ratio: 9 / 19;
+    border-radius: 2.5rem;
+    border: 10px solid #0F2A47;
+    background: #0F2A47;
+    box-shadow: 0 30px 60px -20px rgba(15,42,71,0.55), 0 0 0 2px rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-mockup::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 42%;
+    height: 16px;
+    background: #0F2A47;
+    border-radius: 0 0 12px 12px;
+    z-index: 5;
+  }
+  .phone-screen {
+    position: absolute;
+    inset: 0;
+    background: #F8FAFC;
+    overflow: hidden;
+    border-radius: 1.7rem;
+  }
+  .phone-scroll-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px 12px 12px;
+    animation: phone-scroll 9s ease-in-out infinite;
+  }
+  @keyframes phone-scroll {
+    0%, 12%   { transform: translateY(0); }
+    38%, 50%  { transform: translateY(-38%); }
+    76%, 88%  { transform: translateY(-68%); }
+    100%      { transform: translateY(0); }
+  }
+  .phone-block { border-radius: 10px; background: #E2E8F0; flex-shrink: 0; }
+  .phone-block-nav  { height: 22px; background: #0F2A47; border-radius: 6px; }
+  .phone-block-hero { height: 110px; background: linear-gradient(135deg, #2563EB, #0F2A47); border-radius: 12px; }
+  .phone-block-card { height: 64px; }
+  .phone-block-cta  { height: 34px; background: #F59E0B; border-radius: 8px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .phone-scroll-content { animation: none; }
+  }
+
+  /* ===== Tela de entrada (splash) ===== */
+  #splash-screen {
+    transition: opacity 500ms ease, visibility 500ms ease;
+  }
+  #splash-screen.splash-hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* ===== Seleção interativa de serviços (estilo "latas em destaque") ===== */
+  .servico-carrossel {
+    width: 100%;
+    max-width: 560px;
+    overflow: hidden;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+  .servico-track {
+    display: flex;
+    align-items: center;
+    will-change: transform;
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .servico-item {
+    flex-shrink: 0;
+    width: 132px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1.1rem 0.5rem;
+    margin: 0 0.4rem;
+    border-radius: 1rem;
+    border: 1px solid #E2E8F0;
+    background: #F8FAFC;
+    cursor: pointer;
+    opacity: 0.45;
+    transform: scale(0.8);
+    filter: grayscale(35%);
+    transition: opacity 350ms ease, transform 350ms ease, filter 350ms ease, box-shadow 350ms ease, border-color 350ms ease;
+  }
+  .servico-item .servico-item-icone { font-size: 1.65rem; }
+  .servico-item .servico-item-nome { font-size: 0.7rem; font-weight: 500; color: #64748B; text-align: center; line-height: 1.2; }
+  .servico-item.is-ativo {
+    opacity: 1;
+    transform: scale(1.18);
+    filter: grayscale(0%);
+    border-color: #2563EB;
+    background: #FFFFFF;
+    box-shadow: 0 18px 40px -14px rgba(37,99,235,0.4);
+    z-index: 2;
+  }
+  .servico-item.is-ativo .servico-item-nome { color: #0F2A47; font-weight: 600; }
+
+  @media (max-width: 640px) {
+    .servico-item { width: 96px; padding: 0.9rem 0.4rem; margin: 0 0.25rem; }
+    .servico-item .servico-item-icone { font-size: 1.4rem; }
+    .servico-item .servico-item-nome { font-size: 0.62rem; }
+  }
+
+  .servico-beneficio-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 9999px;
+    background: #EFF6FF;
+    color: #2563EB;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .servico-track, .servico-item { transition: none; }
+  }
+
 </style>
 </head>
 
 <body class="bg-bg-base font-body antialiased">
+
+    <!-- ================= TELA DE ENTRADA (SPLASH) ================= -->
+  <div id="splash-screen" class="fixed inset-0 z-[100] flex items-center justify-center" style="background: linear-gradient(135deg, #0F2A47 0%, #163a5f 100%);">
+    <div id="splash-logo" class="flex items-center gap-2.5" style="opacity:0; transform: scale(0.92); transition: opacity 900ms ease, transform 900ms ease;">
+      <span class="w-3 h-3 rounded-full" style="background:#F59E0B;"></span>
+      <span class="font-display font-semibold text-3xl sm:text-4xl text-white">Forja<span style="color:#3B82F6;">Templates</span></span>
+    </div>
+  </div>
+  <!-- ================= /TELA DE ENTRADA ================= -->
 
   <!-- ================= HEADER / NAVEGAÇÃO ================= -->
   <header id="topo" class="site-header fixed top-0 left-0 right-0 z-50 border-b border-border-subtle">
@@ -289,34 +427,59 @@
   <main class="pt-16">
 
     <!-- ================= HERO ================= -->
-    <section class="reveal-on-scroll relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #000000 100%);">
-      <!-- Camada sutil de brilho roxo — sem nenhuma imagem de fundo -->
-      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 65%);" aria-hidden="true"></div>
+    <section class="reveal-on-scroll relative overflow-hidden" style="background: linear-gradient(135deg, #0F2A47 0%, #163a5f 100%);">
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at 75% 25%, rgba(37,99,235,0.28) 0%, transparent 60%);" aria-hidden="true"></div>
 
-      <div class="relative max-w-3xl mx-auto px-6 sm:px-8 pt-28 pb-20 sm:pt-36 sm:pb-24 flex flex-col items-center text-center">
-        <h1 class="font-display font-extrabold uppercase text-4xl sm:text-5xl md:text-6xl leading-[1.1] text-white max-w-2xl" style="text-shadow: 0 2px 12px rgba(0,0,0,0.5);">
-          Landing Pages que Vendem
-        </h1>
+      <div class="relative max-w-6xl mx-auto px-6 sm:px-8 pt-28 pb-20 sm:pt-32 sm:pb-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
-        <p class="mt-6 text-base sm:text-lg text-white/85 max-w-xl leading-relaxed" style="text-shadow: 0 1px 6px rgba(0,0,0,0.4);">
-          Sites profissionais, rápidos e otimizados para converter visitantes em clientes.<br class="hidden sm:block">
-          Código limpo • PageSpeed 95+ • Deploy em 10 minutos.
-        </p>
+        <div class="text-center lg:text-left">
+          <h1 class="font-display font-extrabold uppercase text-4xl sm:text-5xl md:text-6xl leading-[1.1] text-white max-w-2xl mx-auto lg:mx-0" style="text-shadow: 0 2px 12px rgba(0,0,0,0.35);">
+            Landing Pages que Vendem
+          </h1>
 
-        <div class="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-          <a href="#vitrine"
-             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg font-medium text-sm sm:text-base px-7 py-3.5 transition-colors"
-             style="background-color:#8A2BE2; color:#FFFFFF;" onmouseover="this.style.backgroundColor='#7623c9'" onmouseout="this.style.backgroundColor='#8A2BE2'">
-            Ver Templates Disponíveis
-          </a>
-          <a href="#contrato-proposta"
-             class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg font-medium text-sm sm:text-base px-7 py-3.5 bg-transparent transition-colors"
-             style="border: 2px solid #8A2BE2; color:#FFFFFF;">
-            Solicitar Orçamento
-          </a>
+          <p class="mt-6 text-base sm:text-lg text-white/85 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Sites profissionais, rápidos e otimizados para converter visitantes em clientes.<br class="hidden sm:block">
+            Código limpo • PageSpeed 95+ • Deploy em 10 minutos.
+          </p>
+
+          <div class="mt-10 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 w-full sm:w-auto">
+            <a href="#vitrine"
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg font-medium text-sm sm:text-base px-7 py-3.5 transition-colors"
+               style="background-color:#2563EB; color:#FFFFFF;" onmouseover="this.style.backgroundColor='#1D4ED8'" onmouseout="this.style.backgroundColor='#2563EB'">
+              Ver Templates Disponíveis
+            </a>
+            <a href="#contrato-proposta"
+               class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg font-medium text-sm sm:text-base px-7 py-3.5 bg-transparent transition-colors"
+               style="border: 2px solid #F59E0B; color:#FFFFFF;">
+              Solicitar Orçamento
+            </a>
+          </div>
+
+          <p class="mt-8 text-sm text-white/80">⭐ +200 Templates Vendidos • 5.0/5.0 • 80+ Negócios Confiam • 95+ PageSpeed Score</p>
         </div>
 
-        <p class="mt-8 text-sm text-white/80">⭐ +200 Templates Vendidos • 5.0/5.0 • 80+ Negócios Confiam • 95+ PageSpeed Score</p>
+        <!-- Celular mockup — animação de rolagem simulando navegação no site -->
+        <div class="flex justify-center lg:justify-end" aria-hidden="true">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <div class="phone-scroll-content">
+                <div class="phone-block phone-block-nav"></div>
+                <div class="phone-block phone-block-hero"></div>
+                <div class="phone-block phone-block-card"></div>
+                <div class="phone-block phone-block-card"></div>
+                <div class="phone-block phone-block-cta"></div>
+                <div class="phone-block phone-block-hero"></div>
+                <div class="phone-block phone-block-card"></div>
+                <div class="phone-block phone-block-card"></div>
+                <div class="phone-block phone-block-card"></div>
+                <div class="phone-block phone-block-cta"></div>
+                <div class="phone-block phone-block-hero"></div>
+                <div class="phone-block phone-block-card"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
     <!-- ================= /HERO ================= -->
@@ -719,72 +882,34 @@
           </p>
         </div>
 
-        <!-- Catálogo detalhado de serviços -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+        <!-- Seleção interativa de serviços — item central em destaque, detalhes dinâmicos abaixo -->
+        <div class="mb-16">
+          <div class="flex items-center justify-center gap-4 sm:gap-6">
+            <button type="button" id="servico-prev" aria-label="Serviço anterior"
+              class="shrink-0 flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-border-subtle bg-bg-card text-text-primary hover:border-accent hover:text-accent transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
 
-          <div class="rounded-xl border border-border-subtle bg-bg-card p-6">
-            <span class="text-2xl">📸</span>
-            <h3 class="font-display font-semibold text-base text-text-primary mt-3">Portfólio Profissional</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Foco em exibir trabalhos e projetos. Ideal para fotógrafos, designers, arquitetos e consultores.</p>
-            <p class="mt-3 font-mono text-xs text-accent-soft">R$ 600 a R$ 2.000</p>
+            <div class="servico-carrossel" id="servico-carrossel">
+              <div class="servico-track" id="servico-track">
+                <!-- os 9 itens são injetados via JavaScript a partir de SERVICOS_DATA, no final do arquivo -->
+              </div>
+            </div>
+
+            <button type="button" id="servico-next" aria-label="Próximo serviço"
+              class="shrink-0 flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-border-subtle bg-bg-card text-text-primary hover:border-accent hover:text-accent transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
 
-          <div class="rounded-xl border border-border-subtle bg-bg-card p-6">
-            <span class="text-2xl">📰</span>
-            <h3 class="font-display font-semibold text-base text-text-primary mt-3">Blog / Portal de Conteúdo</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Estrutura para publicação de artigos, categorias e espaços para anúncios.</p>
-            <p class="mt-3 font-mono text-xs text-accent-soft">R$ 1.300 a R$ 4.000</p>
+          <!-- Painel de detalhes — atualizado dinamicamente conforme o item selecionado -->
+          <div id="servico-detalhes" class="max-w-2xl mx-auto mt-10 rounded-2xl border border-border-subtle bg-bg-card p-7 sm:p-8 text-center transition-opacity duration-300">
+            <span id="servico-detalhe-icone" class="text-3xl"></span>
+            <h3 id="servico-detalhe-titulo" class="font-display font-semibold text-xl text-text-primary mt-3"></h3>
+            <p id="servico-detalhe-descricao" class="mt-3 text-sm sm:text-base text-text-secondary leading-relaxed"></p>
+            <p id="servico-detalhe-preco" class="mt-4 font-mono text-sm text-accent font-medium"></p>
+            <ul id="servico-detalhe-beneficios" class="mt-5 flex flex-wrap items-center justify-center gap-2"></ul>
           </div>
-
-          <div class="rounded-xl border border-border-subtle bg-bg-card p-6">
-            <span class="text-2xl">🏠</span>
-            <h3 class="font-display font-semibold text-base text-text-primary mt-3">Imobiliária / Concessionária</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Catálogo dinâmico com filtros avançados e integração com portais.</p>
-            <p class="mt-3 font-mono text-xs text-accent-soft">R$ 2.000 a R$ 8.000</p>
-          </div>
-
-          <div class="rounded-xl border border-border-subtle bg-bg-card p-6">
-            <span class="text-2xl">📅</span>
-            <h3 class="font-display font-semibold text-base text-text-primary mt-3">Site com Sistema de Agendamento</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Agendamento online com integração de pagamento. Para clínicas, barbearias e salões.</p>
-            <p class="mt-3 font-mono text-xs text-accent-soft">R$ 1.500 a R$ 5.000</p>
-          </div>
-
-          <div class="rounded-xl border border-border-subtle bg-bg-card p-6">
-            <span class="text-2xl">🎓</span>
-            <h3 class="font-display font-semibold text-base text-text-primary mt-3">Plataforma de Cursos EAD</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Área de alunos, progresso e certificados automáticos.</p>
-            <p class="mt-3 font-mono text-xs text-accent-soft">R$ 3.000 a R$ 12.000</p>
-          </div>
-
-          <div class="rounded-xl border border-border-subtle bg-bg-card p-6">
-            <span class="text-2xl">🎯</span>
-            <h3 class="font-display font-semibold text-base text-text-primary mt-3">Landing Page</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Página de alta conversão para campanhas e lançamentos.</p>
-            <p class="mt-3 font-mono text-xs text-accent-soft">R$ 800 a R$ 2.500</p>
-          </div>
-
-          <div class="rounded-xl border border-border-subtle bg-bg-card p-6">
-            <span class="text-2xl">🏢</span>
-            <h3 class="font-display font-semibold text-base text-text-primary mt-3">Site Institucional</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Site completo com 4 a 8 páginas. Para pequenas e médias empresas.</p>
-            <p class="mt-3 font-mono text-xs text-accent-soft">R$ 2.000 a R$ 6.000</p>
-          </div>
-
-          <div class="rounded-xl border border-border-subtle bg-bg-card p-6">
-            <span class="text-2xl">🛒</span>
-            <h3 class="font-display font-semibold text-base text-text-primary mt-3">Loja Virtual (E-commerce)</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Catálogo de produtos, pagamentos e cálculo de frete automático.</p>
-            <p class="mt-3 font-mono text-xs text-accent-soft">R$ 3.500 a R$ 15.000+</p>
-          </div>
-
-          <div class="rounded-xl border border-border-subtle bg-bg-card p-6">
-            <span class="text-2xl">⚙️</span>
-            <h3 class="font-display font-semibold text-base text-text-primary mt-3">Sistema / Portal Sob Medida</h3>
-            <p class="mt-2 text-sm text-text-secondary leading-relaxed">Projetos personalizados com funcionalidades exclusivas.</p>
-            <p class="mt-3 font-mono text-xs text-accent-soft">R$ 15.000 a R$ 50.000+</p>
-          </div>
-
         </div>
 
         <div class="max-w-3xl mx-auto rounded-2xl border border-accent/30 bg-accent/5 px-6 py-5 text-center mb-16">
@@ -1957,6 +2082,157 @@
       }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
       elementos.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+  <script>
+    // ================= TELA DE ENTRADA (SPLASH) =================
+    (function () {
+      var splash = document.getElementById('splash-screen');
+      var logo = document.getElementById('splash-logo');
+      if (!splash || !logo) return;
+
+      // fade-in + leve zoom do logo assim que a página carrega
+      requestAnimationFrame(function () {
+        logo.style.opacity = '1';
+        logo.style.transform = 'scale(1)';
+      });
+
+      // some sozinha entre 2 e 3 segundos
+      setTimeout(function () {
+        splash.classList.add('splash-hide');
+      }, 2400);
+    })();
+  </script>
+
+<script>
+    // ================= SELEÇÃO INTERATIVA DE SERVIÇOS =================
+    var SERVICOS_DATA = [
+      { icone: '📸', nome: 'Portfólio', titulo: 'Portfólio Profissional', preco: 'R$ 600 a R$ 2.000',
+        descricao: 'Foco em exibir trabalhos e projetos. Ideal para fotógrafos, designers, arquitetos e consultores.',
+        beneficios: ['Galeria de projetos', 'Visual autoral', 'Contato direto'] },
+      { icone: '📰', nome: 'Blog', titulo: 'Blog / Portal de Conteúdo', preco: 'R$ 1.300 a R$ 4.000',
+        descricao: 'Estrutura para publicação de artigos, categorias e espaços para anúncios.',
+        beneficios: ['Categorias e tags', 'SEO para conteúdo', 'Espaço para anúncios'] },
+      { icone: '🏠', nome: 'Imobiliária', titulo: 'Imobiliária / Concessionária', preco: 'R$ 2.000 a R$ 8.000',
+        descricao: 'Catálogo dinâmico com filtros avançados e integração com portais.',
+        beneficios: ['Filtros avançados', 'Integração com portais', 'Catálogo dinâmico'] },
+      { icone: '📅', nome: 'Agendamento', titulo: 'Site com Sistema de Agendamento', preco: 'R$ 1.500 a R$ 5.000',
+        descricao: 'Agendamento online com integração de pagamento. Para clínicas, barbearias e salões.',
+        beneficios: ['Agenda online', 'Pagamento integrado', 'Lembretes automáticos'] },
+      { icone: '🎓', nome: 'EAD', titulo: 'Plataforma de Cursos EAD', preco: 'R$ 3.000 a R$ 12.000',
+        descricao: 'Área de alunos, progresso e certificados automáticos.',
+        beneficios: ['Área de alunos', 'Progresso do curso', 'Certificados automáticos'] },
+      { icone: '🎯', nome: 'Landing Page', titulo: 'Landing Page', preco: 'R$ 800 a R$ 2.500',
+        descricao: 'Página de alta conversão para campanhas e lançamentos.',
+        beneficios: ['Alta conversão', 'Ideal para Ads', 'Deploy rápido'] },
+      { icone: '🏢', nome: 'Institucional', titulo: 'Site Institucional', preco: 'R$ 2.000 a R$ 6.000',
+        descricao: 'Site completo com 4 a 8 páginas. Para pequenas e médias empresas.',
+        beneficios: ['4 a 8 páginas', 'Visual corporativo', 'Formulário de contato'] },
+      { icone: '🛒', nome: 'Loja Virtual', titulo: 'Loja Virtual (E-commerce)', preco: 'R$ 3.500 a R$ 15.000+',
+        descricao: 'Catálogo de produtos, pagamentos e cálculo de frete automático.',
+        beneficios: ['Catálogo de produtos', 'Pagamento online', 'Frete automático'] },
+      { icone: '⚙️', nome: 'Sob Medida', titulo: 'Sistema / Portal Sob Medida', preco: 'R$ 15.000 a R$ 50.000+',
+        descricao: 'Projetos personalizados com funcionalidades exclusivas.',
+        beneficios: ['100% personalizado', 'Funcionalidades exclusivas', 'Escopo sob consulta'] },
+    ];
+
+    (function () {
+      var track = document.getElementById('servico-track');
+      var carrossel = document.getElementById('servico-carrossel');
+      if (!track || !carrossel) return;
+
+      var indiceAtual = Math.floor(SERVICOS_DATA.length / 2); // começa com um item central de verdade
+      var autoTimer = null;
+
+      // Renderiza os 9 itens do carrossel
+      SERVICOS_DATA.forEach(function (servico, i) {
+        var item = document.createElement('div');
+        item.className = 'servico-item';
+        item.dataset.index = i;
+        item.innerHTML =
+          '<span class="servico-item-icone">' + servico.icone + '</span>' +
+          '<span class="servico-item-nome">' + servico.nome + '</span>';
+        item.addEventListener('click', function () { irParaIndice(i); reiniciarAutoAvanco(); });
+        track.appendChild(item);
+      });
+
+      var itens = track.querySelectorAll('.servico-item');
+
+      function atualizarDetalhes() {
+        var s = SERVICOS_DATA[indiceAtual];
+        document.getElementById('servico-detalhe-icone').textContent = s.icone;
+        document.getElementById('servico-detalhe-titulo').textContent = s.titulo;
+        document.getElementById('servico-detalhe-descricao').textContent = s.descricao;
+        document.getElementById('servico-detalhe-preco').textContent = s.preco;
+
+        var listaBeneficios = document.getElementById('servico-detalhe-beneficios');
+        listaBeneficios.innerHTML = '';
+        s.beneficios.forEach(function (b) {
+          var li = document.createElement('li');
+          li.className = 'servico-beneficio-pill';
+          li.textContent = '✓ ' + b;
+          listaBeneficios.appendChild(li);
+        });
+      }
+
+      function centralizarItemAtivo() {
+        itens.forEach(function (item, i) {
+          item.classList.toggle('is-ativo', i === indiceAtual);
+        });
+
+        // calcula o deslocamento necessário para o item ativo ficar exatamente no centro do carrossel
+        var itemAtivo = itens[indiceAtual];
+        var larguraCarrossel = carrossel.clientWidth;
+        var centroItem = itemAtivo.offsetLeft + itemAtivo.offsetWidth / 2;
+        var deslocamento = larguraCarrossel / 2 - centroItem;
+        track.style.transform = 'translateX(' + deslocamento + 'px)';
+      }
+
+      function irParaIndice(novoIndice) {
+        indiceAtual = ((novoIndice % SERVICOS_DATA.length) + SERVICOS_DATA.length) % SERVICOS_DATA.length;
+        centralizarItemAtivo();
+        atualizarDetalhes();
+      }
+
+      function proximo() { irParaIndice(indiceAtual + 1); }
+      function anterior() { irParaIndice(indiceAtual - 1); }
+
+      document.getElementById('servico-next').addEventListener('click', function () { proximo(); reiniciarAutoAvanco(); });
+      document.getElementById('servico-prev').addEventListener('click', function () { anterior(); reiniciarAutoAvanco(); });
+
+      // Troca automática — pausa quando o usuário interage e volta depois de um tempo
+      function iniciarAutoAvanco() {
+        autoTimer = setInterval(proximo, 4000);
+      }
+      function reiniciarAutoAvanco() {
+        clearInterval(autoTimer);
+        iniciarAutoAvanco();
+      }
+
+      // Suporte a arraste/swipe no celular
+      var arrastando = false;
+      var inicioX = 0;
+      carrossel.addEventListener('touchstart', function (e) {
+        arrastando = true;
+        inicioX = e.touches[0].clientX;
+        clearInterval(autoTimer);
+      }, { passive: true });
+      carrossel.addEventListener('touchend', function (e) {
+        if (!arrastando) return;
+        arrastando = false;
+        var deltaX = e.changedTouches[0].clientX - inicioX;
+        if (deltaX > 40) anterior();
+        else if (deltaX < -40) proximo();
+        reiniciarAutoAvanco();
+      });
+
+      window.addEventListener('resize', centralizarItemAtivo);
+      window.addEventListener('load', function () {
+        centralizarItemAtivo();
+        atualizarDetalhes();
+        iniciarAutoAvanco();
+      });
     })();
   </script>
 

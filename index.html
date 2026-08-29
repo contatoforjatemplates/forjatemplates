@@ -293,6 +293,24 @@
     visibility: hidden;
     pointer-events: none;
   }
+  /* Monograma "FT" com brilho sutil passando pelas letras (gradiente animado clipado ao texto) */
+  #splash-monograma {
+    background: linear-gradient(100deg, #FFFFFF 35%, #F59E0B 48%, #FFFFFF 62%);
+    background-size: 260% 100%;
+    background-position: 160% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: splash-shine 2.4s ease-in-out infinite;
+  }
+  @keyframes splash-shine {
+    0%   { background-position: 160% 0; }
+    100% { background-position: -60% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #splash-monograma { animation: none; color: #FFFFFF; -webkit-text-fill-color: #FFFFFF; }
+  }
 
   /* ===== Seleção interativa de serviços (estilo "latas em destaque") ===== */
   .servico-carrossel {
@@ -367,10 +385,10 @@
 <body class="bg-bg-base font-body antialiased">
 
     <!-- ================= TELA DE ENTRADA (SPLASH) ================= -->
-  <div id="splash-screen" class="fixed inset-0 z-[100] flex items-center justify-center" style="background: linear-gradient(135deg, #0F2A47 0%, #163a5f 100%);">
-    <div id="splash-logo" class="flex items-center gap-2.5" style="opacity:0; transform: scale(0.92); transition: opacity 900ms ease, transform 900ms ease;">
-      <span class="w-3 h-3 rounded-full" style="background:#F59E0B;"></span>
-      <span class="font-display font-semibold text-3xl sm:text-4xl text-white">Forja<span style="color:#3B82F6;">Templates</span></span>
+  <div id="splash-screen" class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden" style="background: linear-gradient(135deg, #0F2A47 0%, #163a5f 100%);">
+    <div id="splash-logo" class="flex flex-col items-center" style="opacity:0; transform: scale(0.85); transition: opacity 1100ms ease, transform 1100ms ease;">
+      <span id="splash-monograma" class="font-display font-extrabold leading-none" style="font-size: clamp(64px, 16vw, 130px); letter-spacing: -0.02em;">FT</span>
+      <span class="mt-3 font-body font-light text-white/75 uppercase" style="font-size: clamp(13px, 2.4vw, 19px); letter-spacing: 0.3em;">Forja Templates</span>
     </div>
   </div>
   <!-- ================= /TELA DE ENTRADA ================= -->
@@ -2098,10 +2116,10 @@
         logo.style.transform = 'scale(1)';
       });
 
-      // some sozinha entre 2 e 3 segundos
+      // some sozinha após exatamente 3 segundos de exibição
       setTimeout(function () {
         splash.classList.add('splash-hide');
-      }, 2400);
+      }, 3000);
     })();
   </script>
 

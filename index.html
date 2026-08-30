@@ -284,9 +284,21 @@
     .phone-scroll-content { animation: none; }
   }
 
-  /* ===== Tela de entrada (splash) — estática, sem animação por enquanto ===== */
+  /* ===== Tela de entrada (splash) — animação de entrada (fade-in + leve crescimento) ===== */
   #splash-screen {
-    /* animação de entrada/saída será adicionada depois */
+    /* saída/desaparecimento será adicionada em etapa futura */
+  }
+  #splash-logo {
+    opacity: 0;
+    transform: scale(0.9);
+    animation: splash-enter 1200ms ease-out forwards;
+  }
+  @keyframes splash-enter {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #splash-logo { animation: none; opacity: 1; transform: scale(1); }
   }
 
   /* ===== Seleção interativa de serviços (estilo "latas em destaque") ===== */

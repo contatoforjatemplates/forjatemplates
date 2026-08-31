@@ -284,9 +284,14 @@
     .phone-scroll-content { animation: none; }
   }
 
-  /* ===== Tela de entrada (splash) — animação de entrada (fade-in + leve crescimento) ===== */
+  /* ===== Tela de entrada (splash) — entrada (fade-in + crescimento) + saída suave ===== */
   #splash-screen {
-    /* saída/desaparecimento será adicionada em etapa futura */
+    transition: opacity 500ms ease, visibility 500ms ease;
+  }
+  #splash-screen.splash-hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
   #splash-logo {
     opacity: 0;
@@ -2089,6 +2094,19 @@
       }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
       elementos.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+  <script>
+    // ================= TELA DE ENTRADA (SPLASH) — SAÍDA SUAVE =================
+    (function () {
+      var splash = document.getElementById('splash-screen');
+      if (!splash) return;
+
+      // após os 3 segundos visíveis, some devagar (a transição de 500ms está no CSS)
+      setTimeout(function () {
+        splash.classList.add('splash-hide');
+      }, 3000);
     })();
   </script>
 

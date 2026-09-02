@@ -305,24 +305,6 @@
   @media (prefers-reduced-motion: reduce) {
     #splash-logo { animation: none; opacity: 1; transform: scale(1); }
   }
-  /* Brilho sutil e elegante passando pelas letras "FT" enquanto estão visíveis */
-  #splash-monograma {
-    background: linear-gradient(100deg, #FFFFFF 35%, #F59E0B 48%, #FFFFFF 62%);
-    background-size: 260% 100%;
-    background-position: 160% 0;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    animation: splash-shine 2.4s ease-in-out infinite;
-  }
-  @keyframes splash-shine {
-    0%   { background-position: 160% 0; }
-    100% { background-position: -60% 0; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    #splash-monograma { animation: none; color: #FFFFFF; -webkit-text-fill-color: #FFFFFF; }
-  }
 
   /* ===== Seleção interativa de serviços (estilo "latas em destaque") ===== */
   .servico-carrossel {
